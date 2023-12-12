@@ -5,9 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstract\" />
-    <Folder Include="Concrete\" />
-    <Folder Include="Mapper\" />
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdvanceAPI.DAL\AdvanceAPI.DAL.csproj" />
+    <ProjectReference Include="..\AdvanceAPI.DTOs\AdvanceAPI.DTOs.csproj" />
   </ItemGroup>
 
 </Project>

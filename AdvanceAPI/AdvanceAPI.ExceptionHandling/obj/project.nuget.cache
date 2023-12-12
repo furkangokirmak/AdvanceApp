@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YN7l/6slxkmxXapBvnJfeW4k3Y4qTzIb63mi2WoxoZi2Ruk2Q7lPABcvYv1NnIoC25oH5bxT1QwZatek3WSvqQ==",
+  "dgSpecHash": "VsHQkB4zZO44E8kj2IAkKaQInUl3VY4esE6a/qA0FwNq81nGpsctXG0/4227kYIXcogQNF9+yZztpxmXoA1Pww==",
   "success": true,
-  "projectFilePath": "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.ExceptionHandling\\AdvanceAPI.ExceptionHandling.csproj",
+  "projectFilePath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.ExceptionHandling\\AdvanceAPI.ExceptionHandling.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

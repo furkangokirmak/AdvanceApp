@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.ExceptionHandling\\AdvanceAPI.ExceptionHandling.csproj",
+      "projectUniqueName": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.ExceptionHandling\\AdvanceAPI.ExceptionHandling.csproj",
       "projectName": "AdvanceAPI.ExceptionHandling",
-      "projectPath": "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.ExceptionHandling\\AdvanceAPI.ExceptionHandling.csproj",
+      "projectPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.ExceptionHandling\\AdvanceAPI.ExceptionHandling.csproj",
       "packagesPath": "C:\\Users\\furka\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.ExceptionHandling\\obj\\",
+      "outputPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.ExceptionHandling\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

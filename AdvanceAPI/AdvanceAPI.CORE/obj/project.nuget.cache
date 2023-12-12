@@ -1,8 +1,20 @@
 {
   "version": 2,
-  "dgSpecHash": "dC23WL4CaN7oXzS/ev9K5qHLwzKQY+4MIMEFzZbAvbu8eGtYBE7Dy0miheAWGJyyAGodH92ZUuVtVhS+N+qaaQ==",
+  "dgSpecHash": "drsnOrGNaIUkPWS+Vpywa46wAl47/I2s1QOWNpMBfuG8BQZQNfz+AalDzr+qSnV2aMf10AdGWEodZTHFEZi6RA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.CORE\\AdvanceAPI.CORE.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.CORE\\AdvanceAPI.CORE.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\furka\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.17\\microsoft.aspnetcore.authentication.jwtbearer.5.0.17.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\5.0.0\\microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.7.1\\microsoft.identitymodel.jsonwebtokens.6.7.1.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\microsoft.identitymodel.logging\\6.7.1\\microsoft.identitymodel.logging.6.7.1.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\microsoft.identitymodel.protocols\\6.7.1\\microsoft.identitymodel.protocols.6.7.1.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.7.1\\microsoft.identitymodel.protocols.openidconnect.6.7.1.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.7.1\\microsoft.identitymodel.tokens.6.7.1.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.7.1\\system.identitymodel.tokens.jwt.6.7.1.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }

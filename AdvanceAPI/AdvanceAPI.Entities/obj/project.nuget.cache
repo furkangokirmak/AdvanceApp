@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qsRMXrMpyD/I+PnFH1YvgihFOy8mVxBFcCriCu9HBLbxfrXALmQvVKax00nq+bomLcBDgiL2oznCviTcuRuFmw==",
+  "dgSpecHash": "TUxOp3S5yI516tCPZhedw004tsNGasodDvDe6uYdfNIAzjfXd8HwuR5mlBgEVtf1Nu69rQctrF8c2w14h1jrFw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.Entities\\AdvanceAPI.Entities.csproj",
+  "projectFilePath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.Entities\\AdvanceAPI.Entities.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

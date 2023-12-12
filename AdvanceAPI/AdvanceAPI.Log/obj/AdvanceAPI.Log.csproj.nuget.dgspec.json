@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.Log\\AdvanceAPI.Log.csproj": {}
+    "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.Log\\AdvanceAPI.Log.csproj": {}
   },
   "projects": {
-    "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.Log\\AdvanceAPI.Log.csproj": {
+    "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.Log\\AdvanceAPI.Log.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.Log\\AdvanceAPI.Log.csproj",
+        "projectUniqueName": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.Log\\AdvanceAPI.Log.csproj",
         "projectName": "AdvanceAPI.Log",
-        "projectPath": "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.Log\\AdvanceAPI.Log.csproj",
+        "projectPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.Log\\AdvanceAPI.Log.csproj",
         "packagesPath": "C:\\Users\\furka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.Log\\obj\\",
+        "outputPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.Log\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

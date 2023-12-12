@@ -12,4 +12,10 @@
     <Folder Include="Filters\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AdvanceAPI.BLL\AdvanceAPI.BLL.csproj" />
+    <ProjectReference Include="..\AdvanceAPI.CORE\AdvanceAPI.CORE.csproj" />
+    <ProjectReference Include="..\AdvanceAPI.DTOs\AdvanceAPI.DTOs.csproj" />
+  </ItemGroup>
+
 </Project>

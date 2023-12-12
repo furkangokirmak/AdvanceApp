@@ -1,3 +1,11 @@
+using AdvanceAPI.BLL.Abstract;
+using AdvanceAPI.BLL.Concrete;
+using AdvanceAPI.BLL.Mapper;
+using AdvanceAPI.CORE.Helper;
+using AdvanceAPI.DAL.Repositories.Abstract;
+using AdvanceAPI.DAL.Repositories.Concrete;
+using AdvanceAPI.DAL.UnitOfWork;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +34,12 @@ namespace AdvanceAPI.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConnectionHelper.SetConfiguration(Configuration);
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAuthManager, AuthManager>();
+            services.AddScoped<MyMapper>();
+            services.AddScoped<TokenHelper>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

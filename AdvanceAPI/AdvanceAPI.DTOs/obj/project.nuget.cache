@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tTQXQ7rg88g6DGyUUZffNVCnX+p8lfSwglk1aRxQjKzYIbN0sx6/kuKfNZp1N2MAxCyvfa+M0cuxL/BWpvBOCg==",
+  "dgSpecHash": "IkeCNz9NbRgN0C6/xmhc1gLN7WiijldqyN3fhklBJhO3c6Iipz5EvLnj5MjszKjqWUNj0PPhxe46e/9tzYNUhw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\furka\\source\\repos\\AdvanceAPI\\AdvanceAPI.DTOs\\AdvanceAPI.DTOs.csproj",
+  "projectFilePath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.DTOs\\AdvanceAPI.DTOs.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
