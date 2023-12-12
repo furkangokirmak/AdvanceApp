@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceUI\\AdvanceUI.ConnectApi\\AdvanceUI.ConnectApi.csproj",
+      "projectUniqueName": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.ConnectApi\\AdvanceUI.ConnectApi.csproj",
       "projectName": "AdvanceUI.ConnectApi",
-      "projectPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceUI\\AdvanceUI.ConnectApi\\AdvanceUI.ConnectApi.csproj",
+      "projectPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.ConnectApi\\AdvanceUI.ConnectApi.csproj",
       "packagesPath": "C:\\Users\\furka\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceUI\\AdvanceUI.ConnectApi\\obj\\",
+      "outputPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.ConnectApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

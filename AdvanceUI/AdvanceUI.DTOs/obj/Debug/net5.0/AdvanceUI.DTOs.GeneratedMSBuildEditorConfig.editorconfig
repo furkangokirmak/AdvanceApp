@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AdvanceUI.DTOs
-build_property.ProjectDir = C:\Users\furka\source\repos\Advance\AdvanceUI\AdvanceUI.DTOs\
+build_property.ProjectDir = C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.DTOs\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

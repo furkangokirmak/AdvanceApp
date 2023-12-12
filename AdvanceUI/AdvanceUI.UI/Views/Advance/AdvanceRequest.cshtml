@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "AdvanceRequest";
+}
+
+<div class="container col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="mt-1">Yeni Avans Talebi</h3>
+        </div>
+        <div class="card-body">
+
+            <form>
+                <div class="mb-3">
+                    <label for="advanceAmount" class="form-label">Avans Miktarı:</label>
+                    <input type="number" class="form-control" id="advanceAmount" placeholder="Avans Miktarı" required>
+                </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label">İstenilen Tarih:</label>
+                    <input type="date" class="form-control" id="date" required>
+                </div>
+                <div class="mb-3">
+                    <label for="project" class="form-label">Projeler:</label>
+                    <select class="form-select" id="project" required>
+                        <option value="aProject">A Projesi</option>
+                        <option value="bProject">B Projesi</option>
+                        <option value="cProject">C Projesi</option>
+                        <option value="xProject">X Projesi</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Açıklama:</label>
+                    <textarea class="form-control" id="description" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+                <button type="reset" class="btn btn-secondary">Vazgeç</button>
+            </form>
+        </div>
+    </div>
+</div>

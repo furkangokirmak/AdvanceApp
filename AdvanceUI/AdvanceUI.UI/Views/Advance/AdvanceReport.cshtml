@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "AdvanceReport";
+}
+
+<div class="container col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="mt-1">Avans Talep Rapor Alma</h3>
+        </div>
+        <div class="card-body table-border-style">
+            <p>Buraya Filtreleme Eklenmeli (Miktara göre, tarihe göre, talep durumuna göre vs)</p>
+            <div class="btn-group" role="group" aria-label="Dosya İşlemleri">
+                <button type="button" class="btn btn-secondary">
+                    <i class="fas fa-file-pdf"></i> PDF Rapor
+                </button>
+                <button type="button" class="btn btn-secondary">
+                    <i class="fas fa-file-excel"></i> Excel Rapor
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Çalışanın<br />Adı</th>
+                            <th>Ünvanı</th>
+                            <th>Birimi</th>
+                            <th>Talep<br />Tutarı</th>
+                            <th>Talep<br />Oluşturma<br />Tarihi</th>
+                            <th>İstenilen<br />Tarih</th>
+                            <th>Proje</th>
+                            <th>Talep<br />Durumu</th>
+                            <th>Onaylayan<br />Reddeden</th>
+                            <th>Ünvan</th>
+                            <th>Tarih</th>
+                            <th>Onaylanan<br />Tutar</th>
+                            <th>Belirlenen<br />Ödeme<br />Tarihi</th>
+                            <th>Ödeme<br />Yapılan<br />Tarih</th>
+                            <th>Geri<br />Ödeme<br />Durumu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>100</td>
+                            <td>1.1.2022</td>
+                            <td>15.1.2022</td>
+                            <td>1000 TL</td>
+                            <td>Onaylanmış</td>
+                            <td>Özcan Deniz</td>
+                            <td>Satıcı</td>
+                            <td>14.1.2022</td>
+                            <td>Son</td>
+                            <td>Son</td>
+                            <td>Son</td>
+                            <td>Son</td>
+                            <td>Son</td>
+                            <td>Son</td>
+                            <td>Son</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

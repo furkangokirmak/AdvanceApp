@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceUI\\AdvanceUI.UI\\AdvanceUI.UI.csproj": {}
+    "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.UI\\AdvanceUI.UI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceUI\\AdvanceUI.UI\\AdvanceUI.UI.csproj": {
+    "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.UI\\AdvanceUI.UI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceUI\\AdvanceUI.UI\\AdvanceUI.UI.csproj",
+        "projectUniqueName": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.UI\\AdvanceUI.UI.csproj",
         "projectName": "AdvanceUI.UI",
-        "projectPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceUI\\AdvanceUI.UI\\AdvanceUI.UI.csproj",
+        "projectPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.UI\\AdvanceUI.UI.csproj",
         "packagesPath": "C:\\Users\\furka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceUI\\AdvanceUI.UI\\obj\\",
+        "outputPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.UI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -43,6 +43,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

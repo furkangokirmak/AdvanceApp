@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceUI\\AdvanceUI.ExceptionHandling\\AdvanceUI.ExceptionHandling.csproj",
+      "projectUniqueName": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.ExceptionHandling\\AdvanceUI.ExceptionHandling.csproj",
       "projectName": "AdvanceUI.ExceptionHandling",
-      "projectPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceUI\\AdvanceUI.ExceptionHandling\\AdvanceUI.ExceptionHandling.csproj",
+      "projectPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.ExceptionHandling\\AdvanceUI.ExceptionHandling.csproj",
       "packagesPath": "C:\\Users\\furka\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceUI\\AdvanceUI.ExceptionHandling\\obj\\",
+      "outputPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.ExceptionHandling\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
