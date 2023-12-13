@@ -1,4 +1,6 @@
-﻿using AdvanceAPI.DTOs.BusinessUnit;
+﻿using AdvanceAPI.DTOs.Advance;
+using AdvanceAPI.DTOs.AdvanceHistory;
+using AdvanceAPI.DTOs.BusinessUnit;
 using AdvanceAPI.DTOs.Employee;
 using AdvanceAPI.DTOs.Title;
 using AdvanceAPI.Entities.Entity;
@@ -23,9 +25,11 @@ namespace AdvanceAPI.BLL.Mapper
                .ForMember(dest => dest.Title, opt => opt.Ignore()) 
                .ForMember(dest => dest.UpperEmployee, opt => opt.Ignore());
 
-            CreateMap<Employee, EmployeeSelectDTO>();
-            CreateMap<Title, TitleSelectDTO>();
-            CreateMap<BusinessUnit, BusinessUnitSelectDTO>();
+            CreateMap<Employee, EmployeeSelectDTO>().ReverseMap();
+            CreateMap<Title, TitleSelectDTO>().ReverseMap();
+            CreateMap<BusinessUnit, BusinessUnitSelectDTO>().ReverseMap();
+            CreateMap<Advance, AdvanceInsertDTO>().ReverseMap();
+            CreateMap<AdvanceHistory, AdvanceHistoryInsertDTO>().ReverseMap();
 
         }
     }
