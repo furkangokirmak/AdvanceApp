@@ -28,13 +28,19 @@ namespace AdvanceUI.UI
             services.AddControllersWithViews();
 
             services.AddScoped<AuthService>();
+            services.AddScoped<GenericService>();
 
             services.AddHttpClient<AuthService>(conf =>
             {
                 conf.BaseAddress = new Uri(Configuration["myBaseUri"]);
             });
 
-			services.AddAuthentication(a =>
+            services.AddHttpClient<GenericService>(conf =>
+            {
+                conf.BaseAddress = new Uri(Configuration["myBaseUri"]);
+            });
+
+            services.AddAuthentication(a =>
 			{
 				//a.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 				//a.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;

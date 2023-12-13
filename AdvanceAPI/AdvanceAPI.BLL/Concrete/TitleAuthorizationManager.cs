@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AdvanceAPI.BLL.Concrete
 {
-	public class TitleAuthorizationManager : ITitleAuthorization
+	public class TitleAuthorizationManager : ITitleAuthorizationManager
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly MyMapper _mapper;

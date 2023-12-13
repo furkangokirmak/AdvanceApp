@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdvanceAPI.BLL.Abstract
 {
-	public interface ITitleAuthorization
+	public interface ITitleAuthorizationManager
 	{
 	}
 }

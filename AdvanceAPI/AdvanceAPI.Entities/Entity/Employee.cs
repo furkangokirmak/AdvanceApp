@@ -22,7 +22,8 @@ namespace AdvanceAPI.Entities.Entity
         public virtual BusinessUnit BusinessUnit { get; set; }
         public virtual Title Title { get; set; }
         public virtual Employee UpperEmployee { get; set; }
-        public virtual ICollection<AdvanceHistory> AdvanceHistories { get; set; }
+		public virtual ICollection<Advance> Advances { get; set; }
+		public virtual ICollection<AdvanceHistory> AdvanceHistories { get; set; }
         public virtual ICollection<EmployeeProject> EmployeeProjects { get; set; }
         public virtual ICollection<Employee> InverseUpperEmployee { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }

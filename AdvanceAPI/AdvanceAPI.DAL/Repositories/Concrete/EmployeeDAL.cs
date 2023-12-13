@@ -1,4 +1,6 @@
 ﻿using AdvanceAPI.DAL.Repositories.Abstract;
+using AdvanceAPI.Entities.Entity;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +14,15 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 	{
 		public EmployeeDAL(IDbConnection connection, IDbTransaction transaction) : base(connection, transaction)
 		{
+
+		}
+
+		public async Task<IEnumerable<Employee>> GetAllEmployees()
+		{
+			var query = "SELECT * FROM Employee";
+			var result = await Connection.QueryAsync<Employee>(query);
+
+			return result;
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace AdvanceAPI.API.Controllers
 			_businessUnitManager = businessUnitManager;
 		}
 
-        [HttpGet]
+        [HttpGet("GetAll")]
 		public async Task<IActionResult> GetAll()
 		{
 			var result = await _businessUnitManager.GetAllBusinessUnits();

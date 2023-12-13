@@ -7,18 +7,18 @@ namespace AdvanceAPI.API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class TitleController : ControllerBase
+	public class EmployeeController : ControllerBase
 	{
-		private ITitleManager _titleManager;
-		public TitleController(ITitleManager titleManager)
+		private IEmployeeManager _userManager;
+		public EmployeeController(IEmployeeManager userManager)
 		{
-			_titleManager = titleManager;
+			_userManager = userManager;
 		}
 
 		[HttpGet("GetAll")]
 		public async Task<IActionResult> GetAll()
 		{
-			var result = await _titleManager.GetAllTitles();
+			var result = await _userManager.GetAllEmployees();
 
 			return Ok(result.Data);
 		}
