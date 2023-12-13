@@ -132,3 +132,7 @@ C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\obj\Debug\
 C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\obj\Debug\net5.0\Razor\Views\Advance\AdvanceReport.cshtml.g.cs
 C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\obj\Debug\net5.0\Razor\Views\Auth\Login.cshtml.g.cs
 C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\obj\Debug\net5.0\Razor\Views\Auth\Register.cshtml.g.cs
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\AdvanceUI.ConnectApi.dll
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\AdvanceUI.DTOs.dll
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\AdvanceUI.ConnectApi.pdb
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\AdvanceUI.DTOs.pdb

@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AdvanceAPI.DAL\AdvanceAPI.DAL.csproj" />
     <ProjectReference Include="..\AdvanceAPI.DTOs\AdvanceAPI.DTOs.csproj" />
+    <ProjectReference Include="..\AdvanceAPI.ExceptionHandling\AdvanceAPI.ExceptionHandling.csproj" />
   </ItemGroup>
 
 </Project>

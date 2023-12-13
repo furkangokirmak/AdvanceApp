@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "DxCTVO7oYSF9sDBfrDtWEpCJ1aJv7WLvsSWK6rbtUFmOrMYtMgLR/lLpg1HPXX3SwsRFIrw7Y7MZZ2I5qVVJbg==",
+  "dgSpecHash": "Hh2Zs+AfF4C7h2qy1b8ZzoAEVBJBaYcHhIwIIpjsSX8qyj6R9nf7efodlm57JPKOryzSsTixnJH2Ke6jcHt+qQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.ConnectApi\\AdvanceUI.ConnectApi.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\furka\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

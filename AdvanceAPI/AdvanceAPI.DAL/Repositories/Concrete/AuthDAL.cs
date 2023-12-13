@@ -18,15 +18,25 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
         public async Task<Employee> Login(string email)
         {
-            string query = @"SELECT Email,PasswordHash,PasswordSalt FROM Employee
-                             WHERE Email=@Email";
+            string query = @"SELECT e.ID,e.Email,e.PasswordHash,e.PasswordSalt,e.TitleID,e.BusinessUnitID,e.Name,e.Surname,e.PhoneNumber,
+                            t.ID,t.TitleName,
+                            bu.ID,bu.BusinessUnitName
+                            FROM Employee e
+                            JOIN Title t on t.ID = e.TitleID
+                            JOIN BusinessUnit bu on bu.ID = e.BusinessUnitID
+                            WHERE Email=@Email";
 
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@Email", email, DbType.String);
 
-            var user = await Connection.QueryFirstOrDefaultAsync<Employee>(query, parameters);
+            var user = await Connection.QueryAsync<Employee, Title,BusinessUnit, Employee>(query, (employee, title, businessunit) => 
+            {
+                employee.Title = title;
+                employee.BusinessUnit = businessunit;
+                return employee;
+            }, parameters);
 
-            return user;
+            return user.FirstOrDefault();
         }
 
         public async Task<bool> Register(Employee employee)

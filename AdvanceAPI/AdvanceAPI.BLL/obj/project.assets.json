@@ -408,6 +408,16 @@
         "runtime": {
           "bin/placeholder/AdvanceAPI.Entities.dll": {}
         }
+      },
+      "AdvanceAPI.ExceptionHandling/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/AdvanceAPI.ExceptionHandling.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AdvanceAPI.ExceptionHandling.dll": {}
+        }
       }
     }
   },
@@ -1126,12 +1136,18 @@
       "type": "project",
       "path": "../AdvanceAPI.Entities/AdvanceAPI.Entities.csproj",
       "msbuildProject": "../AdvanceAPI.Entities/AdvanceAPI.Entities.csproj"
+    },
+    "AdvanceAPI.ExceptionHandling/1.0.0": {
+      "type": "project",
+      "path": "../AdvanceAPI.ExceptionHandling/AdvanceAPI.ExceptionHandling.csproj",
+      "msbuildProject": "../AdvanceAPI.ExceptionHandling/AdvanceAPI.ExceptionHandling.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "AdvanceAPI.DAL >= 1.0.0",
       "AdvanceAPI.DTOs >= 1.0.0",
+      "AdvanceAPI.ExceptionHandling >= 1.0.0",
       "AutoMapper >= 10.0.0"
     ]
   },
@@ -1172,6 +1188,9 @@
             },
             "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.DTOs\\AdvanceAPI.DTOs.csproj": {
               "projectPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.DTOs\\AdvanceAPI.DTOs.csproj"
+            },
+            "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.ExceptionHandling\\AdvanceAPI.ExceptionHandling.csproj": {
+              "projectPath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.ExceptionHandling\\AdvanceAPI.ExceptionHandling.csproj"
             }
           }
         }

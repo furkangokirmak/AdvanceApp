@@ -1,3 +1,5 @@
+using AdvanceUI.ConnectApi;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,7 +26,28 @@ namespace AdvanceUI.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-        }
+
+            services.AddScoped<AuthService>();
+
+            services.AddHttpClient<AuthService>(conf =>
+            {
+                conf.BaseAddress = new Uri(Configuration["myBaseUri"]);
+            });
+
+			services.AddAuthentication(a =>
+			{
+				//a.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+				//a.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+				//a.DefaultForbidScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                a.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+			}).AddCookie(a =>
+			{
+				a.LoginPath = "/Auth/Login";
+				a.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
+				a.Cookie.HttpOnly = true;
+			});
+			services.AddAuthorization();
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,6 +67,7 @@ namespace AdvanceUI.UI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

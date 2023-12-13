@@ -26,8 +26,15 @@ using AdvanceUI.UI.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\_ViewImports.cshtml"
+using AdvanceUI.DTOs.Employee;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"fc69d9750385b2f3884ef62e112ecd3c50f8c39d4db1d8e82d090fa17e1a68b3", @"/Views/Advance/AdvanceRequest.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"da911ffcc49e1e358e51e78c04c20d9fc7b6b7e4871c2358ec9f00a3d03cb263", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"77ddf401712c6a49857b30baca85701974cb1bb3b80561192b573127621bdfeb", @"/Views/_ViewImports.cshtml")]
     #nullable restore
     public class Views_Advance_AdvanceRequest : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     #nullable disable
@@ -71,7 +78,7 @@ using AdvanceUI.UI.Models;
 #line hidden
 #nullable disable
             WriteLiteral("\r\n<div class=\"container col-md-12\">\r\n    <div class=\"card\">\r\n        <div class=\"card-header\">\r\n            <h3 class=\"mt-1\">Yeni Avans Talebi</h3>\r\n        </div>\r\n        <div class=\"card-body\">\r\n\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc69d9750385b2f3884ef62e112ecd3c50f8c39d4db1d8e82d090fa17e1a68b35292", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc69d9750385b2f3884ef62e112ecd3c50f8c39d4db1d8e82d090fa17e1a68b35500", async() => {
                 WriteLiteral(@"
                 <div class=""mb-3"">
                     <label for=""advanceAmount"" class=""form-label"">Avans Miktarı:</label>
@@ -85,7 +92,7 @@ using AdvanceUI.UI.Models;
                     <label for=""project"" class=""form-label"">Projeler:</label>
                     <select class=""form-select"" id=""project"" required>
                         ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc69d9750385b2f3884ef62e112ecd3c50f8c39d4db1d8e82d090fa17e1a68b36314", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc69d9750385b2f3884ef62e112ecd3c50f8c39d4db1d8e82d090fa17e1a68b36522", async() => {
                     WriteLiteral("A Projesi");
                 }
                 );
@@ -101,7 +108,7 @@ using AdvanceUI.UI.Models;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                        ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc69d9750385b2f3884ef62e112ecd3c50f8c39d4db1d8e82d090fa17e1a68b37588", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc69d9750385b2f3884ef62e112ecd3c50f8c39d4db1d8e82d090fa17e1a68b37796", async() => {
                     WriteLiteral("B Projesi");
                 }
                 );
@@ -117,7 +124,7 @@ using AdvanceUI.UI.Models;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                        ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc69d9750385b2f3884ef62e112ecd3c50f8c39d4db1d8e82d090fa17e1a68b38862", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc69d9750385b2f3884ef62e112ecd3c50f8c39d4db1d8e82d090fa17e1a68b39070", async() => {
                     WriteLiteral("C Projesi");
                 }
                 );
@@ -133,7 +140,7 @@ using AdvanceUI.UI.Models;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                        ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc69d9750385b2f3884ef62e112ecd3c50f8c39d4db1d8e82d090fa17e1a68b310136", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc69d9750385b2f3884ef62e112ecd3c50f8c39d4db1d8e82d090fa17e1a68b310344", async() => {
                     WriteLiteral("X Projesi");
                 }
                 );
