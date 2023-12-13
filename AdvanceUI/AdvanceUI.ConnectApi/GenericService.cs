@@ -10,76 +10,48 @@ using Newtonsoft.Json.Linq;
 
 namespace AdvanceUI.ConnectApi
 {
-    public class GenericService<T> where T: class, new()
+    public class GenericService
     {
-        private readonly HttpClient _client;
-        public GenericService(HttpClient client)
+        private readonly HttpClient _httpClient;
+
+        public GenericService(HttpClient httpClient)
         {
-            _client = client;
+            _httpClient = httpClient;
         }
 
-        public async Task<string> Add(string apiPath,string token, T dto)
+        private async Task<TResult> SendRequest<TResult, TObject>(string url, TObject data, HttpMethod method, string mediaType = null) where TResult : class, new()
         {
-            var str = new StringContent(JsonConvert.SerializeObject(dto));
-            str.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            var jsonContent = JsonConvert.SerializeObject(data);
+            var content = new StringContent(jsonContent);
+            content.Headers.ContentType = new MediaTypeHeaderValue(mediaType ?? "application/json");
 
-            var response = await _client.PostAsync(apiPath, str);
+            HttpRequestMessage request = new HttpRequestMessage(method, "https://localhost:44302/api/" + url);
+            request.Content = content;
+
+            HttpResponseMessage response = await _httpClient.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
             {
-                return response.Content.ReadAsStringAsync().Result == null ? "Ekleme işlemi sırasında bir hata oluştu!" : "Eklendi.";
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<TResult>(responseContent);
             }
+
             return null;
         }
 
-        public async Task<string> Delete(string apiPath,string token, int id)
+        public async Task<TResult> GetDatas<TResult>(string url) where TResult : class, new()
         {
-            _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            var response = await _client.DeleteAsync($"{apiPath}/{id}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                return response.Content.ReadAsStringAsync().Result == null ? "Silme işlemi sırasında bir hata oluştu!" : "Silindi.";
-            }
-            return null;
+            return await SendRequest<TResult, object>(url, null, HttpMethod.Get);
         }
 
-        public async Task<List<T>> GetAll(string apiPath, string token)
+        public async Task<TResult> PostDatas<TResult, TObject>(string url, TObject data, string mediaType = null) where TResult : class, new()
         {
-            _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            var response = await _client.GetAsync(apiPath);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return JsonConvert.DeserializeObject<List<T>>(await response.Content.ReadAsStringAsync());
-            }
-            return null;
+            return await SendRequest<TResult, TObject>(url, data, HttpMethod.Post, mediaType);
         }
 
-        public async Task<T> GetByID(string apiPath,string token, int id)
+        public async Task<TResult> PutDatas<TResult, TObject>(string url, TObject data, string mediaType = null) where TResult : class, new()
         {
-            _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            var response = await _client.GetAsync($"{apiPath}/{id}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
-            }
-            return null;
-        }
-
-        public async Task<string> Update(string apiPath, T dto)
-        {
-            var str = new StringContent(JsonConvert.SerializeObject(dto));
-            str.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var response = await _client.PostAsync(apiPath, str);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return response.Content.ReadAsStringAsync().Result == null ? "Güncelleme işlemi sırasında bir hata oluştu!" : "Güncellendi.";
-            }
-            return null;
+            return await SendRequest<TResult, TObject>(url, data, HttpMethod.Put, mediaType);
         }
     }
 }

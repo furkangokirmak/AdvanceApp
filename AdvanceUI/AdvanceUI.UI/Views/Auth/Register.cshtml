@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EmployeeRegisterDTO
+@{
     Layout = null;
 }
 
@@ -34,28 +35,59 @@
                             <form method="post">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="user"></i></span>
-                                    <input type="text"  class="form-control" placeholder="Ad">
+                                    <input asp-for="Name" class="form-control" placeholder="Ad">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="user"></i></span>
-                                    <input type="text" class="form-control" placeholder="Soyad">
+                                    <input asp-for="Surname" class="form-control" placeholder="Soyad">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="phone"></i></span>
-                                    <input type="text" class="form-control" placeholder="Telefon Numarası">
+                                    <input asp-for="Phone" class="form-control" placeholder="Telefon Numarası">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="mail"></i></span>
-                                    <input type="email" class="form-control" placeholder="Eposta Adresi">
+                                    <input asp-for="Email" class="form-control" placeholder="Eposta Adresi">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="lock"></i></span>
-                                    <input type="password"  class="form-control" placeholder="Şifre">
+                                    <input asp-for="Password" class="form-control" placeholder="Şifre">
                                 </div>
                                 <div class="input-group mb-4">
                                     <span class="input-group-text"><i data-feather="lock"></i></span>
-                                    <input type="password"  class="form-control" placeholder="Şifre Tekrar">
+                                    <input asp-for="PasswordConfirm" class="form-control" placeholder="Şifre Tekrar">
                                 </div>
+
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="employeeSelect"><i data-feather="user"></i></label>
+                                    <select asp-for="EmployeeId" class="form-select" >
+                                        @foreach (var employee in (List<EmployeeSelectDTO>)ViewBag.Employees)
+                                        {
+                                            <option value="@employee.Id">@employee.Name @employee.Surname</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="titleSelect"><i data-feather="user"></i></label>
+                                    <select asp-for="TitleId" class="form-select" >
+                                        @foreach (var title in (List<TitleSelectDTO>)ViewBag.Titles)
+                                        {
+                                            <option value="@title.Id">@title.TitleName</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="businessUnitSelect"><i data-feather="user"></i></label>
+                                    <select asp-for="BusinessUnitId" class="form-select" >
+                                        @foreach (var businessUnit in (List<BusinessUnitSelectDTO>)ViewBag.BusinessUnits)
+                                        {
+                                            <option value="@businessUnit.Id">@businessUnit.BusinessUnitName</option>
+                                        }
+                                    </select>
+                                </div>
+
                                 <div class="form-group text-left mt-2">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
@@ -66,6 +98,7 @@
                                 </div>
                                 <button class="btn btn-primary btn-block mb-4">Kayıt Ol</button>
                             </form>
+
                             <p class="mb-2">Zaten hesabınız var mı? <a href="~/Auth/Login" class="f-w-400">Giriş Yap</a></p>
                         </div>
                     </div>

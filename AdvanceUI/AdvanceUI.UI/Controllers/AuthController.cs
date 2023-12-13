@@ -9,15 +9,21 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using AdvanceUI.DTOs.Title;
+using AdvanceUI.DTOs.BusinessUnit;
 
 namespace AdvanceUI.UI.Controllers
 {
     public class AuthController : Controller
     {
         private readonly AuthService _authService; 
-        public AuthController(AuthService authService)
+        private readonly GenericService _genericService; 
+
+        public AuthController(AuthService authService,GenericService genericService)
         {
             _authService = authService;
+            _genericService = genericService;
         }
 
         [HttpGet]
@@ -25,6 +31,7 @@ namespace AdvanceUI.UI.Controllers
         {
 			return View();
 		}
+
 		[HttpPost]
         public async Task<IActionResult> Login(EmployeeLoginDTO employeeLoginDTO)
         {
@@ -61,8 +68,16 @@ namespace AdvanceUI.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
+            var employees = await _genericService.GetDatas<List<EmployeeSelectDTO>>("Employee/GetAll");
+            var titles = await _genericService.GetDatas<List<TitleSelectDTO>>("Title/GetAll");
+            var businessUnits = await _genericService.GetDatas<List<BusinessUnitSelectDTO>>("BusinessUnit/GetAll");
+
+            ViewBag.Employees = employees;
+            ViewBag.Titles = titles;
+            ViewBag.BusinessUnits = businessUnits;
+
             return View();
         }
 

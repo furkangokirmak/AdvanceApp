@@ -36,12 +36,7 @@ namespace AdvanceAPI.API
         public void ConfigureServices(IServiceCollection services)
         {
             ConnectionHelper.SetConfiguration(Configuration);
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IAuthManager, AuthManager>();
-            services.AddScoped<IBusinessUnitManager, BusinessUnitManager>();
-            services.AddScoped<MyMapper>();
-            services.AddScoped<TokenHelper>();
-
+            services.AddCustomServices();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -62,7 +57,7 @@ namespace AdvanceAPI.API
 
             app.ConfigureExceptionHandler();
 
-            app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
           
             app.UseRouting();
 

@@ -19,8 +19,8 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 		public async Task<IEnumerable<BusinessUnit>> GetAllBusinessUnits()
 		{
 			var query = "SELECT * FROM BusinessUnit";
-
 			var result = await Connection.QueryAsync<BusinessUnit>(query);
+
 			return result;
 		}
 	}
