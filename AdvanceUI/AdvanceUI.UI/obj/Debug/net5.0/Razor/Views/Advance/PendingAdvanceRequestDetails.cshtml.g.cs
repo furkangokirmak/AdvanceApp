@@ -26,8 +26,15 @@ using AdvanceUI.UI.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\_ViewImports.cshtml"
+using AdvanceUI.DTOs.Employee;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"6a6e9207b930fc21c1e45535fa8d6d412637efcf0f7f35d4935551672b75a9f8", @"/Views/Advance/PendingAdvanceRequestDetails.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"da911ffcc49e1e358e51e78c04c20d9fc7b6b7e4871c2358ec9f00a3d03cb263", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"77ddf401712c6a49857b30baca85701974cb1bb3b80561192b573127621bdfeb", @"/Views/_ViewImports.cshtml")]
     #nullable restore
     public class Views_Advance_PendingAdvanceRequestDetails : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     #nullable disable

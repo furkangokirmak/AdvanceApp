@@ -22,7 +22,7 @@ namespace AdvanceAPI.API.Controllers
         {
             var token = await _authManager.Login(dto);
 
-            return Ok(token);
+            return Ok(token.Data);
         }
 
         [HttpPost("Register")]
@@ -30,7 +30,7 @@ namespace AdvanceAPI.API.Controllers
         {
             var state = await _authManager.Register(dto);
 
-            return Ok(state);
+            return Ok(state.Data);
         }
     }
 }

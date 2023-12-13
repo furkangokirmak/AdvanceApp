@@ -1,4 +1,5 @@
 ﻿using AdvanceAPI;
+using AdvanceAPI.CORE.Utilities;
 using AdvanceAPI.DTOs.Employee;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace AdvanceAPI.BLL.Abstract
 {
     public interface IAuthManager
     {
-        Task<string> Login(EmployeeLoginDTO employeeLoginDTO);
-        Task<bool> Register(EmployeeRegisterDTO employeeRegisterDTO);
+        Task<Result<EmployeeSelectDTO>> Login(EmployeeLoginDTO employeeLoginDTO);
+        Task<Result<bool>> Register(EmployeeRegisterDTO employeeRegisterDTO);
     }
 }

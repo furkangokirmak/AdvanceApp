@@ -1,3 +1,4 @@
+using AdvanceAPI.API.Extensions;
 using AdvanceAPI.BLL.Abstract;
 using AdvanceAPI.BLL.Concrete;
 using AdvanceAPI.BLL.Mapper;
@@ -53,13 +54,15 @@ namespace AdvanceAPI.API
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AdvanceAPI.API v1"));
             }
 
-            app.UseHttpsRedirection();
+            app.ConfigureExceptionHandler();
 
+            app.UseHttpsRedirection();
+          
             app.UseRouting();
 
             app.UseAuthorization();
