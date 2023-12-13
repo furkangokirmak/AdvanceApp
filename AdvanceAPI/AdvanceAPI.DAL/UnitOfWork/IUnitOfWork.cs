@@ -10,6 +10,7 @@ namespace AdvanceAPI.DAL.UnitOfWork
     public interface IUnitOfWork
     {
         IAuthDAL AuthDAL { get; }
+		IBusinessUnitDAL BusinessUnitDAL { get; }
         void Commit();
         void BeginTransaction();
     }
