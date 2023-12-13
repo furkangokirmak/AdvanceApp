@@ -17,6 +17,7 @@ namespace AdvanceAPI.DAL.UnitOfWork
         private IDbTransaction _transaction;
 
         private IAuthDAL _authDAL;
+        private IBusinessUnitDAL _businessUnitDAL;
 
         public UnitOfWork()
         {
@@ -29,7 +30,12 @@ namespace AdvanceAPI.DAL.UnitOfWork
             get { return _authDAL ?? (_authDAL = new AuthDAL(_connection, _transaction)); }
         }
 
-        public void BeginTransaction()
+		public IBusinessUnitDAL BusinessUnitDAL
+		{
+			get { return _businessUnitDAL ?? (_businessUnitDAL = new BusinessUnitDAL(_connection, _transaction)); }
+		}
+
+		public void BeginTransaction()
         {
             try
             {
