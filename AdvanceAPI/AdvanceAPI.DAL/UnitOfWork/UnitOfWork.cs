@@ -18,6 +18,7 @@ namespace AdvanceAPI.DAL.UnitOfWork
 
         private IAuthDAL _authDAL;
         private IBusinessUnitDAL _businessUnitDAL;
+        private ITitleDAL _titleDAL;
 
         public UnitOfWork()
         {
@@ -33,6 +34,11 @@ namespace AdvanceAPI.DAL.UnitOfWork
 		public IBusinessUnitDAL BusinessUnitDAL
 		{
 			get { return _businessUnitDAL ?? (_businessUnitDAL = new BusinessUnitDAL(_connection, _transaction)); }
+		}
+
+		public ITitleDAL TitleDAL
+		{
+			get { return _titleDAL ?? (_titleDAL = new TitleDAL(_connection, _transaction)); }
 		}
 
 		public void BeginTransaction()

@@ -38,6 +38,7 @@ namespace AdvanceAPI.API
             ConnectionHelper.SetConfiguration(Configuration);
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthManager, AuthManager>();
+            services.AddScoped<ITitleManager, TitleManager>();
             services.AddScoped<IBusinessUnitManager, BusinessUnitManager>();
             services.AddScoped<MyMapper>();
             services.AddScoped<TokenHelper>();

@@ -11,6 +11,8 @@ namespace AdvanceAPI.DAL.UnitOfWork
     {
         IAuthDAL AuthDAL { get; }
 		IBusinessUnitDAL BusinessUnitDAL { get; }
+		ITitleDAL TitleDAL { get; }
+
         void Commit();
         void BeginTransaction();
     }
