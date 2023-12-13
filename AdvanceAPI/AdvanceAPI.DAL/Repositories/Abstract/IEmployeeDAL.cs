@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdvanceAPI.DAL.Repositories.Abstract
 {
-    public class IEmployeeDAL
+    public interface IEmployeeDAL
     {
     }
 }
