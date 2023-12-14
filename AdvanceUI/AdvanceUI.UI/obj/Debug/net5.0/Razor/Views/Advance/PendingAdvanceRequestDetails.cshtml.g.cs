@@ -47,8 +47,22 @@ using AdvanceUI.DTOs.BusinessUnit;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 6 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\_ViewImports.cshtml"
+using AdvanceUI.DTOs.Advance;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\_ViewImports.cshtml"
+using AdvanceUI.DTOs.Project;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"6a6e9207b930fc21c1e45535fa8d6d412637efcf0f7f35d4935551672b75a9f8", @"/Views/Advance/PendingAdvanceRequestDetails.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"14d730b0887fe00db1ce55658ca718b2e3e6c0be9408eed4174cbd56c84337f5", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"a6a381669117ae7d4ce3545a1ca339073f9f40c55869523e734a457e19ab0f60", @"/Views/_ViewImports.cshtml")]
     #nullable restore
     public class Views_Advance_PendingAdvanceRequestDetails : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     #nullable disable

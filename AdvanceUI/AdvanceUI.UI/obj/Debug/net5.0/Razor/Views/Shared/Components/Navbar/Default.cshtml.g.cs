@@ -48,6 +48,20 @@ using AdvanceUI.DTOs.BusinessUnit;
 #line hidden
 #nullable disable
 #nullable restore
+#line 6 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\_ViewImports.cshtml"
+using AdvanceUI.DTOs.Advance;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\_ViewImports.cshtml"
+using AdvanceUI.DTOs.Project;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 1 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\Shared\Components\Navbar\Default.cshtml"
 using System.Security.Claims;
 
@@ -55,7 +69,7 @@ using System.Security.Claims;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"4b9b812de13c53638aed5af16620bc675f8300bbd0d9744417f53a0c0a657e0d", @"/Views/Shared/Components/Navbar/Default.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"14d730b0887fe00db1ce55658ca718b2e3e6c0be9408eed4174cbd56c84337f5", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"a6a381669117ae7d4ce3545a1ca339073f9f40c55869523e734a457e19ab0f60", @"/Views/_ViewImports.cshtml")]
     #nullable restore
     public class Views_Shared_Components_Navbar_Default : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     #nullable disable
@@ -101,7 +115,7 @@ using System.Security.Claims;
 					</a>
 					<div class=""dropdown-menu dropdown-menu-right pc-h-dropdown drp-search"">
 						");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4b9b812de13c53638aed5af16620bc675f8300bbd0d9744417f53a0c0a657e0d6472", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4b9b812de13c53638aed5af16620bc675f8300bbd0d9744417f53a0c0a657e0d6886", async() => {
                 WriteLiteral("\r\n\t\t\t\t\t\t\t<div class=\"form-group mb-0 d-flex align-items-center\">\r\n\t\t\t\t\t\t\t\t<i data-feather=\"search\"></i>\r\n\t\t\t\t\t\t\t\t<input type=\"search\" class=\"form-control border-0 shadow-none\" placeholder=\"Ara. . .\">\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t");
             }
             );
@@ -118,7 +132,7 @@ using System.Security.Claims;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</li>\r\n\t\t\t\t<li class=\"dropdown pc-h-item\">\r\n\t\t\t\t\t<a class=\"pc-head-link dropdown-toggle arrow-none mr-0\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"false\" aria-expanded=\"false\">\r\n\t\t\t\t\t\t");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "4b9b812de13c53638aed5af16620bc675f8300bbd0d9744417f53a0c0a657e0d8350", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "4b9b812de13c53638aed5af16620bc675f8300bbd0d9744417f53a0c0a657e0d8764", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

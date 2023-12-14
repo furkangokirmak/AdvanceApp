@@ -1,18 +1,56 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AdvanceUI.ConnectApi;
+using AdvanceUI.DTOs.Advance;
+using AdvanceUI.DTOs.Employee;
+using AdvanceUI.DTOs.Project;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace AdvanceUI.UI.Controllers
 {
     [Authorize]
     public class AdvanceController : Controller
     {
+        private readonly GenericService _genericService;
+
+        public AdvanceController(GenericService genericService)
+        {
+            _genericService = genericService;
+        }
+
         /// <summary>
         /// Yeni Avans Talebi Oluşturma Ekranı
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult AdvanceRequest()
+        public async Task<IActionResult> AdvanceRequest()
         {
+            var projects = await _genericService.GetDatas<List<ProjectSelectDTO>>("Project/GetAll");
+            ViewBag.Projects = projects;
+
+            return View();
+        }
+
+        /// <summary>
+        /// Yeni Avans Talebi Post İsteği
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> AdvanceRequest(AdvanceInsertDTO advanceInsertDTO)
+        {
+            // bu Id genel bir yerden alınıp olmadığı takdirde kullanıcı doğrulanamayıp login sayfasına yönlendirilebilir.
+            int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
+            advanceInsertDTO.EmployeeId = id;
+
+            var addedAdvance = await _genericService.PostDatas<AdvanceInsertDTO, AdvanceInsertDTO>("Advance/AddAdvance",advanceInsertDTO);
+
+            if (addedAdvance != null)
+                return RedirectToAction("MyAdvanceRequests", "Advance");
+
             return View();
         }
 
