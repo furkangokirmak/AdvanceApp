@@ -1,12 +1,14 @@
-﻿using System;
+﻿using AdvanceAPI.DTOs.Payment;
+using AdvanceAPI.DTOs.Receipt;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdvanceAPI.Entities.Entity
+namespace AdvanceAPI.DTOs.Advance
 {
-    public class Advance : BaseEntity
+    public class AdvanceSelectDTO
     {
         public int Id { get; set; }
         public decimal? AdvanceAmount { get; set; }
@@ -17,10 +19,9 @@ namespace AdvanceAPI.Entities.Entity
         public int? EmployeeId { get; set; }
         public DateTime? RequestDate { get; set; }
 
-		public virtual Employee Employee { get; set; }
-        public virtual Project Project { get; set; }
-        public virtual ICollection<AdvanceHistory> AdvanceHistories { get; set; }
-        public virtual ICollection<Receipt> Receipts { get; set; }
-        public virtual ICollection<Payment> Payments { get; set; }
+
+        //public virtual ICollection<AdvanceHistory> AdvanceHistories { get; set; }
+        public virtual ICollection<ReceiptSelectDTO> Receipts { get; set; }
+        public virtual ICollection<PaymentSelectDTO> Payments { get; set; }
     }
 }

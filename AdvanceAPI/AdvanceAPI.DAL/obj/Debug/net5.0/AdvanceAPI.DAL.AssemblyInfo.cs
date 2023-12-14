@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdvanceAPI.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0dbd2beb22e5d5e3f413705834550f1f2fd837d7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+87e0eff89abb2bb004a479a1c03cd5eb4dee37ca")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdvanceAPI.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdvanceAPI.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
