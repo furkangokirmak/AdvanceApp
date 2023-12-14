@@ -10,6 +10,7 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
 	public interface IProjectDAL
 	{
         Task<IEnumerable<Project>> GetAllProjects();
+        Task<Project> GetProjectById(int Id);
 
     }
 }

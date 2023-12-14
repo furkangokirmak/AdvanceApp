@@ -1,5 +1,8 @@
-﻿using AdvanceAPI.DTOs.Payment;
+﻿using AdvanceAPI.DTOs.AdvanceHistory;
+using AdvanceAPI.DTOs.Payment;
+using AdvanceAPI.DTOs.Project;
 using AdvanceAPI.DTOs.Receipt;
+using AdvanceAPI.DTOs.Status;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +23,10 @@ namespace AdvanceAPI.DTOs.Advance
         public DateTime? RequestDate { get; set; }
 
 
-        //public virtual ICollection<AdvanceHistory> AdvanceHistories { get; set; }
+        public virtual StatusSelectDTO Status { get; set; }
+        public virtual ProjectSelectDTO Project { get; set; }
+
+        public virtual ICollection<AdvanceHistorySelectDTO> AdvanceHistories { get; set; }
         public virtual ICollection<ReceiptSelectDTO> Receipts { get; set; }
         public virtual ICollection<PaymentSelectDTO> Payments { get; set; }
     }

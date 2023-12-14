@@ -11,6 +11,7 @@ namespace AdvanceAPI.BLL.Abstract
 	public interface IProjectManager
 	{
         Task<Result<IEnumerable<ProjectSelectDTO>>> GetAllProjects();
+        Task<Result<ProjectSelectDTO>> GetProjectById(int Id);
 
     }
 }

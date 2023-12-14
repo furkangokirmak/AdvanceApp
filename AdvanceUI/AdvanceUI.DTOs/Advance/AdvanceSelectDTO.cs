@@ -1,4 +1,6 @@
-﻿using AdvanceUI.DTOs.Payment;
+﻿using AdvanceUI.DTOs.AdvanceHistory;
+using AdvanceUI.DTOs.Payment;
+using AdvanceUI.DTOs.Project;
 using AdvanceUI.DTOs.Receipt;
 using System;
 using System.Collections.Generic;
@@ -19,8 +21,10 @@ namespace AdvanceUI.DTOs.Advance
         public int? EmployeeId { get; set; }
         public DateTime? RequestDate { get; set; }
 
+        public virtual StatusSelectDTO Status { get; set; }
+        public virtual ProjectSelectDTO Project { get; set; }
 
-        //public virtual ICollection<AdvanceHistory> AdvanceHistories { get; set; }
+        public virtual ICollection<AdvanceHistorySelectDTO> AdvanceHistories { get; set; }
         public virtual ICollection<ReceiptSelectDTO> Receipts { get; set; }
         public virtual ICollection<PaymentSelectDTO> Payments { get; set; }
     }

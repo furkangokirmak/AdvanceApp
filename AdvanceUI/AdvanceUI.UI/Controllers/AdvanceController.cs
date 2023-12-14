@@ -1,4 +1,5 @@
 ﻿using AdvanceUI.ConnectApi;
+using AdvanceUI.DTOs;
 using AdvanceUI.DTOs.Advance;
 using AdvanceUI.DTOs.Employee;
 using AdvanceUI.DTOs.Project;
@@ -64,6 +65,17 @@ namespace AdvanceUI.UI.Controllers
             int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
  
             var advances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetEmployeeAdvances/{id}");
+
+            var Tasks = advances.Select(async x => 
+            {
+                var status = await _genericService.GetDatas<StatusSelectDTO>($"Status/Get/{x.StatusId}");
+                x.Status.StatusName = status.StatusName;
+
+                var project = await _genericService.GetDatas<ProjectSelectDTO>($"Project/Get/{x.ProjectId}");
+                x.Project.ProjectName = project.ProjectName;
+            });
+
+            await Task.WhenAll(Tasks);
 
             return View(advances);
         }

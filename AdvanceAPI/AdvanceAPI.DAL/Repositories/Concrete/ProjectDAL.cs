@@ -16,6 +16,14 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 		{
 		}
 
+        public async Task<Project> GetProjectById(int Id)
+        {
+            var query = "SELECT * FROM Project WHERE Id = @Id";
+            var result = await Connection.QueryAsync<Project>(query, new { Id });
+
+            return result.FirstOrDefault();
+        }
+
         public async Task<IEnumerable<Project>> GetAllProjects()
         {
             var query = "SELECT * FROM Project";

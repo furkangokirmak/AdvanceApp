@@ -24,6 +24,15 @@ namespace AdvanceAPI.BLL.Concrete
 			_mapper = mapper;
 		}
 
+        public async Task<Result<ProjectSelectDTO>> GetProjectById(int Id)
+        {
+            var project = await _unitOfWork.ProjectDAL.GetProjectById(Id);
+
+            var mappedProject = _mapper.Map<Project, ProjectSelectDTO>(project);
+
+            return Result<ProjectSelectDTO>.Success(mappedProject);
+        }
+
         public async Task<Result<IEnumerable<ProjectSelectDTO>>> GetAllProjects()
         {
             var projects = await _unitOfWork.ProjectDAL.GetAllProjects();

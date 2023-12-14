@@ -12,5 +12,6 @@ namespace AdvanceAPI.Entities.Entity
         public string StatusName { get; set; }
 
         public virtual ICollection<AdvanceHistory> AdvanceHistories { get; set; }
+        public virtual ICollection<Advance> Advances { get; set; }
     }
 }
