@@ -35,6 +35,8 @@ namespace AdvanceAPI.BLL.Concrete
 
 			var advance = await _unitOfWork.AdvanceDAL.AddAdvance(mappedAdvance);
 
+			_unitOfWork.Commit();
+
 			return Result<AdvanceInsertDTO>.Success(advanceInsertDTO);
         }
     }
