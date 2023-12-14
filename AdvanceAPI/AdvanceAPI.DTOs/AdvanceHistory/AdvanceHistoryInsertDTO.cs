@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdvanceAPI.DTOs.AdvanceHistory
 {
-    public class AdvanceHistoryInsertDTO
+    public record AdvanceHistoryInsertDTO
     {
         public int? StatusId { get; set; }
         public int? AdvanceId { get; set; }

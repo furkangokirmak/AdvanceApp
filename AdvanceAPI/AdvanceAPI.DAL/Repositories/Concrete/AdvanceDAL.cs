@@ -27,8 +27,8 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                 advance.AdvanceDescription,
                 advance.ProjectId,
                 advance.DesiredDate,
-                advance.RequestDate,
-                advance.StatusId,
+                RequestDate = DateTime.Now,
+                StatusId = 101,
                 advance.EmployeeId
             };
 
@@ -36,22 +36,16 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             string queryHistory = @"INSERT INTO AdvanceHistory(StatusID, AdvanceID, TransactorID, ApprovedAmount, Date) values (@StatusID, @AdvanceID, @TransactorID, @ApprovedAmount, @Date)";
 
-            AdvanceHistory firstHistory = advance.AdvanceHistories.First();
-            var StatusId = 201;
-            var Date = DateTime.Now;
-
             var historyParameters = new 
             {
-                StatusId,
+                StatusId = 201,
                 AdvanceId,
-                firstHistory.TransactorId,
-                firstHistory.ApprovedAmount,
-                Date
+                TransactorId = advance.EmployeeId,
+                ApprovedAmount = 0,
+                Date = DateTime.Now
             };
 
             int rowsAffected = await Connection.ExecuteAsync(queryHistory, historyParameters, Transaction);
-
-
 
             return advance;
         }

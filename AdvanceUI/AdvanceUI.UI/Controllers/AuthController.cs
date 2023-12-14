@@ -49,6 +49,7 @@ namespace AdvanceUI.UI.Controllers
 
 			var claims = new List<Claim>()
 			{
+				new Claim(ClaimTypes.NameIdentifier,dto.Id.ToString()),
 				new Claim(ClaimTypes.Name,dto.Name),
 				new Claim(ClaimTypes.Surname,dto.Surname),
 				new Claim(ClaimTypes.Email,dto.Email),

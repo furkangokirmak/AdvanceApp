@@ -2,6 +2,7 @@
 using AdvanceAPI.DTOs.AdvanceHistory;
 using AdvanceAPI.DTOs.BusinessUnit;
 using AdvanceAPI.DTOs.Employee;
+using AdvanceAPI.DTOs.Project;
 using AdvanceAPI.DTOs.Title;
 using AdvanceAPI.Entities.Entity;
 using AutoMapper;
@@ -30,6 +31,7 @@ namespace AdvanceAPI.BLL.Mapper
             CreateMap<BusinessUnit, BusinessUnitSelectDTO>().ReverseMap();
             CreateMap<Advance, AdvanceInsertDTO>().ReverseMap();
             CreateMap<AdvanceHistory, AdvanceHistoryInsertDTO>().ReverseMap();
+            CreateMap<Project, ProjectSelectDTO>().ReverseMap();
 
         }
     }

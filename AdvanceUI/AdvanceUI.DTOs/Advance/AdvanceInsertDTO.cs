@@ -1,13 +1,12 @@
-﻿using AdvanceAPI.DTOs.AdvanceHistory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdvanceAPI.DTOs.Advance
+namespace AdvanceUI.DTOs.Advance
 {
-    public record AdvanceInsertDTO
+    public class AdvanceInsertDTO
     {
         public decimal? AdvanceAmount { get; set; }
         public string AdvanceDescription { get; set; }

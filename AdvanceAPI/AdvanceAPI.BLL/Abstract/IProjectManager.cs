@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AdvanceAPI.CORE.Utilities;
+using AdvanceAPI.DTOs.Project;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,7 @@ namespace AdvanceAPI.BLL.Abstract
 {
 	public interface IProjectManager
 	{
-	}
+        Task<Result<IEnumerable<ProjectSelectDTO>>> GetAllProjects();
+
+    }
 }

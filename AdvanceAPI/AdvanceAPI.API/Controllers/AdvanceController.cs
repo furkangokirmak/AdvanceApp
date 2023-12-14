@@ -16,12 +16,21 @@ namespace AdvanceAPI.API.Controllers
             _advanceManager = advanceManager;
         }
 
-        [HttpPost("Add")]
-        public async Task<IActionResult> GetAll(AdvanceInsertDTO advanceInsertDTO)
+        [HttpPost("AddAdvance")]
+        public async Task<IActionResult> AddAdvance(AdvanceInsertDTO advanceInsertDTO)
         {
             var result = await _advanceManager.AddAdvance(advanceInsertDTO);
 
             return Ok(result.Data);
         }
+
+        //[HttpGet("GetEmployeeAdvances")]
+        //public async Task<IActionResult> GetEmployeeAdvances(int employeeId)
+        //{
+        //    var result = await _advanceManager.GetEmployeeAdvances(employeeId);
+
+        //    return Ok(result.Data);
+        //}
+
     }
 }
