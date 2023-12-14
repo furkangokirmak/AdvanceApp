@@ -1,6 +1,10 @@
 ﻿using AdvanceAPI.BLL.Abstract;
 using AdvanceAPI.BLL.Mapper;
+using AdvanceAPI.CORE.Utilities;
 using AdvanceAPI.DAL.UnitOfWork;
+using AdvanceAPI.DTOs.Status;
+using AdvanceAPI.DTOs.Title;
+using AdvanceAPI.Entities.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +23,14 @@ namespace AdvanceAPI.BLL.Concrete
 			_unitOfWork = unitOfWork;
 			_mapper = mapper;
 		}
-	}
+
+        public async Task<Result<StatusSelectDTO>> GetStatusById(int Id)
+        {
+            var status = await _unitOfWork.StatusDAL.GetStatusById(Id);
+
+            var mappedStatus = _mapper.Map<Status, StatusSelectDTO>(status);
+
+            return Result<StatusSelectDTO>.Success(mappedStatus);
+        }
+    }
 }

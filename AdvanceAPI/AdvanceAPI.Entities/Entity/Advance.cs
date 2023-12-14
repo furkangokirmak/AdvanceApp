@@ -19,7 +19,9 @@ namespace AdvanceAPI.Entities.Entity
 
 		public virtual Employee Employee { get; set; }
         public virtual Project Project { get; set; }
+        public virtual Status Status { get; set; }
         public virtual ICollection<AdvanceHistory> AdvanceHistories { get; set; }
         public virtual ICollection<Receipt> Receipts { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

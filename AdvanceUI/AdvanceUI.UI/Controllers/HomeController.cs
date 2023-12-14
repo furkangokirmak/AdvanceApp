@@ -24,6 +24,8 @@ namespace AdvanceUI.UI.Controllers
         public IActionResult Index()
         {
             int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
+            string name = User.Claims.Where(a => a.Type == ClaimTypes.Name).Select(a => a.Value).SingleOrDefault();
+
             TempData["id"] = id;
 
             return View();

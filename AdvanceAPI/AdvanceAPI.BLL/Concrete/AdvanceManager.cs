@@ -39,5 +39,17 @@ namespace AdvanceAPI.BLL.Concrete
 
 			return Result<AdvanceInsertDTO>.Success(advanceInsertDTO);
         }
+
+        public async Task<Result<IEnumerable<AdvanceSelectDTO>>> GetEmployeeAdvances(int employeeId)
+		{
+			var advances = await _unitOfWork.AdvanceDAL.GetEmployeeAdvances(employeeId);
+			if (advances == null)
+				throw new Exception("Geçmiş bulunamadı");
+
+            var mappedAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(advances);
+
+			return Result<IEnumerable<AdvanceSelectDTO>>.Success(mappedAdvances);
+
+        }
     }
 }

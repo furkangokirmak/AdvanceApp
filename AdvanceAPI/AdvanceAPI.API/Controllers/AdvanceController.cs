@@ -24,13 +24,13 @@ namespace AdvanceAPI.API.Controllers
             return Ok(result.Data);
         }
 
-        //[HttpGet("GetEmployeeAdvances")]
-        //public async Task<IActionResult> GetEmployeeAdvances(int employeeId)
-        //{
-        //    var result = await _advanceManager.GetEmployeeAdvances(employeeId);
+        [HttpGet("GetEmployeeAdvances/{id:int}")]
+        public async Task<IActionResult> GetEmployeeAdvances(int id)
+        {
+            var result = await _advanceManager.GetEmployeeAdvances(id);
 
-        //    return Ok(result.Data);
-        //}
+            return Ok(result.Data);
+        }
 
     }
 }

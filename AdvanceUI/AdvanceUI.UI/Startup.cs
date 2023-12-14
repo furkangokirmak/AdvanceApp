@@ -42,9 +42,6 @@ namespace AdvanceUI.UI
 
             services.AddAuthentication(a =>
 			{
-				//a.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-				//a.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-				//a.DefaultForbidScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 a.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 			}).AddCookie(a =>
 			{

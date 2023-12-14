@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<AdvanceSelectDTO>
+@{
     ViewData["Title"] = "MyAdvanceRequests";
 }
 
@@ -28,21 +29,58 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>100</td>
-                            <td>1.1.2022</td>
-                            <td>15.1.2022</td>
-                            <td>1000 TL</td>
-                            <td>Onaylanmış</td>
-                            <td>Özcan Deniz</td>
-                            <td>Satıcı</td>
-                            <td>14.1.2022</td>
-                            <td>900 TL</td>
-                            <td>20.1.2022</td>
-                            <td>22.1.2022</td>
-                            <td>Geri Ödemeli</td>
-                            <td>Tıkla</td>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Math.Round(item.AdvanceAmount.Value, 0) TL</td>
+                                <td>@item.RequestDate.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@item.DesiredDate.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@item.Project.ProjectName</td>
+                                <td>@item.Status.StatusName</td>
+
+                                @if (item.AdvanceHistories != null && item.AdvanceHistories.Any())
+                                {
+                                    <td>@item.AdvanceHistories.LastOrDefault().Transactor.Name @item.AdvanceHistories.LastOrDefault().Transactor.Surname</td>
+                                    <td>@item.AdvanceHistories.LastOrDefault().Transactor.Title.TitleName</td>
+                                    <td>@item.AdvanceHistories.LastOrDefault().Date.Value.ToString("dd/MM/yyyy")</td>
+                                    <td>@Math.Round(item.AdvanceHistories.LastOrDefault().ApprovedAmount.Value, 0) TL</td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                }
+
+                                <td>
+                                    @if (item.Payments != null && item.Payments.Any())
+                                    {
+                                        @item.Payments.FirstOrDefault().DeterminedPaymentDate.Value.ToString("dd/MM/yyyy")
+                                    }
+                                </td>
+                                
+                                <td>
+                                    @if (item.Receipts != null && item.Receipts.Any(x => x.IsRefundReceipt == false))
+                                    {
+                                        @item.Receipts.FirstOrDefault(x => x.IsRefundReceipt == false).Date.Value.ToString("dd/MM/yyyy")
+                                    }
+                                </td>
+                              
+                                @if (item.Receipts != null && item.Receipts.Any(x => x.IsRefundReceipt == true))
+                                {
+                                    <td>Geri Ödeme Yapıldı</td>
+                                }
+                                else
+                                {
+                                    <td>Geri Ödeme Yapılmadı</td>
+                                }
+
+                                <td>Tıkla</td>
+                            </tr>
+                        }
+
+
                     </tbody>
                 </table>
             </div>

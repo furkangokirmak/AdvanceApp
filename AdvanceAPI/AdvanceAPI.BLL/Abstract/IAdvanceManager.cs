@@ -1,5 +1,6 @@
 ﻿using AdvanceAPI.CORE.Utilities;
 using AdvanceAPI.DTOs.Advance;
+using AdvanceAPI.Entities.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace AdvanceAPI.BLL.Abstract
 	public interface IAdvanceManager
 	{
         Task<Result<AdvanceInsertDTO>> AddAdvance(AdvanceInsertDTO advanceInsertDTO);
+        Task<Result<IEnumerable<AdvanceSelectDTO>>> GetEmployeeAdvances(int employeeId);
 
     }
 }
