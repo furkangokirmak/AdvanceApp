@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<AdvanceSelectDTO>
+@{
     ViewData["Title"] = "MyAdvanceRequests";
 }
 
@@ -28,21 +29,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>100</td>
-                            <td>1.1.2022</td>
-                            <td>15.1.2022</td>
-                            <td>1000 TL</td>
-                            <td>Onaylanmış</td>
-                            <td>Özcan Deniz</td>
-                            <td>Satıcı</td>
-                            <td>14.1.2022</td>
-                            <td>900 TL</td>
-                            <td>20.1.2022</td>
-                            <td>22.1.2022</td>
-                            <td>Geri Ödemeli</td>
-                            <td>Tıkla</td>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.AdvanceAmount</td>
+                                <td>@item.RequestDate.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@item.DesiredDate.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@item.ProjectId</td>
+                                <td>@item.StatusId</td>
+                                <td>Onaylayan/Reddeden</td>
+                                <td>Ünvan</td>
+                                <td>14.1.2022</td>
+                                <td>900 TL</td>
+                                <td>@item.Payments.FirstOrDefault()</td>
+                                <td>@item.Receipts.Where(x => x.IsRefundReceipt == false).FirstOrDefault()</td>
+                                <td>@item.Receipts.Where(x => x.IsRefundReceipt == true).FirstOrDefault()</td>
+                                <td>Tıkla</td>
+                            </tr>
+                        }
+
+
                     </tbody>
                 </table>
             </div>

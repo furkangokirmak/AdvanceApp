@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdvanceUI.ConnectApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4875015b665aea22063949694153f97cddd23eab")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f7afd6b6da1eb98d2d8ab0d6c800116e0eea4a1")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdvanceUI.ConnectApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdvanceUI.ConnectApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
