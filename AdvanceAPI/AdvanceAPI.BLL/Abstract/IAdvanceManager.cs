@@ -15,6 +15,7 @@ namespace AdvanceAPI.BLL.Abstract
         Task<Result<AdvanceInsertDTO>> AddAdvance(AdvanceInsertDTO advanceInsertDTO);
         Task<Result<IEnumerable<AdvanceSelectDTO>>> GetEmployeeAdvances(int employeeId);
         Task<Result<IEnumerable<AdvanceHistorySelectDTO>>> GetAdvanceHistory(int advanceId);
+        Task<Result<AdvanceSelectDTO>> GetAdvanceById(int advanceId);
 
     }
 }

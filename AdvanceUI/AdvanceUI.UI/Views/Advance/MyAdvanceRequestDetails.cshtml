@@ -17,7 +17,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <p class="card-text"><strong>Talep No:</strong> @advance.Id </p>
+                            <p class="card-text"><strong>Talep No:</strong> @advance.Id</p>
                             <p class="card-text"><strong>Talep Oluşturma Tarihi:</strong> @advance.RequestDate.Value.ToString("dd/MM/yyyy")</p>
                             <p class="card-text"><strong>Alınmak İstenen Tarih:</strong> @advance.DesiredDate.Value.ToString("dd/MM/yyyy")</p>
                             <p class="card-text"><strong>Proje:</strong> @advance.Project.ProjectName</p>
@@ -29,8 +29,8 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="card-text"><strong>Talep Edilen Tutar:</strong> @Math.Round(advance.AdvanceAmount.Value, 0) TL</p>
-                            <p class="card-text"><strong>Onaylanan Tutar:</strong> @Math.Round(advance.AdvanceHistories.LastOrDefault().ApprovedAmount.Value, 0) TL</p>
-                            <p class="card-text"><strong>Son Durumu:</strong> Avans Teslim Edildi ! ! !</p>
+                            <p class="card-text"><strong>Onaylanan Tutar:</strong> @Math.Round(Model.LastOrDefault().ApprovedAmount.Value, 0) TL</p>
+                            <p class="card-text"><strong>Son Durumu:</strong> @Model.LastOrDefault().Status.StatusName</p>
                             <p class="card-text"><strong>Makbuz No:</strong> 
                                 @if (advance.Receipts != null && advance.Receipts.Any(x => x.IsRefundReceipt == false))
                                 {
@@ -77,7 +77,12 @@
                                     <td>@item.Transactor.UpperEmployee.Name @item.Transactor.UpperEmployee.Surname</td>
                                     <td>@item.Transactor.UpperEmployee.Title.TitleDescription Onayına</td>
                                     <td>@Math.Round(item.ApprovedAmount.Value, 0) TL</td>
-                                    <td>Eksik burası</td>
+                                    <td>
+                                        @if (advance.Payments != null && advance.Payments.Any() && advance.Payments.FirstOrDefault().FinanceManagerId == @item.TransactorId)
+                                        {
+                                            @advance.Payments.FirstOrDefault().DeterminedPaymentDate.Value.ToString("dd/MM/yyyy")
+                                        }
+                                    </td>
                                 </tr>                               
                             }
                         </tbody>

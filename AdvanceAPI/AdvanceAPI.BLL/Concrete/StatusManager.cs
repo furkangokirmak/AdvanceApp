@@ -32,5 +32,14 @@ namespace AdvanceAPI.BLL.Concrete
 
             return Result<StatusSelectDTO>.Success(mappedStatus);
         }
+
+        public async Task<Result<StatusSelectDTO>> GetStatusByAdvanceId(int Id)
+        {
+            var status = await _unitOfWork.StatusDAL.GetStatusByAdvanceId(Id);
+
+            var mappedStatus = _mapper.Map<Status, StatusSelectDTO>(status);
+
+            return Result<StatusSelectDTO>.Success(mappedStatus);
+        }
     }
 }

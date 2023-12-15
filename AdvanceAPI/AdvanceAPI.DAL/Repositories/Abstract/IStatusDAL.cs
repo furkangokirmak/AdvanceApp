@@ -11,5 +11,6 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
 	{
         Task<Status> GetStatusById(int Id);
 
+        Task<Status> GetStatusByAdvanceId(int Id);
     }
 }

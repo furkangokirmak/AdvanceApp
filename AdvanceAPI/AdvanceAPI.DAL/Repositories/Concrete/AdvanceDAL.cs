@@ -107,9 +107,58 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
             return advances.Values;
         }
 
+        public async Task<Advance> GetAdvanceById(int advanceId)
+        {
+            string query = @"SELECT a.Id, a.AdvanceAmount, a.AdvanceDescription, a.ProjectID, a.DesiredDate, a.RequestDate, a.StatusID, a.EmployeeID,
+	                        p.Id, p.DeterminedPaymentDate, p.FinanceManagerID,
+	                        r.Id, r.ReceiptNo, r.Date, r.isRefundReceipt, r.AccountantID,
+	                        ah.Id, ah.TransactorID, ah.Date, ah.StatusID, ah.ApprovedAmount,
+	                        e.Id, e.Name, e.Surname,
+	                        t.Id, t.TitleName
+                            FROM Advance a
+                            LEFT JOIN Payment p on p.AdvanceID=a.Id
+                            LEFT JOIN Receipt r on r.AdvanceID=a.Id
+	                        LEFT JOIN AdvanceHistory ah on ah.AdvanceID = a.ID
+	                        LEFT JOIN Employee e on e.ID = ah.TransactorID
+	                        LEFT JOIN Title t on t.ID = e.TitleID
+                            WHERE a.Id = @AdvanceID";
+
+            var advances = new Dictionary<int, Advance>();
+
+            var parameters = new
+            {
+                AdvanceID = advanceId
+            };
+
+            var result = await Connection.QueryAsync<Advance, Payment, Receipt, AdvanceHistory, Employee, Title, Advance>(query, (advance, payment, receipt, advancehistory, transactor, title) =>
+            {
+                if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
+                {
+                    advanceEntry = advance;
+                    advanceEntry.Project = new Project();
+                    advanceEntry.Status = new Status();
+                    advanceEntry.Payments = new List<Payment>();
+                    advanceEntry.Receipts = new List<Receipt>();
+                    advances.Add(advance.Id, advanceEntry);
+                }
+
+                if (payment != null && !advanceEntry.Payments.Any(x => x.Id == payment.Id))
+                    advanceEntry.Payments.Add(payment);
+
+                if (receipt != null && !advanceEntry.Receipts.Any(x => x.Id == receipt.Id))
+                    advanceEntry.Receipts.Add(receipt);
+
+                return advanceEntry;
+            }, parameters);
+
+
+
+            return advances.Values.FirstOrDefault();
+        }
+
         public async Task<IEnumerable<AdvanceHistory>> GetAdvanceHistory(int advanceId)
         {
-            string query = @"SELECT ah.Id ,ah.Date, ah.ApprovedAmount, a.Id ,ahs.Id, ahs.StatusName,  e.Id , e.Name, e.Surname, upe.Id, upe.Name, upe.Surname, t.Id , t.TitleDescription
+            string query = @"SELECT ah.Id ,ah.Date, ah.ApprovedAmount, ah.TransactorId, a.Id, a.StatusId ,ahs.Id, ahs.StatusName,  e.Id , e.Name, e.Surname, upe.Id, upe.Name, upe.Surname, t.Id , t.TitleDescription
                             FROM AdvanceHistory ah
                             JOIN Advance a on a.ID = ah.AdvanceID
                             JOIN Status ahs on ahs.ID = ah.StatusID 

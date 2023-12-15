@@ -3,6 +3,7 @@ using AdvanceUI.DTOs;
 using AdvanceUI.DTOs.Advance;
 using AdvanceUI.DTOs.AdvanceHistory;
 using AdvanceUI.DTOs.Employee;
+using AdvanceUI.DTOs.Payment;
 using AdvanceUI.DTOs.Project;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -80,9 +81,6 @@ namespace AdvanceUI.UI.Controllers
 
             await Task.WhenAll(Tasks);
 
-
-            TempData["MyAdvances"] = JsonConvert.SerializeObject(advances);
-
             return View(advances);
         }
 
@@ -93,9 +91,26 @@ namespace AdvanceUI.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> MyAdvanceRequestDetails(int id)
         {
-            var advances = JsonConvert.DeserializeObject<List<AdvanceSelectDTO>>(TempData["MyAdvances"] as string);
-            ViewData["Advance"] = advances.Where(x => x.Id == id).FirstOrDefault();
+            
+            var advance = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{id}");
+            var project = await _genericService.GetDatas<ProjectSelectDTO>($"Project/Get/{advance.ProjectId}");
+            advance.Project = project;
+            ViewData["Advance"] = advance;
+
             var advanceHistories = await _genericService.GetDatas<List<AdvanceHistorySelectDTO>>($"Advance/GetAdvanceHistories/{id}");
+
+            //advance.Payments.Add(new PaymentSelectDTO { Id=15, DeterminedPaymentDate=DateTime.Now, FinanceManagerId=22 });
+
+            //advanceHistories.Add(new AdvanceHistorySelectDTO { Id=25, StatusId=206, TransactorId=22, ApprovedAmount=15000, Date=DateTime.Now, AdvanceId=13 , 
+            //    Status=new StatusSelectDTO 
+            //    { 
+            //        Id=206,
+            //        StatusName = "FM Tarih Belirledi"
+            //    }, 
+            //    Transactor=new EmployeeSelectDTO 
+            //    {
+            //        Id = 
+            //    } });
 
             return View(advanceHistories);
         }

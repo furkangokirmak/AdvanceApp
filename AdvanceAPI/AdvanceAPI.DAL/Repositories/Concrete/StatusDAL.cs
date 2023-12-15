@@ -23,5 +23,16 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             return result.FirstOrDefault();
         }
+
+        public async Task<Status> GetStatusByAdvanceId(int Id)
+        {
+            var query = @"SELECT s.Id,s.StatusName FROM Status s
+                        JOIN Advance a on a.StatusId = s.Id
+                        WHERE a.Id = @Id";
+
+            var result = await Connection.QueryAsync<Status>(query, new { Id });
+
+            return result.FirstOrDefault();
+        }
     }
 }
