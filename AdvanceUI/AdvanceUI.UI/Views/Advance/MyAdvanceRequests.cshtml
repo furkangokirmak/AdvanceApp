@@ -76,11 +76,11 @@
                                     <td>Geri Ödeme Yapılmadı</td>
                                 }
 
-                                <td>Tıkla</td>
+                                <td>
+                                    <a asp-controller="Advance" asp-action="MyAdvanceRequestDetails" asp-route-id="@item.Id"><i class="icon feather icon-edit f-16 text-success"></i></a>
+                                </td>
                             </tr>
                         }
-
-
                     </tbody>
                 </table>
             </div>

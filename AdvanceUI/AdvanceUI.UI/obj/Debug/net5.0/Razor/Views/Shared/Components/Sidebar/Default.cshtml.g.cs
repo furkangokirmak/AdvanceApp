@@ -61,8 +61,15 @@ using AdvanceUI.DTOs.Project;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 8 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\_ViewImports.cshtml"
+using AdvanceUI.DTOs.AdvanceHistory;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d", @"/Views/Shared/Components/Sidebar/Default.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"a6a381669117ae7d4ce3545a1ca339073f9f40c55869523e734a457e19ab0f60", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"3f3f99b1198db16352138b99a67efc652c40b08cdc30b6c73450566332ed2c4a", @"/Views/_ViewImports.cshtml")]
     #nullable restore
     public class Views_Shared_Components_Sidebar_Default : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     #nullable disable
@@ -103,7 +110,7 @@ using AdvanceUI.DTOs.Project;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("<div class=\"loader-bg\">\r\n\t<div class=\"loader-track\">\r\n\t\t<div class=\"loader-fill\"></div>\r\n\t</div>\r\n</div>\r\n<!-- [ Pre-loader ] End -->\r\n<!-- [ Mobile header ] start -->\r\n<div class=\"pc-mob-header pc-header\">\r\n\t<div class=\"pcm-logo\">\r\n\t\t");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d8723", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d8937", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -144,7 +151,7 @@ using AdvanceUI.DTOs.Project;
 			<a href=""index.html"" class=""b-brand"">
 				<!-- ========   change your logo hear   ============ -->
 				");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d10728", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d10942", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -160,7 +167,7 @@ using AdvanceUI.DTOs.Project;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\t\t\t\t");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d11958", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d12172", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -176,7 +183,7 @@ using AdvanceUI.DTOs.Project;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\t\t\t</a>\r\n\t\t</div>\r\n\t\t<div class=\"navbar-content\">\r\n\t\t\t<ul class=\"pc-navbar\">\r\n\t\t\t\t<li class=\"pc-item pc-caption\">\r\n\t\t\t\t\t<label>Avans İşlemleri</label>\r\n\t\t\t\t</li>\r\n\t\t\t\t<li class=\"pc-item\">\r\n\t\t\t\t\t");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d13430", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d13644", async() => {
                 WriteLiteral("<span class=\"pc-micon\"><i class=\"material-icons-two-tone\">note_add</i></span><span class=\"pc-mtext\">Yeni Avans Talebi</span>");
             }
             );
@@ -192,7 +199,7 @@ using AdvanceUI.DTOs.Project;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\t\t\t\t</li>\r\n\t\t\t\t<li class=\"pc-item\">\r\n\t\t\t\t\t");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d14798", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d15012", async() => {
                 WriteLiteral("<span class=\"pc-micon\"><i class=\"material-icons-two-tone\">source</i></span><span class=\"pc-mtext\">Geçmiş Avans Taleplerim</span>");
             }
             );
@@ -208,7 +215,7 @@ using AdvanceUI.DTOs.Project;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\t\t\t\t</li>\r\n\t\t\t\t<li class=\"pc-item\">\r\n\t\t\t\t\t");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d16170", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d16384", async() => {
                 WriteLiteral("<span class=\"pc-micon\"><i class=\"material-icons-two-tone\">pending</i></span><span class=\"pc-mtext\">Onay Bekleyen Talepler</span>");
             }
             );
@@ -224,7 +231,7 @@ using AdvanceUI.DTOs.Project;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\t\t\t\t</li>\r\n\t\t\t\t<li class=\"pc-item\">\r\n\t\t\t\t\t");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d17542", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d17756", async() => {
                 WriteLiteral("<span class=\"pc-micon\"><i class=\"material-icons-two-tone\">payments</i></span><span class=\"pc-mtext\">Ödeme Tarihi Bekleyen Avanslar</span>");
             }
             );
@@ -240,7 +247,7 @@ using AdvanceUI.DTOs.Project;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\t\t\t\t</li>\r\n\t\t\t\t<li class=\"pc-item\">\r\n\t\t\t\t\t");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d18923", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d19137", async() => {
                 WriteLiteral("<span class=\"pc-micon\"><i class=\"material-icons-two-tone\">print</i></span><span class=\"pc-mtext\">Avans Raporlama</span>");
             }
             );
@@ -256,7 +263,7 @@ using AdvanceUI.DTOs.Project;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n\t\t\t\t</li>\r\n\t\t\t\t<li class=\"pc-item\">\r\n\t\t\t\t\t");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d20286", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57ef5d77bfdd371ec0ab23bd0bfafb079d55551368d4770bfe806c81a4d1d09d20500", async() => {
                 WriteLiteral("<span class=\"pc-micon\"><i class=\"material-icons-two-tone\">format_list_bulleted</i></span><span class=\"pc-mtext\">Avanslar Listesi</span>");
             }
             );

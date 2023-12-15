@@ -4,6 +4,7 @@ using AdvanceAPI.CORE.Helper;
 using AdvanceAPI.CORE.Utilities;
 using AdvanceAPI.DAL.UnitOfWork;
 using AdvanceAPI.DTOs.Advance;
+using AdvanceAPI.DTOs.AdvanceHistory;
 using AdvanceAPI.DTOs.Employee;
 using AdvanceAPI.DTOs.Title;
 using AdvanceAPI.Entities.Entity;
@@ -49,7 +50,16 @@ namespace AdvanceAPI.BLL.Concrete
             var mappedAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(advances);
 
 			return Result<IEnumerable<AdvanceSelectDTO>>.Success(mappedAdvances);
+        }
 
+
+		public async Task<Result<IEnumerable<AdvanceHistorySelectDTO>>> GetAdvanceHistory(int advanceId)
+		{
+            var advanceHistories = await _unitOfWork.AdvanceDAL.GetAdvanceHistory(advanceId);
+
+            var mappedAdvanceHistories = _mapper.Map<IEnumerable<AdvanceHistory>, IEnumerable<AdvanceHistorySelectDTO>>(advanceHistories);
+
+            return Result<IEnumerable<AdvanceHistorySelectDTO>>.Success(mappedAdvanceHistories);
         }
     }
 }

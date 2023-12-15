@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AdvanceUI.DTOs.Title;
 using AdvanceUI.DTOs.BusinessUnit;
+using System;
 
 namespace AdvanceUI.UI.Controllers
 {
@@ -60,7 +61,10 @@ namespace AdvanceUI.UI.Controllers
 			var userIdentity = new ClaimsIdentity(claims, "login");
 			var userpri = new ClaimsPrincipal(userIdentity);
 
-			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userpri);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userpri, new AuthenticationProperties()
+            {
+                ExpiresUtc = DateTimeOffset.Now.AddHours(12)
+            });
 
             TempData["EmployeeFullName"] = dto.Name + " " + dto.Surname;
             TempData["EmployeeTitle"] = dto.Title.TitleName;

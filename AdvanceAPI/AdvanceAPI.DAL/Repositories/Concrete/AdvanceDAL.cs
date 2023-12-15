@@ -102,7 +102,40 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                 return advanceEntry;
             }, parameters);
 
+
+
             return advances.Values;
+        }
+
+        public async Task<IEnumerable<AdvanceHistory>> GetAdvanceHistory(int advanceId)
+        {
+            string query = @"SELECT ah.Id ,ah.Date, ah.ApprovedAmount, a.Id ,ahs.Id, ahs.StatusName,  e.Id , e.Name, e.Surname, upe.Id, upe.Name, upe.Surname, t.Id , t.TitleDescription
+                            FROM AdvanceHistory ah
+                            JOIN Advance a on a.ID = ah.AdvanceID
+                            JOIN Status ahs on ahs.ID = ah.StatusID 
+                            JOIN Employee e on e.ID = ah.TransactorID
+                            JOIN Employee upe on upe.ID = e.UpperEmployeeID
+                            JOIN Title t on t.ID = upe.TitleID
+                            WHERE ah.AdvanceID = @AdvanceID";
+
+            var parameters = new
+            {
+                AdvanceID = advanceId
+            };
+
+            var result = await Connection.QueryAsync<AdvanceHistory, Advance, Status, Employee, Employee, Title, AdvanceHistory>(query, (advancehistory, advance, status, employee, upperemp, title) =>
+            {
+                advancehistory.Advance = advance;
+                advancehistory.Status = status;
+
+                upperemp.Title = title;
+                employee.UpperEmployee = upperemp;
+                advancehistory.Transactor = employee;
+
+                return advancehistory;
+            }, parameters);
+
+            return result;
         }
     }
 }

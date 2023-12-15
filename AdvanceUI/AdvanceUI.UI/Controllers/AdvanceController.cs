@@ -1,10 +1,12 @@
 ﻿using AdvanceUI.ConnectApi;
 using AdvanceUI.DTOs;
 using AdvanceUI.DTOs.Advance;
+using AdvanceUI.DTOs.AdvanceHistory;
 using AdvanceUI.DTOs.Employee;
 using AdvanceUI.DTOs.Project;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,7 +77,11 @@ namespace AdvanceUI.UI.Controllers
                 x.Project.ProjectName = project.ProjectName;
             });
 
+
             await Task.WhenAll(Tasks);
+
+
+            TempData["MyAdvances"] = JsonConvert.SerializeObject(advances);
 
             return View(advances);
         }
@@ -85,9 +91,13 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult MyAdvanceRequestDetails()
+        public async Task<IActionResult> MyAdvanceRequestDetails(int id)
         {
-            return View();
+            var advances = JsonConvert.DeserializeObject<List<AdvanceSelectDTO>>(TempData["MyAdvances"] as string);
+            ViewData["Advance"] = advances.Where(x => x.Id == id).FirstOrDefault();
+            var advanceHistories = await _genericService.GetDatas<List<AdvanceHistorySelectDTO>>($"Advance/GetAdvanceHistories/{id}");
+
+            return View(advanceHistories);
         }
 
         /// <summary>

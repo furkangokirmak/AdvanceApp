@@ -32,5 +32,13 @@ namespace AdvanceAPI.API.Controllers
             return Ok(result.Data);
         }
 
+        [HttpGet("GetAdvanceHistories/{id:int}")]
+        public async Task<IActionResult> GetAdvanceHistories(int id)
+        {
+            var result = await _advanceManager.GetAdvanceHistory(id);
+
+            return Ok(result.Data);
+        }
+
     }
 }

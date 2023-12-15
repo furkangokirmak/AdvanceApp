@@ -1,5 +1,9 @@
-﻿@{
+﻿@model List<AdvanceHistorySelectDTO>
+@{
     ViewData["Title"] = "MyAdvanceRequestDetails";
+    var advance = ViewData["Advance"] as AdvanceSelectDTO;
+    string geriOdeme = "";
+    int row = 0;
 }
 
 <div class="container col-md-12">
@@ -13,22 +17,37 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <p class="card-text"><strong>Talep No:</strong> 5</p>
-                            <p class="card-text"><strong>Talep Oluşturma Tarihi:</strong> 2.10.2020 10:30:52</p>
-                            <p class="card-text"><strong>Alınmak İstenen Tarih:</strong> 21.10.2020</p>
-                            <p class="card-text"><strong>Projeler:</strong> A Projesi, B Projesi</p>
-                            <p class="card-text"><strong>Açıklama:</strong> A ve B Projeleri için izmir eğitimi</p>
+                            <p class="card-text"><strong>Talep No:</strong> @advance.Id </p>
+                            <p class="card-text"><strong>Talep Oluşturma Tarihi:</strong> @advance.RequestDate.Value.ToString("dd/MM/yyyy")</p>
+                            <p class="card-text"><strong>Alınmak İstenen Tarih:</strong> @advance.DesiredDate.Value.ToString("dd/MM/yyyy")</p>
+                            <p class="card-text"><strong>Proje:</strong> @advance.Project.ProjectName</p>
+                            <p class="card-text"><strong>Açıklama:</strong> @advance.AdvanceDescription</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <p class="card-text"><strong>Talep Edilen Tutar:</strong> 15.000 TL</p>
-                            <p class="card-text"><strong>Onaylanan Tutar:</strong> 14.000 TL</p>
-                            <p class="card-text"><strong>Son Durumu:</strong> Avans Teslim Edildi</p>
-                            <p class="card-text"><strong>Makbuz No:</strong> MB 2456</p>
-                            <p class="card-text"><strong>Avans Geri Ödeme Durumu:</strong> Geri Ödeme Yapılmadı</p>
+                            <p class="card-text"><strong>Talep Edilen Tutar:</strong> @Math.Round(advance.AdvanceAmount.Value, 0) TL</p>
+                            <p class="card-text"><strong>Onaylanan Tutar:</strong> @Math.Round(advance.AdvanceHistories.LastOrDefault().ApprovedAmount.Value, 0) TL</p>
+                            <p class="card-text"><strong>Son Durumu:</strong> Avans Teslim Edildi ! ! !</p>
+                            <p class="card-text"><strong>Makbuz No:</strong> 
+                                @if (advance.Receipts != null && advance.Receipts.Any(x => x.IsRefundReceipt == false))
+                                {
+                                    @advance.Receipts.FirstOrDefault(x => x.IsRefundReceipt == false).ReceiptNo;
+                                }
+                            </p>
+                            <p class="card-text"><strong>Avans Geri Ödeme Durumu:</strong> 
+                                @if (advance.Receipts != null && advance.Receipts.Any(x => x.IsRefundReceipt == true))
+                                {
+                                    geriOdeme = "Geri Ödeme Yapıldı";
+                                }
+                                else
+                                {
+                                    geriOdeme = "Geri Ödeme Yapılmadı";
+                                }
+                                @geriOdeme
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -47,27 +66,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Talep oluşturuldu</td>
-                                <td>2.10.2020 10:30:20</td>
-                                <td>Gizem Akgün</td>
-                                <td>Nejdet Akgün</td>
-                                <td>BM Onayı</td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>BM onayladı</td>
-                                <td>2.10.2020 10:30:20</td>
-                                <td>Nejdet</td>
-                                <td>Mehmet</td>
-                                <td>Direktör Onayına</td>
-                                <td>15.000 TL</td>
-                                <td> </td>
-                            </tr>
-
+                            @foreach (var item in Model)
+                            {
+                                row = row +1;
+                                <tr>
+                                    <th scope="row">@row</th>
+                                    <td>@item.Status.StatusName</td>
+                                    <td>@item.Date</td>
+                                    <td>@item.Transactor.Name @item.Transactor.Surname</td>
+                                    <td>@item.Transactor.UpperEmployee.Name @item.Transactor.UpperEmployee.Surname</td>
+                                    <td>@item.Transactor.UpperEmployee.Title.TitleDescription Onayına</td>
+                                    <td>@Math.Round(item.ApprovedAmount.Value, 0) TL</td>
+                                    <td>Eksik burası</td>
+                                </tr>                               
+                            }
                         </tbody>
                     </table>
                 </div>
