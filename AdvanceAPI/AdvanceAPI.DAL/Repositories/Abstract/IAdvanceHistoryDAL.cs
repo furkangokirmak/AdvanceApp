@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdvanceAPI.Entities.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
 {
 	public interface IAdvanceHistoryDAL
 	{
-	}
+        Task<bool> AddAdvanceHistory(AdvanceHistory advanceHistory);
+
+    }
 }

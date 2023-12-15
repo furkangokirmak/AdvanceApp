@@ -14,6 +14,7 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
         Task<IEnumerable<AdvanceHistory>> GetAdvanceHistory(int advanceId);
         Task<Advance> GetAdvanceById(int advanceId);
         Task<IEnumerable<Advance>> GetPendingAdvance(int employeeId);
+        Task<bool> UpdateAdvanceStatus(int advanceId, int statusId);
 
     }
 }

@@ -105,5 +105,47 @@ namespace AdvanceAPI.BLL.Concrete
 
             return Result<IEnumerable<AdvanceSelectDTO>>.Success(mappedPendingAdvances);
         }
+
+        public async Task<Result<AdvanceHistorySelectDTO>> AdvanceRequestAccept(AdvanceHistorySelectDTO adHistory)
+        {
+            var rule = await _unitOfWork.RuleDAL.GetRuleByEmployeeId(adHistory.TransactorId.Value);
+
+            // kişinin statusunude cekip
+
+            adHistory.StatusId += 1;
+
+            var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(adHistory);
+
+            _unitOfWork.BeginTransaction();
+
+            // sadece veritabanına historyi ekle
+            var history = await _unitOfWork.AdvanceHistoryDAL.AddAdvanceHistory(mappedAdHistory);
+
+            if (adHistory.ApprovedAmount <= rule.MaxAmount)
+            {
+                // yeterli ise direk advanceyi onayla statüsüne getir
+                var state = await _unitOfWork.AdvanceDAL.UpdateAdvanceStatus(adHistory.AdvanceId.Value, 102);
+            }
+
+            _unitOfWork.Commit();
+
+            return Result<AdvanceHistorySelectDTO>.Success(adHistory);
+        }
+
+        public async Task<Result<AdvanceHistorySelectDTO>> AdvanceRequestReject(AdvanceHistorySelectDTO adHistory)
+        {
+            var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(adHistory);
+
+            _unitOfWork.BeginTransaction();
+
+            await _unitOfWork.AdvanceHistoryDAL.AddAdvanceHistory(mappedAdHistory);
+
+            await _unitOfWork.AdvanceDAL.UpdateAdvanceStatus(adHistory.AdvanceId.Value, 103);
+            
+            _unitOfWork.Commit();
+
+            return Result<AdvanceHistorySelectDTO>.Success(adHistory);
+        }
+
     }
 }

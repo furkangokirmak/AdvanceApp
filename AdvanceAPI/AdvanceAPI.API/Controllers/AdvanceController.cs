@@ -1,5 +1,6 @@
 ﻿using AdvanceAPI.BLL.Abstract;
 using AdvanceAPI.DTOs.Advance;
+using AdvanceAPI.DTOs.AdvanceHistory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -52,6 +53,22 @@ namespace AdvanceAPI.API.Controllers
         public async Task<IActionResult> GetPendingAdvances(int id)
         {
             var result = await _advanceManager.GetPendingAdvance(id);
+
+            return Ok(result.Data);
+        }
+
+        [HttpPost("AdvanceRequestAccept")]
+        public async Task<IActionResult> AdvanceRequestAccept(AdvanceHistorySelectDTO dto)
+        {
+            var result = await _advanceManager.AdvanceRequestAccept(dto);
+
+            return Ok(result.Data);
+        }
+
+        [HttpPost("AdvanceRequestReject")]
+        public async Task<IActionResult> AdvanceRequestReject(AdvanceHistorySelectDTO dto)
+        {
+            var result = await _advanceManager.AdvanceRequestReject(dto);
 
             return Ok(result.Data);
         }

@@ -73,7 +73,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                 EmployeeID = employeeId
             };
 
-            var result = await Connection.QueryAsync<Advance, Payment, Receipt, AdvanceHistory, Employee, Title, Advance>(query , (advance, payment, receipt, advancehistory, transactor, title) =>
+            var result = await Connection.QueryAsync<Advance, Payment, Receipt, AdvanceHistory, Employee, Title, Advance>(query, (advance, payment, receipt, advancehistory, transactor, title) =>
             {
                 if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
                 {
@@ -203,7 +203,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             var advances = new Dictionary<int, Advance>();
 
-            var result = await Connection.QueryAsync<AdvanceHistory, Employee, Employee, Advance, Employee, Advance>(query, (advancehistory, transactor, uppertransactor, advance, employee) => 
+            var result = await Connection.QueryAsync<AdvanceHistory, Employee, Employee, Advance, Employee, Advance>(query, (advancehistory, transactor, uppertransactor, advance, employee) =>
             {
                 if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
                 {
@@ -227,6 +227,15 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             return advances.Values;
         }
-        
+
+        public async Task<bool> UpdateAdvanceStatus(int advanceId, int statusId)
+        {
+            string query = @"UPDATE Advance SET StatusID=@StatusID WHERE Id = @AdvanceId";
+
+            var rowsAffected = await Connection.ExecuteAsync(query, new { AdvanceId=advanceId, StatusID = statusId }, Transaction);
+
+            return rowsAffected > 0;
+        }
+
     }
 }

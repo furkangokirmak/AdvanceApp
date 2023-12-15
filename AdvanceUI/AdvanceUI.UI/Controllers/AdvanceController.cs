@@ -132,6 +132,32 @@ namespace AdvanceUI.UI.Controllers
             return View(advanceHistories);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> PendingAdvanceRequest(int amount, string state, int advanceId, int statusId)
+        {
+            int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
+
+            var adHistory = new AdvanceHistorySelectDTO
+            {
+                AdvanceId = advanceId,
+                StatusId = statusId,
+                ApprovedAmount = amount,
+                TransactorId = userId,
+                Date = DateTime.Now,                          
+            };
+
+            var advance = await _genericService.PostDatas<AdvanceHistorySelectDTO, AdvanceHistorySelectDTO>($"Advance/AdvanceRequest" + state, adHistory);
+
+            return RedirectToAction("PendingAdvanceRequests","Advance");
+        }
+
+        [HttpPost]
+        public IActionResult AdvanceRequestSetDate()
+        {
+
+            return View();
+        }
+
         /// <summary>
         /// Avans Listeleri Ekranı (Ön muhasebe uzmanı için)
         /// </summary>

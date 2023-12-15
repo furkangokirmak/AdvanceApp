@@ -42,8 +42,7 @@
                                 <strong>Makbuz No:</strong>
                                 @if (advance.Receipts != null && advance.Receipts.Any(x => x.IsRefundReceipt == false))
                                 {
-                                    @advance.Receipts.FirstOrDefault(x => x.IsRefundReceipt == false).ReceiptNo
-                                    ;
+                                    @advance.Receipts.FirstOrDefault(x => x.IsRefundReceipt == false).ReceiptNo                                    
                                 }
                             </p>
                             <p class="card-text">
@@ -100,60 +99,76 @@
                     </table>
                 </div>
 
-                <div class="card custom-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Uygun Görülen Tutar:</h5>
-                        <div class="input-group mb-1">
-                            <input type="text" class="form-control" placeholder="Tutar" aria-label="Tutar" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="basic-addon2">TL</span>
+                @if (User.IsInRole("Finans Müdürü"))
+                {
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <form asp-action="PendingAdvanceRequestAccept" asp-controller="Advance" method="POST" >
+                                <h5 class="card-title">Uygun Görülen Ödeme Tarihi:</h5>
+                                <div class="input-group date mb-1" id="datetimepicker" data-target-input="nearest">
+                                    <input type="date" class="form-control datetimepicker-input" data-target="#datetimepicker" />
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-secondary">Formu Temizle</button>
+                                    <button type="button" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                }
+                else if (User.IsInRole("Muhasebe Uzmanı"))
+                {
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Avans Teslimi Makbuz No:</h5>
+                            <div class="input-group mb-1">
+                                <input type="text" class="form-control" placeholder="Makbuz No" aria-label="Tutar" aria-describedby="basic-addon2">
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary">Çıkış</button>
+                                <button type="button" class="btn btn-primary">Kaydet</button>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-secondary">Reddet</button>
-                            <button type="button" class="btn btn-primary">Onayla</button>
-                        </div>
                     </div>
-                </div>
 
-                <div class="card custom-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Uygun Görülen Ödeme Tarihi:</h5>
-                        <div class="input-group date mb-1" id="datetimepicker" data-target-input="nearest">
-                            <input type="date" class="form-control datetimepicker-input" data-target="#datetimepicker" />
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-secondary">Formu Temizle</button>
-                            <button type="button" class="btn btn-primary">Kaydet</button>
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Geri Ödeme Makbuz No:</h5>
+                            <div class="input-group mb-1">
+                                <input type="text" class="form-control" placeholder="Makbuz No" aria-label="Tutar" aria-describedby="basic-addon2">
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary">Çıkış</button>
+                                <button type="button" class="btn btn-primary">Kaydet</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <form method="post"  action="/Advance/PendingAdvanceRequest">
+                            <h5 class="card-title">Uygun Görülen Tutar:</h5>
+                            <div class="input-group mb-1">
+                                    <input type="text" class="form-control" id="amount" name="amount" placeholder="Tutar" aria-label="Tutar" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">TL</span>
+                                </div>
+                            </div>
+                                <input type="hidden" id="advanceId" name="advanceId" value="@advance.Id" required>
+                                <input type="hidden" id="statusId" name="statusId" value="@Model.LastOrDefault().Status.Id" required>
+                            <div class="d-flex justify-content-between">
+                                    <button type="submit" name="state" value="Reject" class="btn btn-secondary">Reddet</button>
+                                    <button type="submit" name="state" value="Accept" class="btn btn-primary">Onayla</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                }
 
-                <div class="card custom-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Avans Teslimi Makbuz No:</h5>
-                        <div class="input-group mb-1">
-                            <input type="text" class="form-control" placeholder="Makbuz No" aria-label="Tutar" aria-describedby="basic-addon2">
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-secondary">Çıkış</button>
-                            <button type="button" class="btn btn-primary">Kaydet</button>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="card custom-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Geri Ödeme Makbuz No:</h5>
-                        <div class="input-group mb-1">
-                            <input type="text" class="form-control" placeholder="Makbuz No" aria-label="Tutar" aria-describedby="basic-addon2">
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-secondary">Çıkış</button>
-                            <button type="button" class="btn btn-primary">Kaydet</button>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>
