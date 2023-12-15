@@ -22,12 +22,11 @@ namespace AdvanceAPI.BLL.Mapper
         public MapperProfile() 
         {
             CreateMap<EmployeeRegisterDTO, Employee>()
-               .ForMember(dest => dest.Id, opt => opt.Ignore()) 
-               .ForMember(dest => dest.PasswordHash, opt => opt.Ignore()) 
-               .ForMember(dest => dest.PasswordSalt, opt => opt.Ignore()) 
+               .ForMember(dest => dest.Id, opt => opt.Ignore())
+               .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
+               .ForMember(dest => dest.PasswordSalt, opt => opt.Ignore())
                .ForMember(dest => dest.BusinessUnit, opt => opt.Ignore())
-               .ForMember(dest => dest.Title, opt => opt.Ignore()) 
-               .ForMember(dest => dest.UpperEmployee, opt => opt.Ignore());
+               .ForMember(dest => dest.Title, opt => opt.Ignore()); 
 
             CreateMap<Employee, EmployeeSelectDTO>().ReverseMap();
             CreateMap<Title, TitleSelectDTO>().ReverseMap();

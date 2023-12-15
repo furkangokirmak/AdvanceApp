@@ -13,6 +13,7 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
         Task<IEnumerable<Advance>> GetEmployeeAdvances(int employeeId);
         Task<IEnumerable<AdvanceHistory>> GetAdvanceHistory(int advanceId);
         Task<Advance> GetAdvanceById(int advanceId);
+        Task<IEnumerable<Advance>> GetPendingAdvance(int employeeId);
 
     }
 }

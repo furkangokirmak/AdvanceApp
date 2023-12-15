@@ -48,5 +48,13 @@ namespace AdvanceAPI.API.Controllers
             return Ok(result.Data);
         }
 
+        [HttpGet("GetPendingAdvances/{id:int}")]
+        public async Task<IActionResult> GetPendingAdvances(int id)
+        {
+            var result = await _advanceManager.GetPendingAdvance(id);
+
+            return Ok(result.Data);
+        }
+
     }
 }

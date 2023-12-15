@@ -22,11 +22,20 @@ namespace AdvanceAPI.API.Controllers
 
             return Ok(result.Data);
         }
+        
 
         [HttpGet("Get/{id:int}")]
         public async Task<IActionResult> GetProjectById(int id)
         {
             var result = await _projectManager.GetProjectById(id);
+
+            return Ok(result.Data);
+        }
+
+        [HttpGet("GetProjectsByEmployeeId/{id:int}")]
+        public async Task<IActionResult> GetProjectsByEmployeeId(int id)
+        {
+            var result = await _projectManager.GetProjectsByEmployeeID(id);
 
             return Ok(result.Data);
         }

@@ -1,4 +1,5 @@
 ﻿using AdvanceUI.DTOs.AdvanceHistory;
+using AdvanceUI.DTOs.Employee;
 using AdvanceUI.DTOs.Payment;
 using AdvanceUI.DTOs.Project;
 using AdvanceUI.DTOs.Receipt;
@@ -21,6 +22,7 @@ namespace AdvanceUI.DTOs.Advance
         public int? EmployeeId { get; set; }
         public DateTime? RequestDate { get; set; }
 
+        public virtual EmployeeSelectDTO Employee { get; set; }
         public virtual StatusSelectDTO Status { get; set; }
         public virtual ProjectSelectDTO Project { get; set; }
 

@@ -60,7 +60,7 @@
 
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="employeeSelect"><i data-feather="user"></i></label>
-                                    <select asp-for="EmployeeId" class="form-select" >
+                                    <select asp-for="UpperEmployeeId" class="form-select" >
                                         @foreach (var employee in (List<EmployeeSelectDTO>)ViewBag.Employees)
                                         {
                                             <option value="@employee.Id">@employee.Name @employee.Surname</option>

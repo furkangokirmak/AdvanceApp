@@ -99,19 +99,6 @@ namespace AdvanceUI.UI.Controllers
 
             var advanceHistories = await _genericService.GetDatas<List<AdvanceHistorySelectDTO>>($"Advance/GetAdvanceHistories/{id}");
 
-            //advance.Payments.Add(new PaymentSelectDTO { Id=15, DeterminedPaymentDate=DateTime.Now, FinanceManagerId=22 });
-
-            //advanceHistories.Add(new AdvanceHistorySelectDTO { Id=25, StatusId=206, TransactorId=22, ApprovedAmount=15000, Date=DateTime.Now, AdvanceId=13 , 
-            //    Status=new StatusSelectDTO 
-            //    { 
-            //        Id=206,
-            //        StatusName = "FM Tarih Belirledi"
-            //    }, 
-            //    Transactor=new EmployeeSelectDTO 
-            //    {
-            //        Id = 
-            //    } });
-
             return View(advanceHistories);
         }
 
@@ -120,9 +107,12 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult PendingAdvanceRequests()
+        public async Task<IActionResult> PendingAdvanceRequests()
         {
-            return View();
+            int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
+            var pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingAdvances/{id}");
+
+            return View(pendingAdvances);
         }
 
         /// <summary>
@@ -130,9 +120,16 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult PendingAdvanceRequestDetails()
+        public async Task<IActionResult> PendingAdvanceRequestDetails(int id)
         {
-            return View();
+            var advance = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{id}");
+            var project = await _genericService.GetDatas<ProjectSelectDTO>($"Project/Get/{advance.ProjectId}");
+            advance.Project = project;
+            ViewData["Advance"] = advance;
+
+            var advanceHistories = await _genericService.GetDatas<List<AdvanceHistorySelectDTO>>($"Advance/GetAdvanceHistories/{id}");
+
+            return View(advanceHistories);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using AdvanceAPI.DTOs.AdvanceHistory;
+using AdvanceAPI.DTOs.Employee;
 using AdvanceAPI.DTOs.Payment;
 using AdvanceAPI.DTOs.Project;
 using AdvanceAPI.DTOs.Receipt;
@@ -23,6 +24,7 @@ namespace AdvanceAPI.DTOs.Advance
         public DateTime? RequestDate { get; set; }
 
 
+        public virtual EmployeeSelectDTO Employee { get; set; }
         public virtual StatusSelectDTO Status { get; set; }
         public virtual ProjectSelectDTO Project { get; set; }
 
