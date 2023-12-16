@@ -33,5 +33,14 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             return rowsAffected > 0;
         }
-	}
+
+        //public async Task<bool> UpdateAdvanceHistoryDone(int historyId, bool state)
+        //{
+        //    string query = @"UPDATE AdvanceHistory SET isDone=@State WHERE Id = @HistoryId";
+
+        //    var rowsAffected = await Connection.ExecuteAsync(query, new { HistoryId = historyId, State = state }, Transaction);
+
+        //    return rowsAffected > 0;
+        //}
+    }
 }

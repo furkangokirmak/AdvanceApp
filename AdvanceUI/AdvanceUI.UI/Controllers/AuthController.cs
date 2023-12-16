@@ -65,14 +65,17 @@ namespace AdvanceUI.UI.Controllers
             {
                 ExpiresUtc = DateTimeOffset.Now.AddHours(12)
             });
-
-            TempData["EmployeeFullName"] = dto.Name + " " + dto.Surname;
-            TempData["EmployeeTitle"] = dto.Title.TitleName;
-
+          
 			return RedirectToAction("Index","Home");
         }
 
-        [HttpGet]
+		public async Task<IActionResult> Logout()
+		{
+			await HttpContext.SignOutAsync();
+			return RedirectToAction("Login", "Auth");
+		}
+
+		[HttpGet]
         public async Task<IActionResult> Register()
         {
             var employees = await _genericService.GetDatas<List<EmployeeSelectDTO>>("Employee/GetAll");

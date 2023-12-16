@@ -65,7 +65,7 @@ namespace AdvanceAPI.BLL.Concrete
 
             var state = await _unitOfWork.AuthDAL.Register(employee);
 
-            return Result<bool>.Success(true);
+            return Result<bool>.Success(state);
         }
     }
 }

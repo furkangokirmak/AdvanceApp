@@ -17,7 +17,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdvanceUI.UI")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e55ce5034ec57dab14455241874f00dd9f5d4fa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46dc42792e689bb79600b1f3ce93ad5006d080e2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdvanceUI.UI.Views")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 

@@ -127,6 +127,7 @@ namespace AdvanceAPI.BLL.Concrete
                 var state = await _unitOfWork.AdvanceDAL.UpdateAdvanceStatus(adHistory.AdvanceId.Value, 102);
             }
 
+
             _unitOfWork.Commit();
 
             return Result<AdvanceHistorySelectDTO>.Success(adHistory);

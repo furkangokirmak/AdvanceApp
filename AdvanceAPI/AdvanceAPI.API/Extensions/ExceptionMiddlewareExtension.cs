@@ -30,7 +30,8 @@ namespace AdvanceAPI.API.Extensions
 
                         // log alınabilir
 
-                        var response = JsonSerializer.Serialize(Result<string>.Fail(contextFeature.Error.Message));                      
+                        var response = JsonSerializer.Serialize(Result<string>.Fail(contextFeature.Error.Message));
+                        
                         await context.Response.WriteAsync(response);
                     }
                 });
