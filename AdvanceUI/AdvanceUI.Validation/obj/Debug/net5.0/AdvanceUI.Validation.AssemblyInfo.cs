@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdvanceUI.Validation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+beb8643be75f9fc9e5ec411a3faeff5d65871302")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dcc2a38ca81e83b19ac3660185cc53401a4795b3")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdvanceUI.Validation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdvanceUI.Validation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

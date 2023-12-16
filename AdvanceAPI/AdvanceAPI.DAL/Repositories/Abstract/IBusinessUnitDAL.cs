@@ -10,5 +10,7 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
 	public interface IBusinessUnitDAL
 	{
 		Task<IEnumerable<BusinessUnit>> GetAllBusinessUnits();
-	}
+		Task<BusinessUnit> GetBusinessUnitById(int Id);
+
+    }
 }

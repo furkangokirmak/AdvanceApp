@@ -9,6 +9,8 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
 {
 	public interface ITitleDAL
 	{
-		Task<IEnumerable<Title>> GetAllTitles();
+		Task<Title> GetTitleById(int Id);
+
+        Task<IEnumerable<Title>> GetAllTitles();
 	}
 }

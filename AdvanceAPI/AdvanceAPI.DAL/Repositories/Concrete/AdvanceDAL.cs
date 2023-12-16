@@ -53,8 +53,8 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
         public async Task<IEnumerable<Advance>> GetEmployeeAdvances(int employeeId)
         {
             string query = @"SELECT a.Id, a.AdvanceAmount, a.AdvanceDescription, a.ProjectID, a.DesiredDate, a.RequestDate, a.StatusID, a.EmployeeID,
-	                        p.Id, p.DeterminedPaymentDate,
-	                        r.Id, r.ReceiptNo, r.Date, r.isRefundReceipt,
+	                        p.Id, p.DeterminedPaymentDate, p.FinanceManagerId,
+	                        r.Id, r.ReceiptNo, r.Date, r.isRefundReceipt, r.AccountantId,
 	                        ah.Id, ah.TransactorID, ah.Date, ah.StatusID, ah.ApprovedAmount,
 	                        e.Id, e.Name, e.Surname,
 	                        t.Id, t.TitleName
@@ -92,7 +92,11 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                 if (receipt != null && !advanceEntry.Receipts.Any(x => x.Id == receipt.Id))
                     advanceEntry.Receipts.Add(receipt);
 
-                if (advancehistory != null && advancehistory.TransactorId != employeeId && !advanceEntry.AdvanceHistories.Any(x => x.Id == advancehistory.Id))
+                if (advancehistory != null
+                    && advancehistory.TransactorId != employeeId
+                    && !advanceEntry.AdvanceHistories.Any(x => x.Id == advancehistory.Id)
+                    && ((payment == null) || (advancehistory.TransactorId != payment.FinanceManagerId))
+                    && ((receipt == null) || (advancehistory.TransactorId != receipt.AccountantId)))
                 {
                     transactor.Title = title;
                     advancehistory.Transactor = transactor;
@@ -189,12 +193,15 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
         public async Task<IEnumerable<Advance>> GetPendingAdvance(int employeeId)
         {
-            string query = @"select * from AdvanceHistory ah
-                            JOIN Employee e on e.ID = ah.TransactorID
-                            JOIN Employee uppere on uppere.ID = e.UpperEmployeeID 
-                            join Advance a on a.ID=ah.AdvanceID
-                            join Employee ee on ee.ID=a.EmployeeID
-                            where uppere.ID=@EmployeeID and ah.TransactorID!=@EmployeeID and a.StatusID=101";
+            string query = @"SELECT *
+                            from Advance a
+                            left join AdvanceHistory ah on ah.AdvanceID = a.ID 
+                            left join Employee emp on emp.ID = a.EmployeeID
+                            left join Employee temp on temp.ID = ah.TransactorID
+                            left join Employee uppertemp on uppertemp.ID = temp.UpperEmployeeID
+                            left join Payment p on p.AdvanceID = a.ID
+                            left join Receipt r on r.AdvanceID = a.ID
+                            WHERE uppertemp.ID=@EmployeeID and a.StatusId=101";
 
             var parameters = new
             {
@@ -203,10 +210,12 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             var advances = new Dictionary<int, Advance>();
 
-            var result = await Connection.QueryAsync<AdvanceHistory, Employee, Employee, Advance, Employee, Advance>(query, (advancehistory, transactor, uppertransactor, advance, employee) =>
+            var result = await Connection.QueryAsync<Advance, AdvanceHistory, Employee, Employee,Employee, Payment, Receipt, Advance>(query, (advance, advancehistory, emp, temp, uppertemp, payment, receipt) =>
             {
                 if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
                 {
+                    advance.Employee = emp;
+
                     advanceEntry = advance;
                     advanceEntry.Project = new Project();
                     advanceEntry.Status = new Status();
@@ -216,13 +225,22 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                     advances.Add(advance.Id, advanceEntry);
                 }
 
-                advanceEntry.Employee = employee;
+                if (payment != null && !advanceEntry.Payments.Any(x => x.Id == payment.Id))
+                    advanceEntry.Payments.Add(payment);
 
-                transactor.UpperEmployee = uppertransactor;
-                advancehistory.Transactor = transactor;
-                advanceEntry.AdvanceHistories.Add(advancehistory);
+                if (receipt != null && !advanceEntry.Receipts.Any(x => x.Id == receipt.Id))
+                    advanceEntry.Receipts.Add(receipt);
 
-                return null;
+                if (advancehistory != null
+                && !advanceEntry.AdvanceHistories.Any(x => x.Id == advancehistory.Id)
+                && ((payment == null) || (advancehistory.TransactorId != payment.FinanceManagerId))
+                && ((receipt == null) || (advancehistory.TransactorId != receipt.AccountantId)))
+                {
+                    temp.UpperEmployee = uppertemp;
+                    advancehistory.Transactor = temp;
+                    advanceEntry.AdvanceHistories.Add(advancehistory);
+                }
+                return advance;
             }, parameters);
 
             return advances.Values;
@@ -237,26 +255,26 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
             return rowsAffected > 0;
         }
 
-        public async Task<IEnumerable<Advance>> GetPendingPaymentDateAdvance(int employeeId)
+        public async Task<IEnumerable<Advance>> GetPendingPaymentDateAdvance()
         {
-            string query = @"select * from AdvanceHistory ah
-                            JOIN Employee e on e.ID = ah.TransactorID
-                            JOIN Employee uppere on uppere.ID = e.UpperEmployeeID 
-                            join Advance a on a.ID=ah.AdvanceID
-                            join Employee ee on ee.ID=a.EmployeeID
-                            where a.StatusID=102";
-
-            var parameters = new
-            {
-                EmployeeID = employeeId
-            };
+            string query = @"SELECT *
+                            from Advance a
+                            left join AdvanceHistory ah on ah.AdvanceID = a.ID 
+                            left join Employee emp on emp.ID = a.EmployeeID
+                            left join Employee temp on temp.ID = ah.TransactorID
+                            left join Employee uppertemp on uppertemp.ID = temp.UpperEmployeeID
+                            left join Payment p on p.AdvanceID = a.ID
+                            left join Receipt r on r.AdvanceID = a.ID
+                            WHERE a.StatusId=102";
 
             var advances = new Dictionary<int, Advance>();
 
-            var result = await Connection.QueryAsync<AdvanceHistory, Employee, Employee, Advance, Employee, Advance>(query, (advancehistory, transactor, uppertransactor, advance, employee) =>
+            var result = await Connection.QueryAsync<Advance, AdvanceHistory, Employee, Employee, Employee, Payment, Receipt, Advance>(query, (advance, advancehistory, emp, temp, uppertemp, payment, receipt) =>
             {
                 if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
                 {
+                    advance.Employee = emp;
+
                     advanceEntry = advance;
                     advanceEntry.Project = new Project();
                     advanceEntry.Status = new Status();
@@ -266,17 +284,73 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                     advances.Add(advance.Id, advanceEntry);
                 }
 
-                advanceEntry.Employee = employee;
+                if (payment != null && !advanceEntry.Payments.Any(x => x.Id == payment.Id))
+                    advanceEntry.Payments.Add(payment);
 
-                transactor.UpperEmployee = uppertransactor;
-                advancehistory.Transactor = transactor;
-                advanceEntry.AdvanceHistories.Add(advancehistory);
+                if (receipt != null && !advanceEntry.Receipts.Any(x => x.Id == receipt.Id))
+                    advanceEntry.Receipts.Add(receipt);
 
-                return null;
-            }, parameters);
+                if (advancehistory != null
+                && !advanceEntry.AdvanceHistories.Any(x => x.Id == advancehistory.Id)
+                && ((payment == null) || (advancehistory.TransactorId != payment.FinanceManagerId))
+                && ((receipt == null) || (advancehistory.TransactorId != receipt.AccountantId)))
+                {
+                    temp.UpperEmployee = uppertemp;
+                    advancehistory.Transactor = temp;
+                    advanceEntry.AdvanceHistories.Add(advancehistory);
+                }
+                return advance;
+            });
 
             return advances.Values;
         }
 
+        public async Task<IEnumerable<Advance>> GetPendingReceipt()
+        {
+            string query = @"SELECT *
+                            from Advance a
+                            join AdvanceHistory ah on ah.AdvanceID = a.ID 
+                            join Employee emp on emp.ID = a.EmployeeID
+                            join Employee temp on temp.ID = ah.TransactorID
+                            join Payment p on p.AdvanceID = a.ID
+                            left join Receipt r on r.AdvanceID = a.ID
+                            WHERE a.StatusId=102";
+
+            var advances = new Dictionary<int, Advance>();
+
+            var result = await Connection.QueryAsync<Advance, AdvanceHistory, Employee, Employee, Payment, Receipt, Advance>(query, (advance, advancehistory, emp, temp, payment, receipt) =>
+            {
+                if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
+                {
+                    advance.Employee = emp;
+
+                    advanceEntry = advance;
+                    advanceEntry.Project = new Project();
+                    advanceEntry.Status = new Status();
+                    advanceEntry.Payments = new List<Payment>();
+                    advanceEntry.Receipts = new List<Receipt>();
+                    advanceEntry.AdvanceHistories = new List<AdvanceHistory>();
+                    advances.Add(advance.Id, advanceEntry);
+                }
+
+                if (payment != null && !advanceEntry.Payments.Any(x => x.Id == payment.Id))
+                    advanceEntry.Payments.Add(payment);
+
+                if (receipt != null && !advanceEntry.Receipts.Any(x => x.Id == receipt.Id))
+                    advanceEntry.Receipts.Add(receipt);
+
+                if (advancehistory != null 
+                &&  !advanceEntry.AdvanceHistories.Any(x => x.Id == advancehistory.Id)
+                && ((payment == null) || (advancehistory.TransactorId != payment.FinanceManagerId))
+                && ((receipt == null) || (advancehistory.TransactorId != receipt.AccountantId)))
+                {
+                    advancehistory.Transactor = temp;
+                    advanceEntry.AdvanceHistories.Add(advancehistory);
+                }
+                return advance;
+            });
+
+            return advances.Values;
+        }
     }
 }

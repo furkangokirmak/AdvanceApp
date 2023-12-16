@@ -22,7 +22,7 @@ namespace AdvanceAPI.API.Controllers
         {
             var result = await _advanceManager.AddAdvance(advanceInsertDTO);
 
-            return Ok(result.Data);
+            return Ok(result);
         }
 
         [HttpGet("GetEmployeeAdvances/{id:int}")]
@@ -57,10 +57,10 @@ namespace AdvanceAPI.API.Controllers
             return Ok(result.Data);
         }
 
-        [HttpGet("GetPendingPaymentDateAdvance/{id:int}")]
-        public async Task<IActionResult> GetPendingPaymentDateAdvance(int id)
+        [HttpGet("GetPendingPaymentDateAdvance")]
+        public async Task<IActionResult> GetPendingPaymentDateAdvance()
         {
-            var result = await _advanceManager.GetPendingPaymentDateAdvance(id);
+            var result = await _advanceManager.GetPendingPaymentDateAdvance();
 
             return Ok(result.Data);
         }
@@ -70,7 +70,7 @@ namespace AdvanceAPI.API.Controllers
         {
             var result = await _advanceManager.AdvanceRequestAccept(dto);
 
-            return Ok(result.Data);
+            return Ok(result);
         }
 
         [HttpPost("AdvanceRequestReject")]
@@ -78,8 +78,31 @@ namespace AdvanceAPI.API.Controllers
         {
             var result = await _advanceManager.AdvanceRequestReject(dto);
 
-            return Ok(result.Data);
+            return Ok(result);
         }
 
+		[HttpPost("AdvanceRequestSetPaymentDate")]
+		public async Task<IActionResult> AdvanceRequestSetPaymentDate(AdvanceHistorySelectDTO dto)
+		{
+			var result = await _advanceManager.AdvanceRequestSetPaymentDate(dto);
+
+			return Ok(result);
+		} 
+
+        [HttpPost("AdvanceRequestReceipt")]
+        public async Task<IActionResult> AdvanceRequestReceipt(AdvanceSelectDTO dto)
+        {
+            var result = await _advanceManager.AdvanceRequestReceipt(dto);
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetPendingReceipt")]
+        public async Task<IActionResult> GetPendingReceipt()
+        {
+            var result = await _advanceManager.GetPendingReceipt();
+
+            return Ok(result.Data);
+        }
     }
 }

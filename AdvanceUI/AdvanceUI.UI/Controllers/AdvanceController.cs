@@ -5,6 +5,9 @@ using AdvanceUI.DTOs.AdvanceHistory;
 using AdvanceUI.DTOs.Employee;
 using AdvanceUI.DTOs.Payment;
 using AdvanceUI.DTOs.Project;
+using AdvanceUI.DTOs.Receipt;
+using AdvanceUI.UI.Models;
+using AdvanceUI.Validation.FluentValidation.Advance;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -46,13 +49,22 @@ namespace AdvanceUI.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> AdvanceRequest(AdvanceInsertDTO advanceInsertDTO)
         {
-            // bu Id genel bir yerden alınıp olmadığı takdirde kullanıcı doğrulanamayıp login sayfasına yönlendirilebilir.
-            int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
+            if (!ModelState.IsValid)
+            {
+                var projects = await _genericService.GetDatas<List<ProjectSelectDTO>>("Project/GetAll");
+                ViewBag.Projects = projects;
+                return View(advanceInsertDTO);
+            }
+
+                int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
             advanceInsertDTO.EmployeeId = id;
 
-            var addedAdvance = await _genericService.PostDatas<AdvanceInsertDTO, AdvanceInsertDTO>("Advance/AddAdvance",advanceInsertDTO);
+            var validator = new AdvanceInsertDTOValidator();
+            var validationResult = validator.Validate(advanceInsertDTO);
 
-            if (addedAdvance != null)
+            var addedAdvance = await _genericService.PostDatas<Result, AdvanceInsertDTO>("Advance/AddAdvance",advanceInsertDTO);
+
+            if (addedAdvance.Succeeded)
                 return RedirectToAction("MyAdvanceRequests", "Advance");
 
             return View();
@@ -119,7 +131,7 @@ namespace AdvanceUI.UI.Controllers
 
             if (role == "Finans Müdürü")
             {
-                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingPaymentDateAdvance/{id}");
+                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingPaymentDateAdvance");
             }
             else
             {
@@ -160,26 +172,82 @@ namespace AdvanceUI.UI.Controllers
                 Date = DateTime.Now,                          
             };
 
-            var advance = await _genericService.PostDatas<AdvanceHistorySelectDTO, AdvanceHistorySelectDTO>($"Advance/AdvanceRequest" + state, adHistory);
+            var advance = await _genericService.PostDatas<Result, AdvanceHistorySelectDTO>($"Advance/AdvanceRequest" + state, adHistory);
 
             return RedirectToAction("PendingAdvanceRequests","Advance");
         }
 
         [HttpPost]
-        public IActionResult AdvanceRequestSetDate()
+        public async Task<IActionResult> AdvanceRequestSetDate(DateTime date, int advanceId, decimal amounts)
         {
+			int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
 
-            return View();
-        }
+			var adHistory = new AdvanceHistorySelectDTO
+			{
+				AdvanceId = advanceId,
+				ApprovedAmount = amounts,
+				TransactorId = userId,
+				Date = date, // belirlenen ödeme tarihi için
+			};
+
+			var advance = await _genericService.PostDatas<Result, AdvanceHistorySelectDTO>($"Advance/AdvanceRequestSetPaymentDate", adHistory);
+
+			return RedirectToAction("PendingAdvanceRequests", "Advance");
+		}
 
         /// <summary>
         /// Avans Listeleri Ekranı (Ön muhasebe uzmanı için)
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult AdvanceList()
+        public async Task<IActionResult> AdvanceList()
         {
-            return View();
+            var pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingReceipt");
+
+            return View(pendingAdvances);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdvanceRequestReceipt(string receiptNo, int advanceId, string accountantState, decimal amounts)
+        {          
+            int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
+
+            bool state = false;
+            int statusId = 207;
+            if (accountantState == "Geri Ödeme")
+            {
+                state = true;
+                statusId = 208;
+            }
+                                        
+            var advance = new AdvanceSelectDTO
+            {
+                Receipts = new List<ReceiptSelectDTO> {
+                    new ReceiptSelectDTO {
+                        AccountantId = userId,
+                        AdvanceId = advanceId,
+                        Date = DateTime.Now,
+                        ReceiptNo = receiptNo,
+                        IsRefundReceipt = state }
+                },
+
+                AdvanceHistories = new List<AdvanceHistorySelectDTO>
+                {
+                    new AdvanceHistorySelectDTO
+                    {
+                        AdvanceId = advanceId,
+                        TransactorId = userId,
+                        Date = DateTime.Now,
+                        ApprovedAmount = amounts,    
+                        StatusId = statusId
+                    }
+                }
+                
+            };
+
+            var result = await _genericService.PostDatas<Result, AdvanceSelectDTO>($"Advance/AdvanceRequestReceipt", advance);
+
+            return RedirectToAction("AdvanceList", "Advance");
         }
 
         /// <summary>
