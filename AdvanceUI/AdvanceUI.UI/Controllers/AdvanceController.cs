@@ -1,10 +1,13 @@
 ﻿using AdvanceUI.ConnectApi;
 using AdvanceUI.DTOs;
 using AdvanceUI.DTOs.Advance;
+using AdvanceUI.DTOs.AdvanceHistory;
 using AdvanceUI.DTOs.Employee;
+using AdvanceUI.DTOs.Payment;
 using AdvanceUI.DTOs.Project;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,6 +78,7 @@ namespace AdvanceUI.UI.Controllers
                 x.Project.ProjectName = project.ProjectName;
             });
 
+
             await Task.WhenAll(Tasks);
 
             return View(advances);
@@ -85,9 +89,17 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult MyAdvanceRequestDetails()
+        public async Task<IActionResult> MyAdvanceRequestDetails(int id)
         {
-            return View();
+            
+            var advance = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{id}");
+            var project = await _genericService.GetDatas<ProjectSelectDTO>($"Project/Get/{advance.ProjectId}");
+            advance.Project = project;
+            ViewData["Advance"] = advance;
+
+            var advanceHistories = await _genericService.GetDatas<List<AdvanceHistorySelectDTO>>($"Advance/GetAdvanceHistories/{id}");
+
+            return View(advanceHistories);
         }
 
         /// <summary>
@@ -95,9 +107,26 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult PendingAdvanceRequests()
+        public async Task<IActionResult> PendingAdvanceRequests()
         {
-            return View();
+            int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
+            string role = User.Claims.Where(a => a.Type == ClaimTypes.Role).Select(a => a.Value).SingleOrDefault();
+
+            int roleId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.UserData).Select(a => a.Value).SingleOrDefault());
+
+
+            List<AdvanceSelectDTO> pendingAdvances;
+
+            if (role == "Finans Müdürü")
+            {
+                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingPaymentDateAdvance/{id}");
+            }
+            else
+            {
+                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingAdvances/{id}");
+            }
+
+            return View(pendingAdvances);
         }
 
         /// <summary>
@@ -105,8 +134,41 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult PendingAdvanceRequestDetails()
+        public async Task<IActionResult> PendingAdvanceRequestDetails(int id)
         {
+            var advance = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{id}");
+            var project = await _genericService.GetDatas<ProjectSelectDTO>($"Project/Get/{advance.ProjectId}");
+            advance.Project = project;
+            ViewData["Advance"] = advance;
+
+            var advanceHistories = await _genericService.GetDatas<List<AdvanceHistorySelectDTO>>($"Advance/GetAdvanceHistories/{id}");
+
+            return View(advanceHistories);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PendingAdvanceRequest(int amount, string state, int advanceId, int statusId)
+        {
+            int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
+
+            var adHistory = new AdvanceHistorySelectDTO
+            {
+                AdvanceId = advanceId,
+                StatusId = statusId,
+                ApprovedAmount = amount,
+                TransactorId = userId,
+                Date = DateTime.Now,                          
+            };
+
+            var advance = await _genericService.PostDatas<AdvanceHistorySelectDTO, AdvanceHistorySelectDTO>($"Advance/AdvanceRequest" + state, adHistory);
+
+            return RedirectToAction("PendingAdvanceRequests","Advance");
+        }
+
+        [HttpPost]
+        public IActionResult AdvanceRequestSetDate()
+        {
+
             return View();
         }
 

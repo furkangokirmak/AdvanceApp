@@ -11,6 +11,6 @@ namespace AdvanceAPI.BLL.Abstract
 	public interface IStatusManager
 	{
         Task<Result<StatusSelectDTO>> GetStatusById(int Id);
-
+        Task<Result<StatusSelectDTO>> GetStatusByAdvanceId(int Id);
     }
 }

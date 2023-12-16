@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AdvanceUI.DTOs.Title;
 using AdvanceUI.DTOs.BusinessUnit;
+using System;
 
 namespace AdvanceUI.UI.Controllers
 {
@@ -54,21 +55,28 @@ namespace AdvanceUI.UI.Controllers
 				new Claim(ClaimTypes.Surname,dto.Surname),
 				new Claim(ClaimTypes.Email,dto.Email),
 				new Claim(ClaimTypes.Anonymous,dto.BusinessUnit.BusinessUnitName),
-				new Claim(ClaimTypes.Role, dto.Title.TitleName)
+				new Claim(ClaimTypes.Role, dto.Title.TitleName),
+				new Claim(ClaimTypes.UserData, dto.Title.Id.ToString()),
 			};
 
 			var userIdentity = new ClaimsIdentity(claims, "login");
 			var userpri = new ClaimsPrincipal(userIdentity);
 
-			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userpri);
-
-            TempData["EmployeeFullName"] = dto.Name + " " + dto.Surname;
-            TempData["EmployeeTitle"] = dto.Title.TitleName;
-
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userpri, new AuthenticationProperties()
+            {
+                ExpiresUtc = DateTimeOffset.Now.AddHours(12)
+            });
+          
 			return RedirectToAction("Index","Home");
         }
 
-        [HttpGet]
+		public async Task<IActionResult> Logout()
+		{
+			await HttpContext.SignOutAsync();
+			return RedirectToAction("Login", "Auth");
+		}
+
+		[HttpGet]
         public async Task<IActionResult> Register()
         {
             var employees = await _genericService.GetDatas<List<EmployeeSelectDTO>>("Employee/GetAll");

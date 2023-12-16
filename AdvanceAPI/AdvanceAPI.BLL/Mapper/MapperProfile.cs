@@ -2,6 +2,7 @@
 using AdvanceAPI.DTOs.AdvanceHistory;
 using AdvanceAPI.DTOs.BusinessUnit;
 using AdvanceAPI.DTOs.Employee;
+using AdvanceAPI.DTOs.Page;
 using AdvanceAPI.DTOs.Payment;
 using AdvanceAPI.DTOs.Project;
 using AdvanceAPI.DTOs.Receipt;
@@ -22,12 +23,11 @@ namespace AdvanceAPI.BLL.Mapper
         public MapperProfile() 
         {
             CreateMap<EmployeeRegisterDTO, Employee>()
-               .ForMember(dest => dest.Id, opt => opt.Ignore()) 
-               .ForMember(dest => dest.PasswordHash, opt => opt.Ignore()) 
-               .ForMember(dest => dest.PasswordSalt, opt => opt.Ignore()) 
+               .ForMember(dest => dest.Id, opt => opt.Ignore())
+               .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
+               .ForMember(dest => dest.PasswordSalt, opt => opt.Ignore())
                .ForMember(dest => dest.BusinessUnit, opt => opt.Ignore())
-               .ForMember(dest => dest.Title, opt => opt.Ignore()) 
-               .ForMember(dest => dest.UpperEmployee, opt => opt.Ignore());
+               .ForMember(dest => dest.Title, opt => opt.Ignore()); 
 
             CreateMap<Employee, EmployeeSelectDTO>().ReverseMap();
             CreateMap<Title, TitleSelectDTO>().ReverseMap();
@@ -40,6 +40,7 @@ namespace AdvanceAPI.BLL.Mapper
             CreateMap<Receipt, ReceiptSelectDTO>().ReverseMap();
             CreateMap<Payment, PaymentSelectDTO>().ReverseMap();
             CreateMap<Status, StatusSelectDTO>().ReverseMap();
+            CreateMap<Page, PageSelectDTO>().ReverseMap();
 
 
         }

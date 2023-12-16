@@ -1,5 +1,9 @@
-﻿@{
-    ViewData["Title"] = "PendingAdvanceRequestDetails";
+﻿@model List<AdvanceHistorySelectDTO>
+@{
+    ViewData["Title"] = "Avans Talebi Tarihçesi";
+    var advance = ViewData["Advance"] as AdvanceSelectDTO;
+    string geriOdeme = "";
+    int row = 0;
 }
 
 <style>
@@ -11,31 +15,46 @@
 
 <div class="container col-md-12">
     <div class="card">
-        <div class="card-header">
-            <h3 class="mt-1">Avans Talebi Tarihçesi</h3>
-        </div>
 
         <div class="card-body">
             <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>Talep No:</strong> 5</p>
-                                <p class="card-text"><strong>Talep Oluşturma Tarihi:</strong> 2.10.2020 10:30:52</p>
-                                <p class="card-text"><strong>Alınmak İstenen Tarih:</strong> 21.10.2020</p>
-                                <p class="card-text"><strong>Projeler:</strong> A Projesi, B Projesi</p>
-                                <p class="card-text"><strong>Açıklama:</strong> A ve B Projeleri için izmir eğitimi</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="card-text"><strong>Talep No:</strong> 5</p>
-                                <p class="card-text"><strong>Talep Oluşturma Tarihi:</strong> 2.10.2020 10:30:52</p>
-                                <p class="card-text"><strong>Alınmak İstenen Tarih:</strong> 21.10.2020</p>
-                                <p class="card-text"><strong>Projeler:</strong> A Projesi, B Projesi</p>
-                                <p class="card-text"><strong>Açıklama:</strong> A ve B Projeleri için izmir eğitimi</p>
-                            </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text"><strong>Talep No:</strong> @advance.Id</p>
+                            <p class="card-text"><strong>Talep Oluşturma Tarihi:</strong> @advance.RequestDate.Value.ToString("dd/MM/yyyy")</p>
+                            <p class="card-text"><strong>Alınmak İstenen Tarih:</strong> @advance.DesiredDate.Value.ToString("dd/MM/yyyy")</p>
+                            <p class="card-text"><strong>Proje:</strong> @advance.Project.ProjectName</p>
+                            <p class="card-text"><strong>Açıklama:</strong> @advance.AdvanceDescription</p>
                         </div>
-
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text"><strong>Talep Edilen Tutar:</strong> @Math.Round(advance.AdvanceAmount.Value, 0) TL</p>
+                            <p class="card-text"><strong>Onaylanan Tutar:</strong> @Math.Round(Model.LastOrDefault().ApprovedAmount.Value, 0) TL</p>
+                            <p class="card-text"><strong>Son Durumu:</strong> @Model.LastOrDefault().Status.StatusName</p>
+                            <p class="card-text">
+                                <strong>Makbuz No:</strong>
+                                @if (advance.Receipts != null && advance.Receipts.Any(x => x.IsRefundReceipt == false))
+                                {
+                                    @advance.Receipts.FirstOrDefault(x => x.IsRefundReceipt == false).ReceiptNo                                    
+                                }
+                            </p>
+                            <p class="card-text">
+                                <strong>Avans Geri Ödeme Durumu:</strong>
+                                @if (advance.Receipts != null && advance.Receipts.Any(x => x.IsRefundReceipt == true))
+                                {
+                                    geriOdeme = "Geri Ödeme Yapıldı";
+                                }
+                                else
+                                {
+                                    geriOdeme = "Geri Ödeme Yapılmadı";
+                                }
+                                @geriOdeme
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -54,85 +73,99 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Talep oluşturuldu</td>
-                                <td>2.10.2020 10:30:20</td>
-                                <td>Gizem Akgün</td>
-                                <td>Nejdet Akgün</td>
-                                <td>BM Onayı</td>
-                                <td> </td>
-                                <td> </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>BM onayladı</td>
-                                <td>2.10.2020 10:30:20</td>
-                                <td>Nejdet</td>
-                                <td>Mehmet</td>
-                                <td>Direktör Onayına</td>
-                                <td>15.000 TL</td>
-                                <td> </td>
-                            </tr>
-
+                            @foreach (var item in Model)
+                            {
+                                row = row + 1;
+                                <tr>
+                                    <th scope="row">@row</th>
+                                    <td>@item.Status.StatusName</td>
+                                    <td>@item.Date</td>
+                                    <td>@item.Transactor.Name @item.Transactor.Surname</td>
+                                    <td>@item.Transactor.UpperEmployee.Name @item.Transactor.UpperEmployee.Surname</td>
+                                    <td>@item.Transactor.UpperEmployee.Title.TitleDescription Onayına</td>
+                                    <td>@Math.Round(item.ApprovedAmount.Value, 0) TL</td>
+                                    <td>
+                                        @if (advance.Payments != null && advance.Payments.Any() && advance.Payments.FirstOrDefault().FinanceManagerId == @item.TransactorId)
+                                        {
+                                            @advance.Payments.FirstOrDefault().DeterminedPaymentDate.Value.ToString("dd/MM/yyyy")
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
 
-                <div class="card custom-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Uygun Görülen Tutar:</h5>
-                        <div class="input-group mb-1">
-                            <input type="text" class="form-control" placeholder="Tutar" aria-label="Tutar" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="basic-addon2">TL</span>
+                @if (User.IsInRole("Finans Müdürü"))
+                {
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <form asp-action="PendingAdvanceRequestAccept" asp-controller="Advance" method="POST" >
+                                <h5 class="card-title">Uygun Görülen Ödeme Tarihi:</h5>
+                                <div class="input-group date mb-1" id="datetimepicker" data-target-input="nearest">
+                                    <input type="date" class="form-control datetimepicker-input" data-target="#datetimepicker" />
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-secondary">Formu Temizle</button>
+                                    <button type="button" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                }
+                else if (User.IsInRole("Muhasebe Uzmanı"))
+                {
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Avans Teslimi Makbuz No:</h5>
+                            <div class="input-group mb-1">
+                                <input type="text" class="form-control" placeholder="Makbuz No" aria-label="Tutar" aria-describedby="basic-addon2">
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary">Çıkış</button>
+                                <button type="button" class="btn btn-primary">Kaydet</button>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-secondary">Reddet</button>
-                            <button type="button" class="btn btn-primary">Onayla</button>
-                        </div>
                     </div>
-                </div>
 
-                <div class="card custom-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Uygun Görülen Ödeme Tarihi:</h5>
-                        <div class="input-group date mb-1" id="datetimepicker" data-target-input="nearest">
-                            <input type="date" class="form-control datetimepicker-input" data-target="#datetimepicker" />
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-secondary">Formu Temizle</button>
-                            <button type="button" class="btn btn-primary">Kaydet</button>
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Geri Ödeme Makbuz No:</h5>
+                            <div class="input-group mb-1">
+                                <input type="text" class="form-control" placeholder="Makbuz No" aria-label="Tutar" aria-describedby="basic-addon2">
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary">Çıkış</button>
+                                <button type="button" class="btn btn-primary">Kaydet</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <form method="post"  action="/Advance/PendingAdvanceRequest">
+                            <h5 class="card-title">Uygun Görülen Tutar:</h5>
+                            <div class="input-group mb-1">
+                                    <input type="text" class="form-control" id="amount" name="amount" placeholder="Tutar" aria-label="Tutar" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">TL</span>
+                                </div>
+                            </div>
+                                <input type="hidden" id="advanceId" name="advanceId" value="@advance.Id" required>
+                                <input type="hidden" id="statusId" name="statusId" value="@Model.LastOrDefault().Status.Id" required>
+                            <div class="d-flex justify-content-between">
+                                    <button type="submit" name="state" value="Reject" class="btn btn-secondary">Reddet</button>
+                                    <button type="submit" name="state" value="Accept" class="btn btn-primary">Onayla</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                }
 
-                <div class="card custom-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Avans Teslimi Makbuz No:</h5>
-                        <div class="input-group mb-1">
-                            <input type="text" class="form-control" placeholder="Makbuz No" aria-label="Tutar" aria-describedby="basic-addon2">
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-secondary">Çıkış</button>
-                            <button type="button" class="btn btn-primary">Kaydet</button>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="card custom-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Geri Ödeme Makbuz No:</h5>
-                        <div class="input-group mb-1">
-                            <input type="text" class="form-control" placeholder="Makbuz No" aria-label="Tutar" aria-describedby="basic-addon2">
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-secondary">Çıkış</button>
-                            <button type="button" class="btn btn-primary">Kaydet</button>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>

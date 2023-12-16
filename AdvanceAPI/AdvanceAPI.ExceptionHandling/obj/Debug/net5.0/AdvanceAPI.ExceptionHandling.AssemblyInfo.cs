@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdvanceAPI.ExceptionHandling")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c1557a63a6867f20cc1a4993bd279777089b9588")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46dc42792e689bb79600b1f3ce93ad5006d080e2")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdvanceAPI.ExceptionHandling")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdvanceAPI.ExceptionHandling")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

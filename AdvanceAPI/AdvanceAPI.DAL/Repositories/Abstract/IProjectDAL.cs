@@ -11,6 +11,7 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
 	{
         Task<IEnumerable<Project>> GetAllProjects();
         Task<Project> GetProjectById(int Id);
+        Task<IEnumerable<Project>> GetProjectsByEmployeeID(int id);
 
     }
 }

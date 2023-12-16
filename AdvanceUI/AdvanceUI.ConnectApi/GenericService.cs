@@ -48,10 +48,5 @@ namespace AdvanceUI.ConnectApi
         {
             return await SendRequest<TResult, TObject>(url, data, HttpMethod.Post, mediaType);
         }
-
-        public async Task<TResult> PutDatas<TResult, TObject>(string url, TObject data, string mediaType = null) where TResult : class, new()
-        {
-            return await SendRequest<TResult, TObject>(url, data, HttpMethod.Put, mediaType);
-        }
     }
 }

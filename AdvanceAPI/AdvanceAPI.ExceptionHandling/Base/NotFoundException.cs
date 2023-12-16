@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace AdvanceAPI.ExceptionHandling.Base
 {
-    public class NotFoundException : Exception
+    [Serializable]
+    public abstract class NotFoundException : Exception
     {
         public NotFoundException(string message) : base(message)
         {

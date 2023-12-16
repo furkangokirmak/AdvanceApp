@@ -1,4 +1,5 @@
-﻿using AdvanceUI.DTOs.Employee;
+﻿using AdvanceUI.DTOs.Advance;
+using AdvanceUI.DTOs.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace AdvanceUI.DTOs.AdvanceHistory
         public decimal? ApprovedAmount { get; set; }
         public DateTime? Date { get; set; }
 
+        public virtual AdvanceSelectDTO Advance { get; set; }
+        public virtual StatusSelectDTO Status { get; set; }
         public virtual EmployeeSelectDTO Transactor { get; set; }
     }
 }

@@ -1,13 +1,11 @@
-﻿@{
-    ViewData["Title"] = "PendingAdvanceRequests";
+﻿@model List<AdvanceSelectDTO>
+@{
+    ViewData["Title"] = "Onay Bekleyen Avans Talepleri Listesi";
 }
 
 
 <div class="container col-md-12">
     <div class="card">
-        <div class="card-header">
-            <h3 class="mt-1">Onay Bekleyen Avans Talepleri Listesi</h3>
-        </div>
         <div class="card-body table-border-style">
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -22,36 +20,44 @@
                             <th>İstenilen Tarih</th>
                             <th>Proje</th>
 
-                            @*                             @if(Birim müdüründen yüksek ise girsin)
-                            <th>Son Onaylayan</th>
-                            <th>Son Onaylanan Ünvanı</th>
-                            <th>Son Onaylanma Tarihi</th>
-                            <th>Son Onaylanan Tutar</th> *@
-
+                            @if (!User.IsInRole("Birim Müdürü"))
+                            {
+                                <th>Son Onaylayan</th>
+                                <th>Son Onaylanan Ünvanı</th>
+                                <th>Son Onaylanma Tarihi</th>
+                                <th>Son Onaylanan Tutar</th>
+                            }
 
                             <th>Detay</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>100</td>
-                            <td>1.1.2022</td>
-                            <td>15.1.2022</td>
-                            <td>1000 TL</td>
-                            <td>Onaylanmış</td>
-                            <td>Özcan Deniz</td>
-                            <td>Satıcı</td>
-                            <td>14.1.2022</td>
-                            @*
-                            @if (Birim müdüründen yüksek ise girsin)
-                            <td>Son</td>
-                            <td>Son</td>
-                            <td>Son</td>
-                            <td>Son</td> *@
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Employee.Name @item.Employee.Surname</td>
+                                <td>@item.Employee.TitleId</td>
+                                <td>@item.Employee.BusinessUnitId</td>
+                                <td>Onay Bekliyor</td>
+                                <td>@item.RequestDate</td>
+                                <td>@item.AdvanceAmount</td>
+                                <td>@item.DesiredDate</td>
+                                <td>@item.ProjectId</td>
 
+                                @if (!User.IsInRole("Birim Müdürü"))
+                                {
+                                    <td>@item.AdvanceHistories.FirstOrDefault().Transactor.Name @item.AdvanceHistories.FirstOrDefault().Transactor.Surname</td>
+                                    <td>@item.AdvanceHistories.FirstOrDefault().Transactor.TitleId</td>
+                                    <td>@item.AdvanceHistories.FirstOrDefault().Date</td>
+                                    <td>@item.AdvanceHistories.FirstOrDefault().ApprovedAmount</td>
+                                }
 
-                            <td>Tıkla</td>
-                        </tr>
+                                <td>
+                                    <a asp-controller="Advance" asp-action="PendingAdvanceRequestDetails" asp-route-id="@item.Id"><i class="icon feather icon-edit f-16 text-success"></i></a>
+                                </td>
+                            </tr>
+                        }
+                       
                     </tbody>
                 </table>
             </div>

@@ -15,7 +15,7 @@ namespace AdvanceAPI.DTOs.Employee
         public string Password { get; set; }
         public string PasswordConfirm { get; set; }
         public int BusinessUnitId { get; set; }
-        public int EmployeeId { get; set; }
+        public int UpperEmployeeId { get; set; }
         public int TitleId { get; set; }
     }
 }
