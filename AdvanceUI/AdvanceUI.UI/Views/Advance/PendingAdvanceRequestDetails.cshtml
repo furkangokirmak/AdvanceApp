@@ -100,14 +100,17 @@
                 {
                     <div class="card custom-card">
                         <div class="card-body">
-                            <form asp-action="PendingAdvanceRequestAccept" asp-controller="Advance" method="POST" >
+                            <form asp-action="AdvanceRequestSetDate" asp-controller="Advance" method="POST">
                                 <h5 class="card-title">Uygun Görülen Ödeme Tarihi:</h5>
                                 <div class="input-group date mb-1" id="datetimepicker" data-target-input="nearest">
-                                    <input type="date" class="form-control datetimepicker-input" data-target="#datetimepicker" />
+                                    <input type="date" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker" />
                                 </div>
+                                <input type="hidden" id="advanceId" name="advanceId" value="@advance.Id" required>
+                                <input type="hidden" id="amounts" name="amounts" value="@Model.LastOrDefault().ApprovedAmount.Value" required>
+
                                 <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn btn-secondary">Formu Temizle</button>
-                                    <button type="button" class="btn btn-primary">Kaydet</button>
+                                    <button type="submit" class="btn btn-secondary">Formu Temizle</button>
+                                    <button type="submit" class="btn btn-primary">Kaydet</button>
                                 </div>
                             </form>
 

@@ -32,7 +32,7 @@
 <nav class="pc-sidebar ">
 	<div class="navbar-wrapper">
 		<div class="m-header">
-			<a href="~/Home/AdvanceRequest" class="b-brand">
+			<a href="~/Home/Index" class="b-brand">
 				<!-- ========   change your logo hear   ============ -->
 				<img src="~/dashboardkit/dist/assets/images/bilgeadamavans.png" alt="" class="logo logo-lg">
 				<img src="~/dashboardkit/dist/assets/images/logo-sm.svg" alt="" class="logo logo-sm">
@@ -47,7 +47,7 @@
 				@foreach (var item in Model)
 				{
 					<li class="pc-item">
-						<a href="~@item.Path" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">@item.Icon</i></span><span class="pc-mtext">@item.PageName</span></a>
+						<a href="@item.Path" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">@item.Icon</i></span><span class="pc-mtext">@item.PageName</span></a>
 					</li>
 				}		
 

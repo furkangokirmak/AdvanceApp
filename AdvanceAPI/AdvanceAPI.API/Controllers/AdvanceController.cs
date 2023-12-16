@@ -81,5 +81,12 @@ namespace AdvanceAPI.API.Controllers
             return Ok(result.Data);
         }
 
-    }
+		[HttpPost("AdvanceRequestSetPaymentDate")]
+		public async Task<IActionResult> AdvanceRequestSetPaymentDate(AdvanceHistorySelectDTO dto)
+		{
+			var result = await _advanceManager.AdvanceRequestSetPaymentDate(dto);
+
+			return Ok(result.Data);
+		}
+	}
 }

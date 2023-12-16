@@ -20,6 +20,8 @@ namespace AdvanceAPI.BLL.Abstract
         Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingPaymentDateAdvance(int employeeId);
         Task<Result<AdvanceHistorySelectDTO>> AdvanceRequestAccept(AdvanceHistorySelectDTO adHistory);
         Task<Result<AdvanceHistorySelectDTO>> AdvanceRequestReject(AdvanceHistorySelectDTO adHistory);
+        Task<Result<bool>> AdvanceRequestSetPaymentDate(AdvanceHistorySelectDTO adHistory);
 
-    }
+
+	}
 }

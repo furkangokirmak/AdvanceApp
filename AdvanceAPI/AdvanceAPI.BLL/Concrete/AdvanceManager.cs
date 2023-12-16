@@ -157,5 +157,33 @@ namespace AdvanceAPI.BLL.Concrete
             return Result<AdvanceHistorySelectDTO>.Success(adHistory);
         }
 
-    }
+        public async Task<Result<bool>> AdvanceRequestSetPaymentDate(AdvanceHistorySelectDTO adHistory)
+        {
+			var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(adHistory);
+			var paymentDate = mappedAdHistory.Date;
+            mappedAdHistory.Date = DateTime.Now;
+            mappedAdHistory.StatusId = 206;
+
+			var payment = new Payment
+			{
+				AdvanceId = mappedAdHistory.AdvanceId,
+				DeterminedPaymentDate = paymentDate,
+				FinanceManagerId = mappedAdHistory.TransactorId
+			};
+
+			_unitOfWork.BeginTransaction();
+
+            var resultAdvanceHistory = await _unitOfWork.AdvanceHistoryDAL.AddAdvanceHistory(mappedAdHistory);
+
+            var resultPayment = await _unitOfWork.PaymentDAL.AddPayment(payment);
+
+            _unitOfWork.Commit();
+
+			if (!resultAdvanceHistory || !resultPayment)
+				return Result<bool>.Fail("Hata oluştu");
+
+			return Result<bool>.Success(true);
+		}
+
+	}
 }

@@ -166,11 +166,22 @@ namespace AdvanceUI.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AdvanceRequestSetDate()
+        public async Task<IActionResult> AdvanceRequestSetDate(DateTime date, int advanceId, decimal amounts)
         {
+			int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
 
-            return View();
-        }
+			var adHistory = new AdvanceHistorySelectDTO
+			{
+				AdvanceId = advanceId,
+				ApprovedAmount = amounts,
+				TransactorId = userId,
+				Date = date, // belirlenen ödeme tarihi için
+			};
+
+			var advance = await _genericService.PostDatas<AdvanceHistorySelectDTO, AdvanceHistorySelectDTO>($"Advance/AdvanceRequestSetPaymentDate", adHistory);
+
+			return RedirectToAction("PendingAdvanceRequests", "Advance");
+		}
 
         /// <summary>
         /// Avans Listeleri Ekranı (Ön muhasebe uzmanı için)

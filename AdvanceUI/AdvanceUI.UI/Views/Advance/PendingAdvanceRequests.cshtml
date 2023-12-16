@@ -46,10 +46,10 @@
 
                                 @if (!User.IsInRole("Birim Müdürü"))
                                 {
-                                    <td>@item.AdvanceHistories.FirstOrDefault().Transactor.Name @item.AdvanceHistories.FirstOrDefault().Transactor.Surname</td>
-                                    <td>@item.AdvanceHistories.FirstOrDefault().Transactor.TitleId</td>
-                                    <td>@item.AdvanceHistories.FirstOrDefault().Date</td>
-                                    <td>@item.AdvanceHistories.FirstOrDefault().ApprovedAmount</td>
+                                    <td>@item.AdvanceHistories.LastOrDefault().Transactor.Name @item.AdvanceHistories.LastOrDefault().Transactor.Surname</td>
+                                    <td>@item.AdvanceHistories.LastOrDefault().Transactor.TitleId</td>
+                                    <td>@item.AdvanceHistories.LastOrDefault().Date</td>
+                                    <td>@item.AdvanceHistories.LastOrDefault().ApprovedAmount</td>
                                 }
 
                                 <td>
