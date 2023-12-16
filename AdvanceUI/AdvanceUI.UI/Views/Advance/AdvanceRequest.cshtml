@@ -1,19 +1,22 @@
-﻿@{
+﻿@model AdvanceInsertDTO
+@{
     ViewData["Title"] = "Yeni Avans Talebi";
 }
-@model AdvanceInsertDTO
-<div class="container col-md-12">
-    <div class="card">
-        <div class="card-body">
 
+
+<div class="container col-md-12">
+    <div class="card">       
+        <div class="card-body">
             <form asp-action="AdvanceRequest" asp-controller="Advance" method="POST">
                 <div class="mb-3">
                     <label for="advanceAmount" class="form-label">Avans Miktarı:</label>
                     <input type="number" asp-for="AdvanceAmount" class="form-control" id="advanceAmount" placeholder="Avans Miktarı" required>
+                    <span asp-validation-for="AdvanceAmount" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label for="date" class="form-label">İstenilen Tarih:</label>
                     <input type="date" asp-for="DesiredDate" class="form-control" id="date" required>
+                    <span asp-validation-for="DesiredDate" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label for="project" class="form-label">Projeler:</label>
@@ -23,10 +26,12 @@
                             <option value="@title.Id">@title.ProjectName</option>
                         }
                     </select>
+                    <span asp-validation-for="ProjectId" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="description"  class="form-label">Açıklama:</label>
+                    <label for="description" class="form-label">Açıklama:</label>
                     <textarea class="form-control" asp-for="AdvanceDescription" id="description" rows="3" required></textarea>
+                    <span asp-validation-for="AdvanceDescription" class="text-danger"></span>
                 </div>
                 <input type="submit" class="btn btn-primary" value="Gönder"></input>
                 <input type="reset" class="btn btn-secondary" value="Vazgeç"></input>

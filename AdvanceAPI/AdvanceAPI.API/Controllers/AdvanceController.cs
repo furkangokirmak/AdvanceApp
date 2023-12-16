@@ -22,7 +22,7 @@ namespace AdvanceAPI.API.Controllers
         {
             var result = await _advanceManager.AddAdvance(advanceInsertDTO);
 
-            return Ok(result.Data);
+            return Ok(result);
         }
 
         [HttpGet("GetEmployeeAdvances/{id:int}")]
@@ -70,7 +70,7 @@ namespace AdvanceAPI.API.Controllers
         {
             var result = await _advanceManager.AdvanceRequestAccept(dto);
 
-            return Ok(result.Data);
+            return Ok(result);
         }
 
         [HttpPost("AdvanceRequestReject")]
@@ -78,7 +78,7 @@ namespace AdvanceAPI.API.Controllers
         {
             var result = await _advanceManager.AdvanceRequestReject(dto);
 
-            return Ok(result.Data);
+            return Ok(result);
         }
 
 		[HttpPost("AdvanceRequestSetPaymentDate")]
@@ -86,7 +86,7 @@ namespace AdvanceAPI.API.Controllers
 		{
 			var result = await _advanceManager.AdvanceRequestSetPaymentDate(dto);
 
-			return Ok(result.Data);
+			return Ok(result);
 		} 
 
         [HttpPost("AdvanceRequestReceipt")]
@@ -94,7 +94,7 @@ namespace AdvanceAPI.API.Controllers
         {
             var result = await _advanceManager.AdvanceRequestReceipt(dto);
 
-            return Ok(result.Data);
+            return Ok(result);
         }
 
         [HttpGet("GetPendingReceipt")]

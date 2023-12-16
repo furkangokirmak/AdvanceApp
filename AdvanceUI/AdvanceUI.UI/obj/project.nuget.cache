@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Fmpms0AdoQjM6Z+ANOfaiAmOH1TICFF2LsvQ0uisyB/kCTHGjqS+y8M4PwOoeouQlADqKzUhsd8DL9EB7wUN3w==",
+  "dgSpecHash": "btcaaczVX+zDAa5UJJB1LOGP1wvlKr1R0GYNCGDRccDqDhR/tv8DO5rrRMaDwT0GNLeu9zxGbRGlbxQKyfFfpA==",
   "success": true,
   "projectFilePath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceUI\\AdvanceUI.UI\\AdvanceUI.UI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\furka\\.nuget\\packages\\fluentvalidation\\11.8.1\\fluentvalidation.11.8.1.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\furka\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\furka\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\furka\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\furka\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",

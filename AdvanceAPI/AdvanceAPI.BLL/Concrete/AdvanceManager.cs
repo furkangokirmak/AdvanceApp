@@ -30,7 +30,7 @@ namespace AdvanceAPI.BLL.Concrete
             _mapper = mapper;
         }
 
-        public async Task<Result<AdvanceInsertDTO>> AddAdvance(AdvanceInsertDTO advanceInsertDTO)
+        public async Task<Result<string>> AddAdvance(AdvanceInsertDTO advanceInsertDTO)
         {
             var mappedAdvance = _mapper.Map<AdvanceInsertDTO, Advance>(advanceInsertDTO);
 
@@ -40,7 +40,10 @@ namespace AdvanceAPI.BLL.Concrete
 
             _unitOfWork.Commit();
 
-            return Result<AdvanceInsertDTO>.Success(advanceInsertDTO);
+            if (advance == null)
+                return Result<string>.Fail("Avans talebi oluşturulamadı!");
+
+            return Result<string>.Success("Avans talebi oluşturuldu.");
         }
 
         public async Task<Result<IEnumerable<AdvanceSelectDTO>>> GetEmployeeAdvances(int employeeId)
@@ -64,7 +67,6 @@ namespace AdvanceAPI.BLL.Concrete
 
             return Result<AdvanceSelectDTO>.Success(mappedAdvance);
         }
-
 
         public async Task<Result<IEnumerable<AdvanceHistorySelectDTO>>> GetAdvanceHistory(int advanceId)
         {
@@ -156,11 +158,9 @@ namespace AdvanceAPI.BLL.Concrete
             return Result<IEnumerable<AdvanceSelectDTO>>.Success(mappedPendingAdvances);
         }
 
-        public async Task<Result<AdvanceHistorySelectDTO>> AdvanceRequestAccept(AdvanceHistorySelectDTO adHistory)
+        public async Task<Result<string>> AdvanceRequestAccept(AdvanceHistorySelectDTO adHistory)
         {
             var rule = await _unitOfWork.RuleDAL.GetRuleByEmployeeId(adHistory.TransactorId.Value);
-
-            // kişinin statusunude cekip
 
             adHistory.StatusId += 1;
 
@@ -168,37 +168,44 @@ namespace AdvanceAPI.BLL.Concrete
 
             _unitOfWork.BeginTransaction();
 
-            // sadece veritabanına historyi ekle
             var history = await _unitOfWork.AdvanceHistoryDAL.AddAdvanceHistory(mappedAdHistory);
+
+            if (!history)
+                return Result<string>.Fail("Avans onaylanırken bir sorun oluştu!");
 
             if (adHistory.ApprovedAmount <= rule.MaxAmount)
             {
                 // yeterli ise direk advanceyi onayla statüsüne getir
                 var state = await _unitOfWork.AdvanceDAL.UpdateAdvanceStatus(adHistory.AdvanceId.Value, 102);
-            }
 
+                if(!state)
+                    return Result<string>.Fail("Avans onaylanırken bir sorun oluştu!");
+            }
 
             _unitOfWork.Commit();
 
-            return Result<AdvanceHistorySelectDTO>.Success(adHistory);
+            return Result<string>.Success("Avans onaylandı.");
         }
 
-        public async Task<Result<AdvanceHistorySelectDTO>> AdvanceRequestReject(AdvanceHistorySelectDTO adHistory)
+        public async Task<Result<string>> AdvanceRequestReject(AdvanceHistorySelectDTO adHistory)
         {
             var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(adHistory);
 
             _unitOfWork.BeginTransaction();
 
-            await _unitOfWork.AdvanceHistoryDAL.AddAdvanceHistory(mappedAdHistory);
+            var advance = await _unitOfWork.AdvanceHistoryDAL.AddAdvanceHistory(mappedAdHistory);
 
-            await _unitOfWork.AdvanceDAL.UpdateAdvanceStatus(adHistory.AdvanceId.Value, 103);
+            var status = await _unitOfWork.AdvanceDAL.UpdateAdvanceStatus(adHistory.AdvanceId.Value, 103);
             
             _unitOfWork.Commit();
 
-            return Result<AdvanceHistorySelectDTO>.Success(adHistory);
+            if (!advance || !status)
+                return Result<string>.Fail("Avans reddedilirken bir sorun oluştu!");
+
+            return Result<string>.Success("Avans reddedildi.");
         }
 
-        public async Task<Result<bool>> AdvanceRequestSetPaymentDate(AdvanceHistorySelectDTO adHistory)
+        public async Task<Result<string>> AdvanceRequestSetPaymentDate(AdvanceHistorySelectDTO adHistory)
         {
 			var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(adHistory);
 			var paymentDate = mappedAdHistory.Date;
@@ -221,12 +228,12 @@ namespace AdvanceAPI.BLL.Concrete
             _unitOfWork.Commit();
 
 			if (!resultAdvanceHistory || !resultPayment)
-				return Result<bool>.Fail("Hata oluştu");
+				return Result<string>.Fail("Avans tarihi belirlenirken bir sorun oluştu!");
 
-			return Result<bool>.Success(true);
+			return Result<string>.Success("Avans tarihi belirlendi.");
 		}
 
-        public async Task<Result<AdvanceSelectDTO>> AdvanceRequestReceipt(AdvanceSelectDTO dto)
+        public async Task<Result<string>> AdvanceRequestReceipt(AdvanceSelectDTO dto)
         {
             var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(dto.AdvanceHistories.FirstOrDefault());  
             var mappedReceipt = _mapper.Map<ReceiptSelectDTO, Receipt>(dto.Receipts.FirstOrDefault());
@@ -240,9 +247,9 @@ namespace AdvanceAPI.BLL.Concrete
             _unitOfWork.Commit();
 
             if (!resultAdvanceHistory || !resultReceipt)
-                throw new Exception("Bir hata oluştu!");
+                throw new Exception("Makbuz eklenirken bir sorun oluştu!");
 
-            return Result<AdvanceSelectDTO>.Success(dto);
+            return Result<string>.Success("Makbuz eklendi.");
         }
     }
 }

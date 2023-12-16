@@ -1,8 +1,13 @@
 using AdvanceUI.ConnectApi;
+using AdvanceUI.DTOs.Advance;
+using AdvanceUI.Validation.FluentValidation.Advance;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +31,10 @@ namespace AdvanceUI.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddFluentValidationAutoValidation();
+
+            services.AddScoped<IValidator<AdvanceInsertDTO>, AdvanceInsertDTOValidator>();
 
             services.AddScoped<AuthService>();
             services.AddScoped<GenericService>();

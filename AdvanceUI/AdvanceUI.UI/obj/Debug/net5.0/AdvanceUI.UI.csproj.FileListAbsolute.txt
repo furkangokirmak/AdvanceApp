@@ -136,3 +136,9 @@ C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\
 C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\AdvanceUI.DTOs.dll
 C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\AdvanceUI.ConnectApi.pdb
 C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\AdvanceUI.DTOs.pdb
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\FluentValidation.dll
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\AdvanceUI.Validation.dll
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\AdvanceUI.Validation.pdb
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\obj\Debug\net5.0\AdvanceUI.UI.MvcApplicationPartsAssemblyInfo.cs

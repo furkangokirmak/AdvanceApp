@@ -12,16 +12,16 @@ namespace AdvanceAPI.BLL.Abstract
 {
 	public interface IAdvanceManager
 	{
-        Task<Result<AdvanceInsertDTO>> AddAdvance(AdvanceInsertDTO advanceInsertDTO);
+        Task<Result<string>> AddAdvance(AdvanceInsertDTO advanceInsertDTO);
         Task<Result<IEnumerable<AdvanceSelectDTO>>> GetEmployeeAdvances(int employeeId);
         Task<Result<IEnumerable<AdvanceHistorySelectDTO>>> GetAdvanceHistory(int advanceId);
         Task<Result<AdvanceSelectDTO>> GetAdvanceById(int advanceId);
         Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingAdvance(int employeeId);
         Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingReceipt();
         Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingPaymentDateAdvance();
-        Task<Result<AdvanceHistorySelectDTO>> AdvanceRequestAccept(AdvanceHistorySelectDTO adHistory);
-        Task<Result<AdvanceHistorySelectDTO>> AdvanceRequestReject(AdvanceHistorySelectDTO adHistory);
-        Task<Result<bool>> AdvanceRequestSetPaymentDate(AdvanceHistorySelectDTO adHistory);
-        Task<Result<AdvanceSelectDTO>> AdvanceRequestReceipt(AdvanceSelectDTO dto);
+        Task<Result<string>> AdvanceRequestAccept(AdvanceHistorySelectDTO adHistory);
+        Task<Result<string>> AdvanceRequestReject(AdvanceHistorySelectDTO adHistory);
+        Task<Result<string>> AdvanceRequestSetPaymentDate(AdvanceHistorySelectDTO adHistory);
+        Task<Result<string>> AdvanceRequestReceipt(AdvanceSelectDTO dto);
     }
 }
