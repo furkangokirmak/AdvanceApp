@@ -110,7 +110,21 @@ namespace AdvanceUI.UI.Controllers
         public async Task<IActionResult> PendingAdvanceRequests()
         {
             int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
-            var pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingAdvances/{id}");
+            string role = User.Claims.Where(a => a.Type == ClaimTypes.Role).Select(a => a.Value).SingleOrDefault();
+
+            int roleId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.UserData).Select(a => a.Value).SingleOrDefault());
+
+
+            List<AdvanceSelectDTO> pendingAdvances;
+
+            if (role == "Finans Müdürü")
+            {
+                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingPaymentDateAdvance/{id}");
+            }
+            else
+            {
+                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingAdvances/{id}");
+            }
 
             return View(pendingAdvances);
         }

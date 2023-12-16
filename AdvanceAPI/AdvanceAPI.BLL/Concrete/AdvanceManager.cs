@@ -96,10 +96,19 @@ namespace AdvanceAPI.BLL.Concrete
 
             return Result<IEnumerable<AdvanceHistorySelectDTO>>.Success(mappedAdvanceHistories);
         }
-
+        
         public async Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingAdvance(int employeeId)
         {
             var pendingAdvances = await _unitOfWork.AdvanceDAL.GetPendingAdvance(employeeId);
+
+            var mappedPendingAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(pendingAdvances);
+
+            return Result<IEnumerable<AdvanceSelectDTO>>.Success(mappedPendingAdvances);
+        }
+
+        public async Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingPaymentDateAdvance(int employeeId)
+        {
+            var pendingAdvances = await _unitOfWork.AdvanceDAL.GetPendingPaymentDateAdvance(employeeId);
 
             var mappedPendingAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(pendingAdvances);
 

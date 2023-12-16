@@ -68,8 +68,15 @@ using AdvanceUI.DTOs.AdvanceHistory;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 9 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\_ViewImports.cshtml"
+using AdvanceUI.DTOs.Page;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"21550b6a5f6e8f39a4360a1e0ce2657e02daa8f2edff6a66ea866ae61c724d73", @"/Views/Advance/PendingAdvanceRequests.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"3f3f99b1198db16352138b99a67efc652c40b08cdc30b6c73450566332ed2c4a", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"6fbe7050065225e7dd421baa0a72d039bba0fadee7a95901eaaeff85c81e4e75", @"/Views/_ViewImports.cshtml")]
     #nullable restore
     public class Views_Advance_PendingAdvanceRequests : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<AdvanceSelectDTO>>
     #nullable disable
@@ -274,7 +281,7 @@ using AdvanceUI.DTOs.AdvanceHistory;
 #line hidden
 #nullable disable
             WriteLiteral("\r\n                                <td>\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "21550b6a5f6e8f39a4360a1e0ce2657e02daa8f2edff6a66ea866ae61c724d7312789", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "21550b6a5f6e8f39a4360a1e0ce2657e02daa8f2edff6a66ea866ae61c724d7312993", async() => {
                 WriteLiteral("<i class=\"icon feather icon-edit f-16 text-success\"></i>");
             }
             );

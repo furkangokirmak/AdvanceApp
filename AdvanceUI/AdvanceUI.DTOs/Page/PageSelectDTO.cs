@@ -4,15 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdvanceAPI.Entities.Entity
+namespace AdvanceUI.DTOs.Page
 {
-    public class Page : BaseEntity
+    public record PageSelectDTO
     {
         public int PageId { get; set; }
         public string PageName { get; set; }
         public string Path { get; set; }
-        public string Icon { get; set; }
-
-        public virtual ICollection<TitleAuthorization> TitleAuthorizations { get; set; }
-    }
+		public string Icon { get; set; }
+	}
 }

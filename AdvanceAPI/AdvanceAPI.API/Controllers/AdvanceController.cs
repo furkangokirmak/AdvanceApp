@@ -57,6 +57,14 @@ namespace AdvanceAPI.API.Controllers
             return Ok(result.Data);
         }
 
+        [HttpGet("GetPendingPaymentDateAdvance/{id:int}")]
+        public async Task<IActionResult> GetPendingPaymentDateAdvance(int id)
+        {
+            var result = await _advanceManager.GetPendingPaymentDateAdvance(id);
+
+            return Ok(result.Data);
+        }
+
         [HttpPost("AdvanceRequestAccept")]
         public async Task<IActionResult> AdvanceRequestAccept(AdvanceHistorySelectDTO dto)
         {

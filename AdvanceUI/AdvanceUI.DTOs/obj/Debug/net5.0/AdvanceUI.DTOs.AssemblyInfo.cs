@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdvanceUI.DTOs")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+beb8643be75f9fc9e5ec411a3faeff5d65871302")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63ed13bff7ce2c6296eca65c95f7598a95bcbd44")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdvanceUI.DTOs")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdvanceUI.DTOs")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

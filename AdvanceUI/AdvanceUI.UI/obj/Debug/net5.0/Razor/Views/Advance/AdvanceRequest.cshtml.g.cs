@@ -68,8 +68,15 @@ using AdvanceUI.DTOs.AdvanceHistory;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 9 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\_ViewImports.cshtml"
+using AdvanceUI.DTOs.Page;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b83467", @"/Views/Advance/AdvanceRequest.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"3f3f99b1198db16352138b99a67efc652c40b08cdc30b6c73450566332ed2c4a", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"6fbe7050065225e7dd421baa0a72d039bba0fadee7a95901eaaeff85c81e4e75", @"/Views/_ViewImports.cshtml")]
     #nullable restore
     public class Views_Advance_AdvanceRequest : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<AdvanceInsertDTO>
     #nullable disable
@@ -125,9 +132,9 @@ using AdvanceUI.DTOs.AdvanceHistory;
 #line hidden
 #nullable disable
             WriteLiteral("<div class=\"container col-md-12\">\r\n    <div class=\"card\">\r\n        <div class=\"card-body\">\r\n\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b834679931", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b8346710135", async() => {
                 WriteLiteral("\r\n                <div class=\"mb-3\">\r\n                    <label for=\"advanceAmount\" class=\"form-label\">Avans Miktarı:</label>\r\n                    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b8346710369", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b8346710574", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper>();
@@ -156,7 +163,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper.For = ModelExpressionProvid
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                </div>\r\n                <div class=\"mb-3\">\r\n                    <label for=\"date\" class=\"form-label\">İstenilen Tarih:</label>\r\n                    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b8346712888", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b8346713093", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper>();
@@ -184,7 +191,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper.For = ModelExpressionProvid
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                </div>\r\n                <div class=\"mb-3\">\r\n                    <label for=\"project\" class=\"form-label\">Projeler:</label>\r\n                    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b8346715314", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b8346715519", async() => {
                     WriteLiteral("\r\n");
 #nullable restore
 #line 21 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\Advance\AdvanceRequest.cshtml"
@@ -195,7 +202,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper.For = ModelExpressionProvid
 #line hidden
 #nullable disable
                     WriteLiteral("                            ");
-                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b8346715978", async() => {
+                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b8346716183", async() => {
 #nullable restore
 #line 23 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\Advance\AdvanceRequest.cshtml"
                                                  Write(title.ProjectName);
@@ -259,7 +266,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.For = ModelExpressionProvi
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                </div>\r\n                <div class=\"mb-3\">\r\n                    <label for=\"description\"  class=\"form-label\">Açıklama:</label>\r\n                    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("textarea", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b8346720251", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("textarea", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2b60e3aa306780c0576262ba749bb43079c85a3ea6e978eae8d72d0098b8346720456", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_TextAreaTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.TextAreaTagHelper>();

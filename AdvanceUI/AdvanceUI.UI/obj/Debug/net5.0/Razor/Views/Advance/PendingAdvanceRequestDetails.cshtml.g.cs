@@ -68,8 +68,15 @@ using AdvanceUI.DTOs.AdvanceHistory;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 9 "C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\Views\_ViewImports.cshtml"
+using AdvanceUI.DTOs.Page;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"a420b92931e6235a90d76f635c25b66f047bfa084766e8667dc208be3c46ad41", @"/Views/Advance/PendingAdvanceRequestDetails.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"3f3f99b1198db16352138b99a67efc652c40b08cdc30b6c73450566332ed2c4a", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"6fbe7050065225e7dd421baa0a72d039bba0fadee7a95901eaaeff85c81e4e75", @"/Views/_ViewImports.cshtml")]
     #nullable restore
     public class Views_Advance_PendingAdvanceRequestDetails : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<AdvanceHistorySelectDTO>>
     #nullable disable
@@ -396,7 +403,7 @@ using AdvanceUI.DTOs.AdvanceHistory;
 #line hidden
 #nullable disable
             WriteLiteral("                    <div class=\"card custom-card\">\r\n                        <div class=\"card-body\">\r\n                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a420b92931e6235a90d76f635c25b66f047bfa084766e8667dc208be3c46ad4120046", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a420b92931e6235a90d76f635c25b66f047bfa084766e8667dc208be3c46ad4120250", async() => {
                 WriteLiteral(@"
                                 <h5 class=""card-title"">Uygun Görülen Ödeme Tarihi:</h5>
                                 <div class=""input-group date mb-1"" id=""datetimepicker"" data-target-input=""nearest"">
@@ -472,7 +479,7 @@ using AdvanceUI.DTOs.AdvanceHistory;
 #line hidden
 #nullable disable
             WriteLiteral("                    <div class=\"card custom-card\">\r\n                        <div class=\"card-body\">\r\n                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a420b92931e6235a90d76f635c25b66f047bfa084766e8667dc208be3c46ad4125152", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a420b92931e6235a90d76f635c25b66f047bfa084766e8667dc208be3c46ad4125356", async() => {
                 WriteLiteral(@"
                             <h5 class=""card-title"">Uygun Görülen Tutar:</h5>
                             <div class=""input-group mb-1"">

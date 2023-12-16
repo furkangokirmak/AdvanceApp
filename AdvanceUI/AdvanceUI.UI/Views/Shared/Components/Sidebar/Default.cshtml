@@ -1,4 +1,6 @@
-﻿<div class="loader-bg">
+﻿@model List<PageSelectDTO>
+
+<div class="loader-bg">
 	<div class="loader-track">
 		<div class="loader-fill"></div>
 	</div>
@@ -30,7 +32,7 @@
 <nav class="pc-sidebar ">
 	<div class="navbar-wrapper">
 		<div class="m-header">
-			<a href="~/Home/Index" class="b-brand">
+			<a href="~/Home/AdvanceRequest" class="b-brand">
 				<!-- ========   change your logo hear   ============ -->
 				<img src="~/dashboardkit/dist/assets/images/bilgeadamavans.png" alt="" class="logo logo-lg">
 				<img src="~/dashboardkit/dist/assets/images/logo-sm.svg" alt="" class="logo logo-sm">
@@ -41,24 +43,13 @@
 				<li class="pc-item pc-caption">
 					<label>Avans İşlemleri</label>
 				</li>
-				<li class="pc-item">
-					<a href="~/Advance/AdvanceRequest" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">note_add</i></span><span class="pc-mtext">Yeni Avans Talebi</span></a>
-				</li>
-				<li class="pc-item">
-					<a href="~/Advance/MyAdvanceRequests" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">source</i></span><span class="pc-mtext">Geçmiş Avans Taleplerim</span></a>
-				</li>
-				<li class="pc-item">
-					<a href="~/Advance/PendingAdvanceRequests" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">pending</i></span><span class="pc-mtext">Onay Bekleyen Talepler</span></a>
-				</li>
-				<li class="pc-item">
-					<a href="~/Advance/PendingAdvanceRequests" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">payments</i></span><span class="pc-mtext">Ödeme Tarihi Bekleyen Avanslar</span></a>
-				</li>
-				<li class="pc-item">
-					<a href="~/Advance/AdvanceReport" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">print</i></span><span class="pc-mtext">Avans Raporlama</span></a>
-				</li>
-				<li class="pc-item">
-					<a href="~/Advance/AdvanceList" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">format_list_bulleted</i></span><span class="pc-mtext">Avanslar Listesi</span></a>
-				</li>
+
+				@foreach (var item in Model)
+				{
+					<li class="pc-item">
+						<a href="~@item.Path" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">@item.Icon</i></span><span class="pc-mtext">@item.PageName</span></a>
+					</li>
+				}		
 
 			</ul>
 		</div>

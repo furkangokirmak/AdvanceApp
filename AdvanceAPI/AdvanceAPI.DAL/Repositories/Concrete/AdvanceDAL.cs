@@ -237,5 +237,46 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
             return rowsAffected > 0;
         }
 
+        public async Task<IEnumerable<Advance>> GetPendingPaymentDateAdvance(int employeeId)
+        {
+            string query = @"select * from AdvanceHistory ah
+                            JOIN Employee e on e.ID = ah.TransactorID
+                            JOIN Employee uppere on uppere.ID = e.UpperEmployeeID 
+                            join Advance a on a.ID=ah.AdvanceID
+                            join Employee ee on ee.ID=a.EmployeeID
+                            where a.StatusID=102";
+
+            var parameters = new
+            {
+                EmployeeID = employeeId
+            };
+
+            var advances = new Dictionary<int, Advance>();
+
+            var result = await Connection.QueryAsync<AdvanceHistory, Employee, Employee, Advance, Employee, Advance>(query, (advancehistory, transactor, uppertransactor, advance, employee) =>
+            {
+                if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
+                {
+                    advanceEntry = advance;
+                    advanceEntry.Project = new Project();
+                    advanceEntry.Status = new Status();
+                    advanceEntry.Payments = new List<Payment>();
+                    advanceEntry.Receipts = new List<Receipt>();
+                    advanceEntry.AdvanceHistories = new List<AdvanceHistory>();
+                    advances.Add(advance.Id, advanceEntry);
+                }
+
+                advanceEntry.Employee = employee;
+
+                transactor.UpperEmployee = uppertransactor;
+                advancehistory.Transactor = transactor;
+                advanceEntry.AdvanceHistories.Add(advancehistory);
+
+                return null;
+            }, parameters);
+
+            return advances.Values;
+        }
+
     }
 }

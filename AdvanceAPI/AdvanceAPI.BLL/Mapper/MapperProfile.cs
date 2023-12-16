@@ -2,6 +2,7 @@
 using AdvanceAPI.DTOs.AdvanceHistory;
 using AdvanceAPI.DTOs.BusinessUnit;
 using AdvanceAPI.DTOs.Employee;
+using AdvanceAPI.DTOs.Page;
 using AdvanceAPI.DTOs.Payment;
 using AdvanceAPI.DTOs.Project;
 using AdvanceAPI.DTOs.Receipt;
@@ -39,6 +40,7 @@ namespace AdvanceAPI.BLL.Mapper
             CreateMap<Receipt, ReceiptSelectDTO>().ReverseMap();
             CreateMap<Payment, PaymentSelectDTO>().ReverseMap();
             CreateMap<Status, StatusSelectDTO>().ReverseMap();
+            CreateMap<Page, PageSelectDTO>().ReverseMap();
 
 
         }
