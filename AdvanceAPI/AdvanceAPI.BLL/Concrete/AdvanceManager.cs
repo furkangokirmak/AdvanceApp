@@ -6,9 +6,11 @@ using AdvanceAPI.DAL.UnitOfWork;
 using AdvanceAPI.DTOs.Advance;
 using AdvanceAPI.DTOs.AdvanceHistory;
 using AdvanceAPI.DTOs.Employee;
+using AdvanceAPI.DTOs.Receipt;
 using AdvanceAPI.DTOs.Title;
 using AdvanceAPI.Entities.Entity;
 using AdvanceAPI.ExceptionHandling.Employee;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,14 +103,53 @@ namespace AdvanceAPI.BLL.Concrete
         {
             var pendingAdvances = await _unitOfWork.AdvanceDAL.GetPendingAdvance(employeeId);
 
+            foreach (var item in pendingAdvances)
+            {
+                var titleEmp = await _unitOfWork.TitleDAL.GetTitleById(item.Employee.TitleId.Value);
+                item.Employee.Title = titleEmp;
+
+                var titleTransactor = await _unitOfWork.TitleDAL.GetTitleById(item.AdvanceHistories.LastOrDefault().Transactor.TitleId.Value);
+                item.AdvanceHistories.LastOrDefault().Transactor.Title = titleTransactor;
+
+                var project = await _unitOfWork.ProjectDAL.GetProjectById(item.ProjectId.Value);    
+                item.Project = project;
+
+                var businessUnitEmp = await _unitOfWork.BusinessUnitDAL.GetBusinessUnitById(item.Employee.BusinessUnitId.Value);
+                item.Employee.BusinessUnit = businessUnitEmp;
+            }
+
             var mappedPendingAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(pendingAdvances);
 
             return Result<IEnumerable<AdvanceSelectDTO>>.Success(mappedPendingAdvances);
         }
 
-        public async Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingPaymentDateAdvance(int employeeId)
+        public async Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingPaymentDateAdvance()
         {
-            var pendingAdvances = await _unitOfWork.AdvanceDAL.GetPendingPaymentDateAdvance(employeeId);
+            var pendingAdvances = await _unitOfWork.AdvanceDAL.GetPendingPaymentDateAdvance();
+
+            foreach (var item in pendingAdvances)
+            {
+                var titleEmp = await _unitOfWork.TitleDAL.GetTitleById(item.Employee.TitleId.Value);
+                item.Employee.Title = titleEmp;
+
+                var titleTransactor = await _unitOfWork.TitleDAL.GetTitleById(item.AdvanceHistories.LastOrDefault().Transactor.TitleId.Value);
+                item.AdvanceHistories.LastOrDefault().Transactor.Title = titleTransactor;
+
+                var project = await _unitOfWork.ProjectDAL.GetProjectById(item.ProjectId.Value);
+                item.Project = project;
+
+                var businessUnitEmp = await _unitOfWork.BusinessUnitDAL.GetBusinessUnitById(item.Employee.BusinessUnitId.Value);
+                item.Employee.BusinessUnit = businessUnitEmp;
+            }
+
+            var mappedPendingAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(pendingAdvances);
+
+            return Result<IEnumerable<AdvanceSelectDTO>>.Success(mappedPendingAdvances);
+        }
+
+        public async Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingReceipt()
+        {
+            var pendingAdvances = await _unitOfWork.AdvanceDAL.GetPendingReceipt();
 
             var mappedPendingAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(pendingAdvances);
 
@@ -185,5 +226,23 @@ namespace AdvanceAPI.BLL.Concrete
 			return Result<bool>.Success(true);
 		}
 
-	}
+        public async Task<Result<AdvanceSelectDTO>> AdvanceRequestReceipt(AdvanceSelectDTO dto)
+        {
+            var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(dto.AdvanceHistories.FirstOrDefault());  
+            var mappedReceipt = _mapper.Map<ReceiptSelectDTO, Receipt>(dto.Receipts.FirstOrDefault());
+
+            _unitOfWork.BeginTransaction();
+
+            var resultAdvanceHistory = await _unitOfWork.AdvanceHistoryDAL.AddAdvanceHistory(mappedAdHistory);
+
+            var resultReceipt = await _unitOfWork.ReceiptDAL.AddReceipt(mappedReceipt);
+
+            _unitOfWork.Commit();
+
+            if (!resultAdvanceHistory || !resultReceipt)
+                throw new Exception("Bir hata oluştu!");
+
+            return Result<AdvanceSelectDTO>.Success(dto);
+        }
+    }
 }

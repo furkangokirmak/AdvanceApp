@@ -4,6 +4,7 @@
     var advance = ViewData["Advance"] as AdvanceSelectDTO;
     string geriOdeme = "";
     int row = 0;
+    string accountantState = "";
 }
 
 <style>
@@ -117,33 +118,42 @@
                         </div>
                     </div>
                 }
-                else if (User.IsInRole("Muhasebe Uzmanı"))
+                else if (User.IsInRole("Muhasebeci"))
                 {
-                    <div class="card custom-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Avans Teslimi Makbuz No:</h5>
-                            <div class="input-group mb-1">
-                                <input type="text" class="form-control" placeholder="Makbuz No" aria-label="Tutar" aria-describedby="basic-addon2">
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-secondary">Çıkış</button>
-                                <button type="button" class="btn btn-primary">Kaydet</button>
-                            </div>
-                        </div>
-                    </div>
+                    if (advance.Receipts.LastOrDefault() != null && advance.Receipts.LastOrDefault().IsRefundReceipt == true)
+                    {
+                        return;
+                    }
+
+                    @if (advance.Receipts.LastOrDefault() == null)
+                    {
+                        accountantState = "Avans Teslimi";
+                    }
+                    else
+                    {
+                        accountantState = "Geri Ödeme";
+                        
+                    }
 
                     <div class="card custom-card">
                         <div class="card-body">
-                            <h5 class="card-title">Geri Ödeme Makbuz No:</h5>
+                            <form method="post"  action="/Advance/AdvanceRequestReceipt">
+                                <h5 class="card-title">@accountantState Makbuz No:</h5>
                             <div class="input-group mb-1">
-                                <input type="text" class="form-control" placeholder="Makbuz No" aria-label="Tutar" aria-describedby="basic-addon2">
+                                    <input type="number" name="receiptNo" class="form-control" placeholder="Makbuz No" aria-label="Tutar" aria-describedby="basic-addon2">
                             </div>
+
+                            <input type="hidden" id="advanceId" name="advanceId" value="@advance.Id" required>
+                            <input type="hidden" id="accountantState" name="accountantState" value="@accountantState" required>
+                                <input type="hidden" id="amounts" name="amounts" value="@Model.LastOrDefault().ApprovedAmount.Value" required>
+
                             <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-secondary">Çıkış</button>
-                                <button type="button" class="btn btn-primary">Kaydet</button>
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
                             </div>
+                            </form>
                         </div>
                     </div>
+
                 }
                 else
                 {

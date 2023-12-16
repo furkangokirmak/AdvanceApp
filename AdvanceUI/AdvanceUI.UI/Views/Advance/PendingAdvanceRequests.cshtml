@@ -3,7 +3,6 @@
     ViewData["Title"] = "Onay Bekleyen Avans Talepleri Listesi";
 }
 
-
 <div class="container col-md-12">
     <div class="card">
         <div class="card-body table-border-style">
@@ -36,20 +35,20 @@
                         {
                             <tr>
                                 <td>@item.Employee.Name @item.Employee.Surname</td>
-                                <td>@item.Employee.TitleId</td>
-                                <td>@item.Employee.BusinessUnitId</td>
+                                <td>@item.Employee.Title.TitleName</td>
+                                <td>@item.Employee.BusinessUnit.BusinessUnitName</td>
                                 <td>Onay Bekliyor</td>
-                                <td>@item.RequestDate</td>
-                                <td>@item.AdvanceAmount</td>
-                                <td>@item.DesiredDate</td>
-                                <td>@item.ProjectId</td>
+                                <td>@item.RequestDate.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@Math.Round(item.AdvanceAmount.Value,0) TL</td>
+                                <td>@item.DesiredDate.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@item.Project.ProjectName</td>
 
                                 @if (!User.IsInRole("Birim Müdürü"))
                                 {
                                     <td>@item.AdvanceHistories.LastOrDefault().Transactor.Name @item.AdvanceHistories.LastOrDefault().Transactor.Surname</td>
-                                    <td>@item.AdvanceHistories.LastOrDefault().Transactor.TitleId</td>
-                                    <td>@item.AdvanceHistories.LastOrDefault().Date</td>
-                                    <td>@item.AdvanceHistories.LastOrDefault().ApprovedAmount</td>
+                                    <td>@item.AdvanceHistories.LastOrDefault().Transactor.Title.TitleName</td>
+                                    <td>@item.AdvanceHistories.LastOrDefault().Date.Value.ToString("dd/MM/yyyy")</td>
+                                    <td>@Math.Round(@item.AdvanceHistories.LastOrDefault().ApprovedAmount.Value,0)</td>
                                 }
 
                                 <td>

@@ -22,9 +22,9 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             var historyParameters = new
             {
-                advanceHistory.StatusId,
-                advanceHistory.AdvanceId,
-                advanceHistory.TransactorId,
+                StatusID = advanceHistory.StatusId,
+                AdvanceID = advanceHistory.AdvanceId,
+                TransactorID = advanceHistory.TransactorId,
                 advanceHistory.ApprovedAmount,
                 Date = DateTime.Now
             };

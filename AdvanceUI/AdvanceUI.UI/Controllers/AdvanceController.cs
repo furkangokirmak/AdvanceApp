@@ -5,6 +5,7 @@ using AdvanceUI.DTOs.AdvanceHistory;
 using AdvanceUI.DTOs.Employee;
 using AdvanceUI.DTOs.Payment;
 using AdvanceUI.DTOs.Project;
+using AdvanceUI.DTOs.Receipt;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -119,7 +120,7 @@ namespace AdvanceUI.UI.Controllers
 
             if (role == "Finans Müdürü")
             {
-                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingPaymentDateAdvance/{id}");
+                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingPaymentDateAdvance");
             }
             else
             {
@@ -188,9 +189,54 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult AdvanceList()
+        public async Task<IActionResult> AdvanceList()
         {
-            return View();
+            var pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingReceipt");
+
+            return View(pendingAdvances);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdvanceRequestReceipt(string receiptNo, int advanceId, string accountantState, decimal amounts)
+        {          
+            int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
+
+            bool state = false;
+            int statusId = 207;
+            if (accountantState == "Geri Ödeme")
+            {
+                state = true;
+                statusId = 208;
+            }
+                                        
+            var advance = new AdvanceSelectDTO
+            {
+                Receipts = new List<ReceiptSelectDTO> {
+                    new ReceiptSelectDTO {
+                        AccountantId = userId,
+                        AdvanceId = advanceId,
+                        Date = DateTime.Now,
+                        ReceiptNo = receiptNo,
+                        IsRefundReceipt = state }
+                },
+
+                AdvanceHistories = new List<AdvanceHistorySelectDTO>
+                {
+                    new AdvanceHistorySelectDTO
+                    {
+                        AdvanceId = advanceId,
+                        TransactorId = userId,
+                        Date = DateTime.Now,
+                        ApprovedAmount = amounts,    
+                        StatusId = statusId
+                    }
+                }
+                
+            };
+
+            var result = await _genericService.PostDatas<AdvanceSelectDTO, AdvanceSelectDTO>($"Advance/AdvanceRequestReceipt", advance);
+
+            return RedirectToAction("AdvanceList", "Advance");
         }
 
         /// <summary>
