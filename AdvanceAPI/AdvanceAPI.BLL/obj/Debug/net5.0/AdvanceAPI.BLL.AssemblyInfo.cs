@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdvanceAPI.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b9eb6e5f680e996c0ace0779d9fae4145789b1e")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdvanceAPI.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdvanceAPI.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

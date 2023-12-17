@@ -22,7 +22,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
             string query = @"SELECT p.*
                              FROM Page p
                              JOIN TitleAuthorization ta ON p.PageID = ta.PageID
-                             WHERE ta.TitleID = @TitleId AND ta.AuthorizationID = 2";
+                             WHERE ta.TitleID = @TitleId AND ta.AuthorizationID = 1";
 
             var pages = await Connection.QueryAsync<Page>(query, new { TitleId = titleId });
 

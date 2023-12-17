@@ -14,17 +14,17 @@
                             <th>Ünvanı</th>
                             <th>Birimi</th>
                             <th>Talep Durumu</th>
-                            <th>Talep Oluşturma<br />Tarihi</th>
+                            <th>Talep<br />Oluşturma<br />Tarihi</th>
                             <th>Talep Tutarı</th>
                             <th>İstenilen Tarih</th>
                             <th>Proje</th>
 
                             @if (!User.IsInRole("Birim Müdürü"))
                             {
-                                <th>Son Onaylayan</th>
-                                <th>Son Onaylanan Ünvanı</th>
-                                <th>Son Onaylanma Tarihi</th>
-                                <th>Son Onaylanan Tutar</th>
+                                <th>Son<br />Onaylayan</th>
+                                <th>Son<br />Onaylanan<br />Ünvanı</th>
+                                <th>Son<br />Onaylanma<br />Tarihi</th>
+                                <th>Son<br />Onaylanan<br />Tutar</th>
                             }
 
                             <th>Detay</th>
@@ -48,7 +48,7 @@
                                     <td>@item.AdvanceHistories.LastOrDefault().Transactor.Name @item.AdvanceHistories.LastOrDefault().Transactor.Surname</td>
                                     <td>@item.AdvanceHistories.LastOrDefault().Transactor.Title.TitleName</td>
                                     <td>@item.AdvanceHistories.LastOrDefault().Date.Value.ToString("dd/MM/yyyy")</td>
-                                    <td>@Math.Round(@item.AdvanceHistories.LastOrDefault().ApprovedAmount.Value,0)</td>
+                                    <td>@Math.Round(@item.AdvanceHistories.LastOrDefault().ApprovedAmount.Value,0) TL</td>
                                 }
 
                                 <td>

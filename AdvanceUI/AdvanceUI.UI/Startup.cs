@@ -35,6 +35,7 @@ namespace AdvanceUI.UI
             services.AddControllersWithViews();
 
             services.AddFluentValidationAutoValidation();
+            services.AddMemoryCache();
 
             services.AddScoped<IValidator<AdvanceInsertDTO>, AdvanceInsertDTOValidator>();
             services.AddScoped<IValidator<EmployeeRegisterDTO>, EmployeeRegisterDTOValidator>();

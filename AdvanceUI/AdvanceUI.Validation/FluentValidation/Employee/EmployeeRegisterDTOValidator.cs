@@ -20,7 +20,7 @@ namespace AdvanceUI.Validation.FluentValidation.Employee
                 .NotEmpty().WithMessage("Soyad alanı boş geçilemez.")
                 .MaximumLength(50).WithMessage("Soyad alanı en fazla 50 karakter olmalıdır.");
 
-            RuleFor(x => x.Phone)
+            RuleFor(x => x.PhoneNumber)
                 .NotEmpty().WithMessage("Telefon numarası alanı boş geçilemez.")
                 .MaximumLength(15).WithMessage("Telefon numarası en fazla 15 karakter olmalıdır.");
 

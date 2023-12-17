@@ -29,6 +29,7 @@ namespace AdvanceUI.UI.Controllers
         public AdvanceController(GenericService genericService, IMemoryCache memoryCache)
         {
             _genericService = genericService;
+            _memoryCache = memoryCache;
         }
 
         /// <summary>
@@ -105,13 +106,22 @@ namespace AdvanceUI.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> MyAdvanceRequestDetails(int id)
         {
-            if (!_memoryCache.TryGetValue($"AdvanceData_{id}", out AdvanceSelectDTO myadvance))
+            if (!_memoryCache.TryGetValue($"AdvanceData_{id}", out AdvanceSelectDTO advance))
             {
-                var advance = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{id}");
+                advance = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{id}");
+
                 var project = await _genericService.GetDatas<ProjectSelectDTO>($"Project/Get/{advance.ProjectId}");
                 advance.Project = project;
-                ViewData["Advance"] = advance;
+
+                var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30)
+                };
+
+                _memoryCache.Set($"AdvanceData_{id}", advance, cacheEntryOptions);
             }
+
+            ViewData["Advance"] = advance;
 
             var advanceHistories = await _genericService.GetDatas<List<AdvanceHistorySelectDTO>>($"Advance/GetAdvanceHistories/{id}");
 
