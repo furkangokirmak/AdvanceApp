@@ -59,8 +59,8 @@ namespace AdvanceUI.UI.Controllers
                 int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
             advanceInsertDTO.EmployeeId = id;
 
-            var validator = new AdvanceInsertDTOValidator();
-            var validationResult = validator.Validate(advanceInsertDTO);
+            //var validator = new AdvanceInsertDTOValidator();
+            //var validationResult = validator.Validate(advanceInsertDTO);
 
             var addedAdvance = await _genericService.PostDatas<Result, AdvanceInsertDTO>("Advance/AddAdvance",advanceInsertDTO);
 

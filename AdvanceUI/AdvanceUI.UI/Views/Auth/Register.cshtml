@@ -3,6 +3,8 @@
     Layout = null;
 }
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +23,21 @@
     <link rel="stylesheet" href="~/dashboardkit/dist/assets/fonts/fontawesome.css">
     <link rel="stylesheet" href="~/dashboardkit/dist/assets/fonts/material.css">
     <link rel="stylesheet" href="~/dashboardkit/dist/assets/css/style.css" id="main-style-link">
+
+    <style>
+        .input-group {
+            position: relative;
+        }
+
+        .error-message {
+            position: absolute;
+            bottom: -1.5rem;
+            left: 0;
+            font-size: 0.875rem; 
+        }
+    </style>
 </head>
+
 <body>
     <!-- [ auth-signup ] start -->
     <div class="auth-wrapper">
@@ -35,27 +51,33 @@
                             <form method="post">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="user"></i></span>
-                                    <input asp-for="Name" class="form-control" placeholder="Ad">
+                                    <input asp-for="Name" class="form-control" placeholder="Ad" required>
+                                    <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="user"></i></span>
-                                    <input asp-for="Surname" class="form-control" placeholder="Soyad">
+                                    <input asp-for="Surname" class="form-control" placeholder="Soyad" required>
+                                    <span asp-validation-for="Surname" class="text-danger"></span>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="phone"></i></span>
-                                    <input asp-for="Phone" class="form-control" placeholder="Telefon Numarası">
+                                    <input asp-for="Phone" class="form-control" placeholder="Telefon Numarası" required>
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="mail"></i></span>
-                                    <input asp-for="Email" class="form-control" placeholder="Eposta Adresi">
+                                    <input asp-for="Email" class="form-control" placeholder="Eposta Adresi" required>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="lock"></i></span>
-                                    <input asp-for="Password" class="form-control" placeholder="Şifre">
+                                    <input asp-for="Password" class="form-control" placeholder="Şifre" required>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                                 <div class="input-group mb-4">
                                     <span class="input-group-text"><i data-feather="lock"></i></span>
-                                    <input asp-for="PasswordConfirm" class="form-control" placeholder="Şifre Tekrar">
+                                    <input asp-for="PasswordConfirm" class="form-control" placeholder="Şifre Tekrar" required>
+                                    <span asp-validation-for="PasswordConfirm" class="text-danger error-message"></span>
                                 </div>
 
                                 <div class="input-group mb-3">
@@ -66,6 +88,7 @@
                                             <option value="@employee.Id">@employee.Name @employee.Surname</option>
                                         }
                                     </select>
+                                    <span asp-validation-for="UpperEmployeeId" class="text-danger"></span>
                                 </div>
 
                                 <div class="input-group mb-3">
@@ -76,6 +99,7 @@
                                             <option value="@title.Id">@title.TitleName</option>
                                         }
                                     </select>
+                                    <span asp-validation-for="TitleId" class="text-danger"></span>
                                 </div>
 
                                 <div class="input-group mb-3">
@@ -86,6 +110,7 @@
                                             <option value="@businessUnit.Id">@businessUnit.BusinessUnitName</option>
                                         }
                                     </select>
+                                    <span asp-validation-for="BusinessUnitId" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group text-left mt-2">

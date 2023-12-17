@@ -68,10 +68,10 @@
                                 <tr>
                                     <th scope="row">@row</th>
                                     <td>@item.Status.StatusName</td>
-                                    <td>@item.Date</td>
+                                    <td>@item.Date.Value.ToString("dd/MM/yyyy")</td>
                                     <td>@item.Transactor.Name @item.Transactor.Surname</td>
                                     <td>@item.Transactor.UpperEmployee.Name @item.Transactor.UpperEmployee.Surname</td>
-                                    <td>@item.Transactor.UpperEmployee.Title.TitleDescription Onayına</td>
+                                    <td>@item.Transactor.UpperEmployee.Title.TitleDescription </td>
                                     <td>@Math.Round(item.ApprovedAmount.Value, 0) TL</td>
                                     <td>
                                         @if (advance.Payments != null && advance.Payments.Any() && advance.Payments.FirstOrDefault().FinanceManagerId == @item.TransactorId)

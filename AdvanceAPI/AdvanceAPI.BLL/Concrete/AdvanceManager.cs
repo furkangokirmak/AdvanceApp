@@ -80,27 +80,30 @@ namespace AdvanceAPI.BLL.Concrete
 
             if (advanceStatus.Id == 102 && latestHistoryFM != null)
             {
-                latestHistoryFM.Transactor.UpperEmployee.Name = "FM";
-                latestHistoryFM.Transactor.UpperEmployee.Surname = "Kullanıcıları";
-                latestHistoryFM.Transactor.UpperEmployee.Title.TitleDescription = "FM Tarih Belirleme";
-            }
+                UpdateTransactorInfo(latestHistoryFM, "FM", "Kullanıcıları", "FM Tarih Belirleme");
 
-            var latestHistoryAC = advanceHistories
-            .Where(x => x.Status.Id == 206)
-            .LastOrDefault();
+                var latestHistoryAC = advanceHistories.LastOrDefault(x => x.Status.Id == 206);
+                UpdateTransactorInfo(latestHistoryAC, "Muhasebe", "Kullanıcıları", "Paranın Ödenmesi");
 
-            if (advanceStatus.Id == 102 && latestHistoryAC != null)
-            {
-                latestHistoryAC.Transactor.UpperEmployee.Name = "Muhasebe";
-                latestHistoryAC.Transactor.UpperEmployee.Surname = "Kullanıcıları";
-                latestHistoryAC.Transactor.UpperEmployee.Title.TitleDescription = "Paranın Ödenmesi";
+                var latestHistoryAdvanceEnd = advanceHistories.LastOrDefault(x => x.Status.Id == 207);
+                UpdateTransactorInfo(latestHistoryAdvanceEnd, "Muhasebe", "Kullanıcıları", "Avans Kapama");
+
+                var latestHistoryEnd = advanceHistories.LastOrDefault(x => x.Status.Id == 208);
+                UpdateTransactorInfo(latestHistoryEnd,"","","");
             }
 
             var mappedAdvanceHistories = _mapper.Map<IEnumerable<AdvanceHistory>, IEnumerable<AdvanceHistorySelectDTO>>(advanceHistories);
 
             return Result<IEnumerable<AdvanceHistorySelectDTO>>.Success(mappedAdvanceHistories);
         }
-        
+
+        private void UpdateTransactorInfo(AdvanceHistory history, string name, string surname, string titleDescription)
+        {
+            history.Transactor.UpperEmployee.Name = name;
+            history.Transactor.UpperEmployee.Surname = surname;
+            history.Transactor.UpperEmployee.Title.TitleDescription = titleDescription;
+        }
+
         public async Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingAdvance(int employeeId)
         {
             var pendingAdvances = await _unitOfWork.AdvanceDAL.GetPendingAdvance(employeeId);
@@ -113,7 +116,7 @@ namespace AdvanceAPI.BLL.Concrete
                 var titleTransactor = await _unitOfWork.TitleDAL.GetTitleById(item.AdvanceHistories.LastOrDefault().Transactor.TitleId.Value);
                 item.AdvanceHistories.LastOrDefault().Transactor.Title = titleTransactor;
 
-                var project = await _unitOfWork.ProjectDAL.GetProjectById(item.ProjectId.Value);    
+                var project = await _unitOfWork.ProjectDAL.GetProjectById(item.ProjectId.Value);
                 item.Project = project;
 
                 var businessUnitEmp = await _unitOfWork.BusinessUnitDAL.GetBusinessUnitById(item.Employee.BusinessUnitId.Value);
@@ -178,7 +181,7 @@ namespace AdvanceAPI.BLL.Concrete
                 // yeterli ise direk advanceyi onayla statüsüne getir
                 var state = await _unitOfWork.AdvanceDAL.UpdateAdvanceStatus(adHistory.AdvanceId.Value, 102);
 
-                if(!state)
+                if (!state)
                     return Result<string>.Fail("Avans onaylanırken bir sorun oluştu!");
             }
 
@@ -196,7 +199,7 @@ namespace AdvanceAPI.BLL.Concrete
             var advance = await _unitOfWork.AdvanceHistoryDAL.AddAdvanceHistory(mappedAdHistory);
 
             var status = await _unitOfWork.AdvanceDAL.UpdateAdvanceStatus(adHistory.AdvanceId.Value, 103);
-            
+
             _unitOfWork.Commit();
 
             if (!advance || !status)
@@ -207,19 +210,19 @@ namespace AdvanceAPI.BLL.Concrete
 
         public async Task<Result<string>> AdvanceRequestSetPaymentDate(AdvanceHistorySelectDTO adHistory)
         {
-			var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(adHistory);
-			var paymentDate = mappedAdHistory.Date;
+            var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(adHistory);
+            var paymentDate = mappedAdHistory.Date;
             mappedAdHistory.Date = DateTime.Now;
             mappedAdHistory.StatusId = 206;
 
-			var payment = new Payment
-			{
-				AdvanceId = mappedAdHistory.AdvanceId,
-				DeterminedPaymentDate = paymentDate,
-				FinanceManagerId = mappedAdHistory.TransactorId
-			};
+            var payment = new Payment
+            {
+                AdvanceId = mappedAdHistory.AdvanceId,
+                DeterminedPaymentDate = paymentDate,
+                FinanceManagerId = mappedAdHistory.TransactorId
+            };
 
-			_unitOfWork.BeginTransaction();
+            _unitOfWork.BeginTransaction();
 
             var resultAdvanceHistory = await _unitOfWork.AdvanceHistoryDAL.AddAdvanceHistory(mappedAdHistory);
 
@@ -227,15 +230,15 @@ namespace AdvanceAPI.BLL.Concrete
 
             _unitOfWork.Commit();
 
-			if (!resultAdvanceHistory || !resultPayment)
-				return Result<string>.Fail("Avans tarihi belirlenirken bir sorun oluştu!");
+            if (!resultAdvanceHistory || !resultPayment)
+                return Result<string>.Fail("Avans tarihi belirlenirken bir sorun oluştu!");
 
-			return Result<string>.Success("Avans tarihi belirlendi.");
-		}
+            return Result<string>.Success("Avans tarihi belirlendi.");
+        }
 
         public async Task<Result<string>> AdvanceRequestReceipt(AdvanceSelectDTO dto)
         {
-            var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(dto.AdvanceHistories.FirstOrDefault());  
+            var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(dto.AdvanceHistories.FirstOrDefault());
             var mappedReceipt = _mapper.Map<ReceiptSelectDTO, Receipt>(dto.Receipts.FirstOrDefault());
 
             _unitOfWork.BeginTransaction();
