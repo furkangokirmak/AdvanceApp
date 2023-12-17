@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "fnJC/Dcu5Y6EHRz8ibj2fiZWGk/Diwh1tSBBCE+jiB+UMrliSueVRe6Q5tWSYMTu6zZItns7Sx4EFEaWv9LwdQ==",
+  "dgSpecHash": "SofmK6dTplFB9e/lIw9z4pKxS2UXZIFkF71XRw62jSsgLJF5tdqLcdsyh4bLCqJ6CWUy5Kfq5LzV/AGm4/BZeg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.Log\\AdvanceAPI.Log.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\furka\\source\\repos\\Advance\\AdvanceApp\\AdvanceAPI\\AdvanceAPI.Log\\AdvanceAPI.Logging.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\furka\\.nuget\\packages\\nlog\\5.2.7\\nlog.5.2.7.nupkg.sha512"
+  ],
   "logs": []
 }

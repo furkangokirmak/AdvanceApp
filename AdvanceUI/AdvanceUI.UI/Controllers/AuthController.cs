@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AdvanceUI.DTOs.Title;
 using AdvanceUI.DTOs.BusinessUnit;
 using System;
+using AdvanceUI.DTOs.Advance;
+using AdvanceUI.DTOs.Project;
 
 namespace AdvanceUI.UI.Controllers
 {
@@ -45,7 +47,7 @@ namespace AdvanceUI.UI.Controllers
 
 			HttpContext.Response.Cookies.Append("token", dto.Token, new CookieOptions
 			{
-				Expires = System.DateTimeOffset.Now.AddSeconds(20),
+				Expires = System.DateTimeOffset.Now.AddMinutes(15),
 			});
 
 			var claims = new List<Claim>()
@@ -79,13 +81,7 @@ namespace AdvanceUI.UI.Controllers
 		[HttpGet]
         public async Task<IActionResult> Register()
         {
-            var employees = await _genericService.GetDatas<List<EmployeeSelectDTO>>("Employee/GetAll");
-            var titles = await _genericService.GetDatas<List<TitleSelectDTO>>("Title/GetAll");
-            var businessUnits = await _genericService.GetDatas<List<BusinessUnitSelectDTO>>("BusinessUnit/GetAll");
-
-            ViewBag.Employees = employees;
-            ViewBag.Titles = titles;
-            ViewBag.BusinessUnits = businessUnits;
+			await GetRegisterDatas();
 
             return View();
         }
@@ -93,12 +89,30 @@ namespace AdvanceUI.UI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Register(EmployeeRegisterDTO employeeRegisterDTO)
 		{
-			var state = await _authService.Register(employeeRegisterDTO);
+            if (!ModelState.IsValid)
+            {
+                await GetRegisterDatas();
+                return View(employeeRegisterDTO);
+            }
+
+            var state = await _authService.Register(employeeRegisterDTO);
 
 			if(state)
 				return RedirectToAction("Login","Auth");
 
-			return View();
+            await GetRegisterDatas();
+            return View();
 		}
+
+		private async Task GetRegisterDatas()
+		{
+            var employees = await _genericService.GetDatas<List<EmployeeSelectDTO>>("Employee/GetAll");
+            var titles = await _genericService.GetDatas<List<TitleSelectDTO>>("Title/GetAll");
+            var businessUnits = await _genericService.GetDatas<List<BusinessUnitSelectDTO>>("BusinessUnit/GetAll");
+
+            ViewBag.Employees = employees;
+            ViewBag.Titles = titles;
+            ViewBag.BusinessUnits = businessUnits;
+        }
 	}
 }

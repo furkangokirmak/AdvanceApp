@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceAPI.API", "AdvanceAPI.API\AdvanceAPI.API.csproj", "{036C0578-1CFF-4505-9625-622BFF2EDEF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvanceAPI.API", "AdvanceAPI.API\AdvanceAPI.API.csproj", "{036C0578-1CFF-4505-9625-622BFF2EDEF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceAPI.BLL", "AdvanceAPI.BLL\AdvanceAPI.BLL.csproj", "{9242E4A0-44BC-467A-8B0F-E28E4521C49C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvanceAPI.BLL", "AdvanceAPI.BLL\AdvanceAPI.BLL.csproj", "{9242E4A0-44BC-467A-8B0F-E28E4521C49C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceAPI.CORE", "AdvanceAPI.CORE\AdvanceAPI.CORE.csproj", "{67E9F2C2-9FA0-4BC8-A771-7FB7ADD69205}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvanceAPI.CORE", "AdvanceAPI.CORE\AdvanceAPI.CORE.csproj", "{67E9F2C2-9FA0-4BC8-A771-7FB7ADD69205}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceAPI.DAL", "AdvanceAPI.DAL\AdvanceAPI.DAL.csproj", "{389B145D-E34D-4E1A-9640-A2BEF73203E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvanceAPI.DAL", "AdvanceAPI.DAL\AdvanceAPI.DAL.csproj", "{389B145D-E34D-4E1A-9640-A2BEF73203E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceAPI.DTOs", "AdvanceAPI.DTOs\AdvanceAPI.DTOs.csproj", "{9FF4A1E9-6B21-49A7-A982-DA49D6D1F578}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvanceAPI.DTOs", "AdvanceAPI.DTOs\AdvanceAPI.DTOs.csproj", "{9FF4A1E9-6B21-49A7-A982-DA49D6D1F578}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceAPI.Entities", "AdvanceAPI.Entities\AdvanceAPI.Entities.csproj", "{FA3C09D1-A9C2-493B-8136-1D61F0C7FF02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvanceAPI.Entities", "AdvanceAPI.Entities\AdvanceAPI.Entities.csproj", "{FA3C09D1-A9C2-493B-8136-1D61F0C7FF02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceAPI.ExceptionHandling", "AdvanceAPI.ExceptionHandling\AdvanceAPI.ExceptionHandling.csproj", "{7BE099D3-0E52-419B-9F49-8C43F0044910}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvanceAPI.ExceptionHandling", "AdvanceAPI.ExceptionHandling\AdvanceAPI.ExceptionHandling.csproj", "{7BE099D3-0E52-419B-9F49-8C43F0044910}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceAPI.Log", "AdvanceAPI.Log\AdvanceAPI.Log.csproj", "{3350EBAC-F65E-4AF7-A819-0458E74748AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvanceAPI.Logging", "AdvanceAPI.Logging\AdvanceAPI.Logging.csproj", "{72E8B1E0-2690-4B76-9846-5760A6799912}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,10 @@ Global
 		{7BE099D3-0E52-419B-9F49-8C43F0044910}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BE099D3-0E52-419B-9F49-8C43F0044910}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BE099D3-0E52-419B-9F49-8C43F0044910}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3350EBAC-F65E-4AF7-A819-0458E74748AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3350EBAC-F65E-4AF7-A819-0458E74748AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3350EBAC-F65E-4AF7-A819-0458E74748AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3350EBAC-F65E-4AF7-A819-0458E74748AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72E8B1E0-2690-4B76-9846-5760A6799912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72E8B1E0-2690-4B76-9846-5760A6799912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72E8B1E0-2690-4B76-9846-5760A6799912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72E8B1E0-2690-4B76-9846-5760A6799912}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

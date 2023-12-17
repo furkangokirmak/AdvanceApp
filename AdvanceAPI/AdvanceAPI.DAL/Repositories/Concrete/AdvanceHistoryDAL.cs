@@ -34,13 +34,22 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
             return rowsAffected > 0;
         }
 
-        //public async Task<bool> UpdateAdvanceHistoryDone(int historyId, bool state)
-        //{
-        //    string query = @"UPDATE AdvanceHistory SET isDone=@State WHERE Id = @HistoryId";
+        public async Task<AdvanceHistory> GetAdvanceLastHistory(int advanceId)
+        {
+            string query = @"SELECT * FROM AdvanceHistory WHERE AdvanceId=@advanceId";
 
-        //    var rowsAffected = await Connection.ExecuteAsync(query, new { HistoryId = historyId, State = state }, Transaction);
+            var advanceHistory = await Connection.QueryAsync<AdvanceHistory>(query, new { advanceId }, Transaction);
 
-        //    return rowsAffected > 0;
-        //}
+            return advanceHistory.LastOrDefault();
+        }
+
+        public async Task<bool> UpdateAdvanceHistoryDone(int historyId, bool state)
+        {
+            string query = @"UPDATE AdvanceHistory SET isDone=@State WHERE Id = @HistoryId";
+
+            var rowsAffected = await Connection.ExecuteAsync(query, new { HistoryId = historyId, State = state }, Transaction);
+
+            return rowsAffected > 0;
+        }
     }
 }

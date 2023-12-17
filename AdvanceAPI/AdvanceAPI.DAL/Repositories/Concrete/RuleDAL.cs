@@ -23,7 +23,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 							WHERE t.Id = @TitleId
 							ORDER BY r.Date DESC";
 
-			var result = await Connection.QueryAsync<Entities.Entity.Rule>(query, new { TitleId });
+			var result = await Connection.QueryAsync<Entities.Entity.Rule>(query, new { TitleId }, Transaction);
 
 			return result.FirstOrDefault();
 		}
@@ -36,7 +36,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 							WHERE e.Id = @empId
 							ORDER BY r.Date DESC";
 
-            var result = await Connection.QueryAsync<Entities.Entity.Rule>(query, new { empId });
+            var result = await Connection.QueryAsync<Entities.Entity.Rule>(query, new { empId }, Transaction);
 
             return result.FirstOrDefault();
         }

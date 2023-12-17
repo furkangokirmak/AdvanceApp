@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AdvanceAPI.DAL.UnitOfWork
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
 		IAdvanceHistoryDAL AdvanceHistoryDAL { get; }
 		IAdvanceDAL AdvanceDAL { get; }

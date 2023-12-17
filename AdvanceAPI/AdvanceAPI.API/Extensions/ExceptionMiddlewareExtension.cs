@@ -1,6 +1,7 @@
 ﻿using AdvanceAPI.CORE.Utilities;
 using AdvanceAPI.ExceptionHandling.Base;
 using AdvanceAPI.ExceptionHandling.Employee;
+using AdvanceAPI.Logging.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +30,9 @@ namespace AdvanceAPI.API.Extensions
                         };
 
                         // log alınabilir
+                        var loggerFactory =LoggerFactory.GetLoggerFactory("NLog");
+                        var logger = loggerFactory.CreateLogger();
+                        logger.Log(contextFeature.Error.Message);
 
                         var response = JsonSerializer.Serialize(Result<string>.Fail(contextFeature.Error.Message));
                         

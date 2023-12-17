@@ -31,8 +31,9 @@ namespace AdvanceAPI.DAL.UnitOfWork
         private IStatusDAL _statusDAL;
         private ITitleAuthorizationDAL _titleAuthorizationDAL;
 		private ITitleDAL _titleDAL;
+        private bool disposedValue;
 
-		public UnitOfWork()
+        public UnitOfWork()
         {
             _connection = new SqlConnection(ConnectionHelper.GetConnectionString());
             _connection.Open();
@@ -122,7 +123,6 @@ namespace AdvanceAPI.DAL.UnitOfWork
             catch (Exception ex)
             {
 
-                throw;
             }
         }
 
@@ -138,8 +138,41 @@ namespace AdvanceAPI.DAL.UnitOfWork
             }
             finally
             {
-                _transaction.Dispose();
+                if (_transaction != null)
+                {
+                    _transaction.Dispose();
+                }
+                _connection.Close();
+                _connection.Dispose();
             }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+					if (_transaction != null)
+					{
+                        _transaction.Dispose();
+                    }
+
+                    if (_connection != null)
+                    {
+                        _connection.Close();
+                        _connection.Dispose();
+                    }
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }
