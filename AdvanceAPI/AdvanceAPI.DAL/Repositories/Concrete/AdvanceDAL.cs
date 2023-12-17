@@ -41,7 +41,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                 StatusId = 201,
                 AdvanceId,
                 TransactorId = advance.EmployeeId,
-                ApprovedAmount = 0,
+                ApprovedAmount = advance.AdvanceAmount,
                 Date = DateTime.Now
             };
 
@@ -201,7 +201,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                             left join Employee uppertemp on uppertemp.ID = temp.UpperEmployeeID
                             left join Payment p on p.AdvanceID = a.ID
                             left join Receipt r on r.AdvanceID = a.ID
-                            WHERE uppertemp.ID=@EmployeeID and a.StatusId=101";
+                            WHERE uppertemp.ID=@EmployeeID and a.StatusId=101 and ah.isDone=0";
 
             var parameters = new
             {

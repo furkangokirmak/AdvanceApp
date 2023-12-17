@@ -47,7 +47,7 @@ namespace AdvanceUI.UI.Controllers
 
 			HttpContext.Response.Cookies.Append("token", dto.Token, new CookieOptions
 			{
-				Expires = System.DateTimeOffset.Now.AddSeconds(20),
+				Expires = System.DateTimeOffset.Now.AddMinutes(15),
 			});
 
 			var claims = new List<Claim>()

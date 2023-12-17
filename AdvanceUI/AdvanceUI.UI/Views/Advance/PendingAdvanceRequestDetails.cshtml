@@ -83,7 +83,7 @@
                                     <td>@item.Date</td>
                                     <td>@item.Transactor.Name @item.Transactor.Surname</td>
                                     <td>@item.Transactor.UpperEmployee.Name @item.Transactor.UpperEmployee.Surname</td>
-                                    <td>@item.Transactor.UpperEmployee.Title.TitleDescription Onayına</td>
+                                    <td>@item.Transactor.UpperEmployee.Title.TitleDescription</td>
                                     <td>@Math.Round(item.ApprovedAmount.Value, 0) TL</td>
                                     <td>
                                         @if (advance.Payments != null && advance.Payments.Any() && advance.Payments.FirstOrDefault().FinanceManagerId == @item.TransactorId)
@@ -100,6 +100,14 @@
                 @if (User.IsInRole("Finans Müdürü"))
                 {
                     <div class="card custom-card">
+
+                        @if (ViewData["AmountError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["AmountError"]
+                            </div>
+                        }
+
                         <div class="card-body">
                             <form asp-action="AdvanceRequestSetDate" asp-controller="Advance" method="POST">
                                 <h5 class="card-title">Uygun Görülen Ödeme Tarihi:</h5>
@@ -158,6 +166,14 @@
                 else
                 {
                     <div class="card custom-card">
+
+                        @if (ViewData["AmountError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["AmountError"]
+                            </div>
+                        }
+
                         <div class="card-body">
                             <form method="post"  action="/Advance/PendingAdvanceRequest">
                             <h5 class="card-title">Uygun Görülen Tutar:</h5>
@@ -169,6 +185,8 @@
                             </div>
                                 <input type="hidden" id="advanceId" name="advanceId" value="@advance.Id" required>
                                 <input type="hidden" id="statusId" name="statusId" value="@Model.LastOrDefault().Status.Id" required>
+                                <input type="hidden" id="amounts" name="amounts" value="@Model.LastOrDefault().ApprovedAmount.Value" required>
+
                             <div class="d-flex justify-content-between">
                                     <button type="submit" name="state" value="Reject" class="btn btn-secondary">Reddet</button>
                                     <button type="submit" name="state" value="Accept" class="btn btn-primary">Onayla</button>

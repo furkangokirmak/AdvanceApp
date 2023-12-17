@@ -92,6 +92,11 @@ namespace AdvanceAPI.BLL.Concrete
                 UpdateTransactorInfo(latestHistoryEnd,"","","");
             }
 
+            if (advanceStatus.Id == 103)
+            {
+				UpdateTransactorInfo(advanceHistories.LastOrDefault(), "", "", "");
+			}
+
             var mappedAdvanceHistories = _mapper.Map<IEnumerable<AdvanceHistory>, IEnumerable<AdvanceHistorySelectDTO>>(advanceHistories);
 
             return Result<IEnumerable<AdvanceHistorySelectDTO>>.Success(mappedAdvanceHistories);
@@ -99,9 +104,12 @@ namespace AdvanceAPI.BLL.Concrete
 
         private void UpdateTransactorInfo(AdvanceHistory history, string name, string surname, string titleDescription)
         {
-            history.Transactor.UpperEmployee.Name = name;
-            history.Transactor.UpperEmployee.Surname = surname;
-            history.Transactor.UpperEmployee.Title.TitleDescription = titleDescription;
+            if (history != null)
+			{
+				history.Transactor.UpperEmployee.Name = name;
+				history.Transactor.UpperEmployee.Surname = surname;
+				history.Transactor.UpperEmployee.Title.TitleDescription = titleDescription;
+			}
         }
 
         public async Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingAdvance(int employeeId)
@@ -163,13 +171,15 @@ namespace AdvanceAPI.BLL.Concrete
 
         public async Task<Result<string>> AdvanceRequestAccept(AdvanceHistorySelectDTO adHistory)
         {
-            var rule = await _unitOfWork.RuleDAL.GetRuleByEmployeeId(adHistory.TransactorId.Value);
-
-            adHistory.StatusId += 1;
-
-            var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(adHistory);
-
             _unitOfWork.BeginTransaction();
+
+            // isDone durumunu last historydekini true ya çeker
+            var lastAdvanceHistory = await _unitOfWork.AdvanceHistoryDAL.GetAdvanceLastHistory(adHistory.AdvanceId.Value);
+            await _unitOfWork.AdvanceHistoryDAL.UpdateAdvanceHistoryDone(lastAdvanceHistory.Id, true);
+
+            var rule = await _unitOfWork.RuleDAL.GetRuleByEmployeeId(adHistory.TransactorId.Value);
+            adHistory.StatusId += 1;
+            var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(adHistory);
 
             var history = await _unitOfWork.AdvanceHistoryDAL.AddAdvanceHistory(mappedAdHistory);
 
@@ -193,8 +203,9 @@ namespace AdvanceAPI.BLL.Concrete
         public async Task<Result<string>> AdvanceRequestReject(AdvanceHistorySelectDTO adHistory)
         {
             var mappedAdHistory = _mapper.Map<AdvanceHistorySelectDTO, AdvanceHistory>(adHistory);
+            mappedAdHistory.StatusId = 103;
 
-            _unitOfWork.BeginTransaction();
+			_unitOfWork.BeginTransaction();
 
             var advance = await _unitOfWork.AdvanceHistoryDAL.AddAdvanceHistory(mappedAdHistory);
 
