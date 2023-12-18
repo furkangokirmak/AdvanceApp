@@ -142,3 +142,5 @@ C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\
 C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
 C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\obj\Debug\net5.0\AdvanceUI.UI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\obj\Debug\net5.0\Razor\Views\Auth\ForgotPassword.cshtml.g.cs
+C:\Users\furka\source\repos\Advance\AdvanceApp\AdvanceUI\AdvanceUI.UI\obj\Debug\net5.0\Razor\Views\Auth\ResetPassword.cshtml.g.cs

@@ -1,6 +1,5 @@
 ﻿using AdvanceAPI.BLL.Abstract;
 using AdvanceAPI.DTOs.Employee;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -30,7 +29,31 @@ namespace AdvanceAPI.API.Controllers
         {
             var state = await _authManager.Register(dto);
 
-            return Ok(state.Data);
+            return Ok(state);
+        }
+
+		[HttpPost("ForgotPassword")]
+		public async Task<IActionResult> ForgotPassword(EmployeeSelectDTO dto)
+		{
+			var state = await _authManager.ForgotPassword(dto);
+
+			return Ok(state);
+		}
+
+		[HttpGet("ResetPassword/{token}")]
+		public async Task<IActionResult> ResetPassword(string token)
+		{
+			var result = await _authManager.GetEmployeeByResetToken(token);
+
+			return Ok(result.Data);
+		}
+
+        [HttpPost("SetPassword")]
+        public async Task<IActionResult> SetPassword([FromBody] EmployeeLoginDTO employeeLoginDTO)
+        {
+            var result = await _authManager.SetPassword(employeeLoginDTO);
+
+            return Ok(result.Data);
         }
     }
 }

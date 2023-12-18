@@ -1,5 +1,4 @@
 ﻿using AdvanceAPI.BLL.Abstract;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -21,6 +20,14 @@ namespace AdvanceAPI.API.Controllers
 			var result = await _userManager.GetAllEmployees();
 
 			return Ok(result.Data);
+		}
+
+		[HttpGet("GetEmployee/{email}")]
+		public async Task<IActionResult> GetEmployee(string email)
+		{
+			var state = await _userManager.GetEmployeeByEmail(email);
+
+			return Ok(state.Data);
 		}
 	}
 }

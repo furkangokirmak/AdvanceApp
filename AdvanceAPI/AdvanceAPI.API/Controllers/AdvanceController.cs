@@ -1,7 +1,6 @@
 ﻿using AdvanceAPI.BLL.Abstract;
 using AdvanceAPI.DTOs.Advance;
 using AdvanceAPI.DTOs.AdvanceHistory;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -101,6 +100,14 @@ namespace AdvanceAPI.API.Controllers
         public async Task<IActionResult> GetPendingReceipt()
         {
             var result = await _advanceManager.GetPendingReceipt();
+
+            return Ok(result.Data);
+        }
+
+        [HttpGet("GetAdvanceList/{id:int}")]
+        public async Task<IActionResult> GetAdvanceList(int id)
+        {
+            var result = await _advanceManager.GetAdvanceList(id);
 
             return Ok(result.Data);
         }

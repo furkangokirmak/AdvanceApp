@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdvanceAPI.Entities.Entity
 {
@@ -19,7 +16,10 @@ namespace AdvanceAPI.Entities.Entity
         public int? TitleId { get; set; }
         public int? UpperEmployeeId { get; set; }
 
-        public virtual BusinessUnit BusinessUnit { get; set; }
+		public string ResetToken { get; set; }
+		public DateTime? ResetTokenExpiration { get; set; }
+
+		public virtual BusinessUnit BusinessUnit { get; set; }
         public virtual Title Title { get; set; }
         public virtual Employee UpperEmployee { get; set; }
 		public virtual ICollection<Advance> Advances { get; set; }

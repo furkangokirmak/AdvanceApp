@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdvanceUI.DTOs.Employee
+﻿namespace AdvanceUI.DTOs.Employee
 {
-    public class EmployeeLoginDTO
+    public record EmployeeLoginDTO
     {
         public string Email { get; set; }
         public string Password { get; set; }

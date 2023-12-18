@@ -1,15 +1,11 @@
 ﻿using AdvanceAPI.BLL.Abstract;
 using AdvanceAPI.BLL.Mapper;
 using AdvanceAPI.CORE.Utilities;
-using AdvanceAPI.DAL.Repositories.Abstract;
 using AdvanceAPI.DAL.UnitOfWork;
 using AdvanceAPI.DTOs.Employee;
-using AdvanceAPI.DTOs.Title;
 using AdvanceAPI.Entities.Entity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AdvanceAPI.BLL.Concrete
@@ -32,6 +28,19 @@ namespace AdvanceAPI.BLL.Concrete
 			var employeesMapped = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeSelectDTO>>(employees);
 
 			return Result<IEnumerable<EmployeeSelectDTO>>.Success(employeesMapped);
+		}
+
+		public async Task<Result<EmployeeSelectDTO>> GetEmployeeByEmail(string email)
+		{
+			var employee = await _unitOfWork.AuthDAL.GetEmployeeByEmail(email);
+			if (employee == null)
+			{
+				throw new Exception("Böyle bir kullanıcı yok!");
+			}
+
+			var employeesMapped = _mapper.Map<Employee, EmployeeSelectDTO>(employee);
+
+			return Result<EmployeeSelectDTO>.Success(employeesMapped);
 		}
 	}
 }

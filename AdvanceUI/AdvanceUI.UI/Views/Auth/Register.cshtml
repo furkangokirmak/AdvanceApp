@@ -46,6 +46,14 @@
                         <div class="card-body">
                             <img src="~/dashboardkit/dist/assets/images/bilgeadamavans2.png" alt="" class="img-fluid mb-4">
                             <h4 class="mb-3 f-w-400">Kayıt Ol</h4>
+
+                            @if (ViewData["RegisterError"] != null)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    @ViewData["RegisterError"]
+                                </div>
+                            }
+
                             <form method="post">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="user"></i></span>
@@ -69,12 +77,12 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="lock"></i></span>
-                                    <input asp-for="Password" class="form-control" placeholder="Şifre" required>
+                                    <input type="password" asp-for="Password" class="form-control" placeholder="Şifre" required>
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                                 <div class="input-group mb-4">
                                     <span class="input-group-text"><i data-feather="lock"></i></span>
-                                    <input asp-for="PasswordConfirm" class="form-control" placeholder="Şifre Tekrar" required>
+                                    <input type="password" asp-for="PasswordConfirm" class="form-control" placeholder="Şifre Tekrar" required>
                                     <span asp-validation-for="PasswordConfirm" class="text-danger error-message"></span>
                                 </div>
 

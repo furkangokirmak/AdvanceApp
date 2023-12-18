@@ -1,8 +1,5 @@
 ﻿using AdvanceAPI.Entities.Entity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AdvanceAPI.DAL.Repositories.Abstract
@@ -10,5 +7,8 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
     public interface IEmployeeDAL
     {
 		Task<IEnumerable<Employee>> GetAllEmployees();
+        Task<IEnumerable<Employee>> GetEmployeeById(int id);
+		Task<bool> SetEmployeeResetToken(Employee emp);
+		Task<Employee> GetEmployeeByResetToken(string resetToken);
 	}
 }

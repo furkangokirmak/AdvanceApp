@@ -4,17 +4,15 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using AdvanceUI.DTOs.Title;
 using AdvanceUI.DTOs.BusinessUnit;
 using System;
-using AdvanceUI.DTOs.Advance;
-using AdvanceUI.DTOs.Project;
+using AdvanceUI.DTOs;
+using AdvanceUI.UI.Extensions;
+
 
 namespace AdvanceUI.UI.Controllers
 {
@@ -47,7 +45,7 @@ namespace AdvanceUI.UI.Controllers
 
 			HttpContext.Response.Cookies.Append("token", dto.Token, new CookieOptions
 			{
-				Expires = System.DateTimeOffset.Now.AddMinutes(15),
+				Expires = DateTimeOffset.Now.AddMinutes(20),
 			});
 
 			var claims = new List<Claim>()
@@ -97,12 +95,16 @@ namespace AdvanceUI.UI.Controllers
 
             var state = await _authService.Register(employeeRegisterDTO);
 
-			if(state)
-				return RedirectToAction("Login","Auth");
+            if (!state.Succeeded)
+            {
+                ViewData["RegisterError"] = state.Message;
+                await GetRegisterDatas();
 
-            await GetRegisterDatas();
-            return View();
-		}
+                return View();
+            }
+				         
+            return RedirectToAction("Login", "Auth");
+        }
 
 		private async Task GetRegisterDatas()
 		{
@@ -114,5 +116,52 @@ namespace AdvanceUI.UI.Controllers
             ViewBag.Titles = titles;
             ViewBag.BusinessUnits = businessUnits;
         }
-	}
+
+		[HttpGet]
+		public IActionResult ForgotPassword()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ForgotPassword(string email)
+		{
+			var employee = await _genericService.GetDatas<EmployeeSelectDTO>($"Employee/GetEmployee/{email}");
+
+			if (employee != null)
+			{
+				var result = await _genericService.PostDatas<Result, EmployeeSelectDTO>($"Auth/ForgotPassword", employee);
+            }
+
+			ViewData["ForgotPasswordMsg"] = "E-posta sistemimizde mevcutsa, bir şifre sıfırlama e-postası alacaksınız.";
+
+			return View();
+		}
+
+		[HttpGet]
+		public async Task<ActionResult> ResetPassword(string token)
+		{
+			var result = await _genericService.GetDatas<EmployeeSelectDTO>($"Auth/ResetPassword/{token}");
+
+			if (result!=null)
+			{             
+                HttpContext.Session.SetObject("user",result);
+				return View();
+			}
+
+			return RedirectToAction("Login", "Auth");
+		}
+
+        [HttpPost]
+        public async Task<ActionResult> SetPassword(string password)
+        {
+            var employee = HttpContext.Session.GetObject<EmployeeSelectDTO>("user");
+
+            var newEmp = new EmployeeLoginDTO { Email = employee.Email, Password = password };
+
+            var result = await _genericService.PostDatas<EmployeeLoginDTO, EmployeeLoginDTO>($"Auth/SetPassword",newEmp);
+
+            return RedirectToAction("Login", "Auth");
+        }
+    }
 }

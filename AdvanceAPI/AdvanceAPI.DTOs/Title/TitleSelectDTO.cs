@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdvanceAPI.DTOs.Title
+﻿namespace AdvanceAPI.DTOs.Title
 {
     public class TitleSelectDTO
     {

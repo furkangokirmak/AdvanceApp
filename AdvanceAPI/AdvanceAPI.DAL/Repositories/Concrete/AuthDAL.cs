@@ -1,11 +1,8 @@
 ﻿using AdvanceAPI.DAL.Repositories.Abstract;
 using AdvanceAPI.Entities.Entity;
 using Dapper;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AdvanceAPI.DAL.Repositories.Concrete
@@ -34,7 +31,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                 employee.Title = title;
                 employee.BusinessUnit = businessunit;
                 return employee;
-            }, parameters);
+            }, parameters, Transaction);
 
             return user.FirstOrDefault();
         }
@@ -54,10 +51,33 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
             parameters.Add("@TitleID", employee.TitleId, DbType.Int32);
             parameters.Add("@UpperEmployeeID", employee.UpperEmployeeId, DbType.Int32);
 
-            var rowsAffected = await Connection.ExecuteAsync(queryRegister, parameters);
+            var rowsAffected = await Connection.ExecuteAsync(queryRegister, parameters, Transaction);
 
             return rowsAffected > 0;
         }
 
+		public async Task<Employee> GetEmployeeByEmail(string email)
+		{
+			string query = @"SELECT * FROM Employee
+                            WHERE Email=@Email";
+
+			DynamicParameters parameters = new DynamicParameters();
+			parameters.Add("@Email", email, DbType.String);
+
+			var user = await Connection.QueryAsync<Employee>(query, parameters, Transaction);
+
+			return user.FirstOrDefault();
+		}
+
+        public async Task<bool> SetPassword(Employee employee)
+        {
+            string query = @"UPDATE Employee 
+                            SET PasswordHash=@PasswordHash, PasswordSalt=@PasswordSalt
+                            WHERE Email=@Email";
+
+            var rowsAffected = await Connection.ExecuteAsync(query, new {employee.PasswordHash, employee.PasswordSalt, employee.Email }, Transaction);
+
+            return rowsAffected > 0;
+        }
     }
 }

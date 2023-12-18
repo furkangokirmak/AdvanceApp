@@ -1,6 +1,7 @@
 using AdvanceUI.ConnectApi;
 using AdvanceUI.DTOs.Advance;
 using AdvanceUI.DTOs.Employee;
+using AdvanceUI.UI.Filters;
 using AdvanceUI.Validation.FluentValidation.Advance;
 using AdvanceUI.Validation.FluentValidation.Employee;
 using FluentValidation;
@@ -8,15 +9,10 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AdvanceUI.UI
 {
@@ -33,6 +29,7 @@ namespace AdvanceUI.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<TokenAuthorizationFilter>();
 
             services.AddFluentValidationAutoValidation();
             services.AddMemoryCache();
@@ -42,6 +39,8 @@ namespace AdvanceUI.UI
 
             services.AddScoped<AuthService>();
             services.AddScoped<GenericService>();
+
+            services.AddSession();
 
             services.AddHttpClient<AuthService>(conf =>
             {
@@ -59,6 +58,7 @@ namespace AdvanceUI.UI
 			}).AddCookie(a =>
 			{
 				a.LoginPath = "/Auth/Login";
+                a.AccessDeniedPath = "/Home/Index";
 				a.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
 				a.Cookie.HttpOnly = true;
 			});
@@ -80,6 +80,8 @@ namespace AdvanceUI.UI
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-namespace AdvanceAPI.CORE.Utilities
+﻿namespace AdvanceAPI.CORE.Utilities
 {
     public class Result<T>
     {

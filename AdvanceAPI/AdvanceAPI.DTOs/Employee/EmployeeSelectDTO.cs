@@ -1,10 +1,6 @@
 ﻿using AdvanceAPI.DTOs.BusinessUnit;
 using AdvanceAPI.DTOs.Title;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdvanceAPI.DTOs.Employee
 {
@@ -19,7 +15,10 @@ namespace AdvanceAPI.DTOs.Employee
         public int? TitleId { get; set; }
         public string Token { get; set; }
 
-        public virtual EmployeeSelectDTO UpperEmployee { get; set; }
+		public string ResetToken { get; set; }
+		public DateTime? ResetTokenExpiration { get; set; }
+
+		public virtual EmployeeSelectDTO UpperEmployee { get; set; }
         public virtual BusinessUnitSelectDTO BusinessUnit { get; set; }
         public virtual TitleSelectDTO Title { get; set; }
     }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace AdvanceUI.ConnectApi
 {
@@ -19,7 +14,7 @@ namespace AdvanceUI.ConnectApi
             _httpClient = httpClient;
         }
 
-        private async Task<TResult> SendRequest<TResult, TObject>(string url, TObject data, HttpMethod method, string mediaType = null) where TResult : class, new()
+        private async Task<TResult> SendRequest<TResult, TObject>(string url, TObject data, HttpMethod method, string token = "", string mediaType = null) where TResult : class, new()
         {
             var jsonContent = JsonConvert.SerializeObject(data);
             var content = new StringContent(jsonContent);
@@ -27,6 +22,11 @@ namespace AdvanceUI.ConnectApi
 
             HttpRequestMessage request = new HttpRequestMessage(method, "https://localhost:44302/api/" + url);
             request.Content = content;
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
 
             HttpResponseMessage response = await _httpClient.SendAsync(request);
 
@@ -39,14 +39,14 @@ namespace AdvanceUI.ConnectApi
             return null;
         }
 
-        public async Task<TResult> GetDatas<TResult>(string url) where TResult : class, new()
+        public async Task<TResult> GetDatas<TResult>(string url, string token="") where TResult : class, new()
         {
-            return await SendRequest<TResult, object>(url, null, HttpMethod.Get);
+            return await SendRequest<TResult, object>(url, null, HttpMethod.Get, token: token);
         }
 
-        public async Task<TResult> PostDatas<TResult, TObject>(string url, TObject data, string mediaType = null) where TResult : class, new()
+        public async Task<TResult> PostDatas<TResult, TObject>(string url, TObject data, string token = "") where TResult : class, new()
         {
-            return await SendRequest<TResult, TObject>(url, data, HttpMethod.Post, mediaType);
+            return await SendRequest<TResult, TObject>(url, data, HttpMethod.Post, token: token);
         }
     }
 }

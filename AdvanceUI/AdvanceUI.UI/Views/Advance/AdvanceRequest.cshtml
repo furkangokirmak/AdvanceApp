@@ -8,6 +8,7 @@
     <div class="card">       
         <div class="card-body">
             <form asp-action="AdvanceRequest" asp-controller="Advance" method="POST">
+                @Html.AntiForgeryToken()
                 <div class="mb-3">
                     <label for="advanceAmount" class="form-label">Avans Miktarı:</label>
                     <input type="number" asp-for="AdvanceAmount" class="form-control" id="advanceAmount" placeholder="Avans Miktarı" required>
