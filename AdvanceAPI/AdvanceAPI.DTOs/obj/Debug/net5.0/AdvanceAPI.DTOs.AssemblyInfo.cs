@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdvanceAPI.DTOs")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b9eb6e5f680e996c0ace0779d9fae4145789b1e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f6704a21211b2d0cb5531640d29bdb049af28d4")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdvanceAPI.DTOs")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdvanceAPI.DTOs")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdvanceUI.DTOs
+namespace AdvanceUI.DTOs.Status
 {
     public record StatusSelectDTO
     {

@@ -35,10 +35,10 @@ namespace AdvanceAPI.BLL.Concrete
             var employee = await _unitOfWork.AuthDAL.Login(employeeLoginDTO.Email);
 
             if (employee == null)
-                throw new Exception("User not found");
+                throw new Exception("Kullanıcı adı veya şifre hatalı!");
 
             if (!HashingHelper.CheckPassword(employeeLoginDTO.Password, employee.PasswordSalt, employee.PasswordHash))
-                throw new Exception("Passwords did not match");
+                throw new Exception("Şifreler eşleşmiyor!");
 
             var employeeDTO = _mapper.Map<Employee, EmployeeSelectDTO>(employee);
 
@@ -50,11 +50,11 @@ namespace AdvanceAPI.BLL.Concrete
         public async Task<Result<bool>> Register(EmployeeRegisterDTO employeeRegisterDTO)
         {
             if (employeeRegisterDTO.Password != employeeRegisterDTO.PasswordConfirm)
-                throw new Exception("Passwords did not match");
+                throw new Exception("Şifreler eşleşmiyor!");
 
             var employeeCheck = await _unitOfWork.AuthDAL.Login(employeeRegisterDTO.Email);
             if (employeeCheck != null)
-                throw new Exception("This user is already registered");
+                throw new Exception("Bu kullanıcı daha önceden kayıt olmuş!");
 
             byte[] passHash, passSalt;
             HashingHelper.CreatePassword(employeeRegisterDTO.Password, out passHash, out passSalt);

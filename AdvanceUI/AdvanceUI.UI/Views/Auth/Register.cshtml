@@ -46,6 +46,14 @@
                         <div class="card-body">
                             <img src="~/dashboardkit/dist/assets/images/bilgeadamavans2.png" alt="" class="img-fluid mb-4">
                             <h4 class="mb-3 f-w-400">Kayıt Ol</h4>
+
+                            @if (ViewData["RegisterError"] != null)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    @ViewData["RegisterError"]
+                                </div>
+                            }
+
                             <form method="post">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="user"></i></span>

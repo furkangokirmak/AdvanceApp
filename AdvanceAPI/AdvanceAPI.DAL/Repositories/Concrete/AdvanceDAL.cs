@@ -360,6 +360,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
         {
             string query = @"SELECT *
                             from Advance a
+                            join Status s on s.ID = a.StatusID
                             join AdvanceHistory ah on ah.AdvanceID = a.ID 
                             join Employee emp on emp.ID = a.EmployeeID
                             join Employee temp on temp.ID = ah.TransactorID
@@ -368,14 +369,14 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             var advances = new Dictionary<int, Advance>();
 
-            var result = await Connection.QueryAsync<Advance, AdvanceHistory, Employee, Employee, Payment, Receipt, Advance>(query, (advance, advancehistory, emp, temp, payment, receipt) =>
+            var result = await Connection.QueryAsync<Advance,Status, AdvanceHistory, Employee, Employee, Payment, Receipt, Advance>(query, (advance, status, advancehistory, emp, temp, payment, receipt) =>
             {
                 if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
                 {
                     advance.Employee = emp;
+                    advance.Status = status;
                     advanceEntry = advance;
                     advanceEntry.Project = new Project();
-                    advanceEntry.Status = new Status();
                     advanceEntry.Payments = new List<Payment>();
                     advanceEntry.Receipts = new List<Receipt>();
                     advanceEntry.AdvanceHistories = new List<AdvanceHistory>();

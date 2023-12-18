@@ -97,12 +97,16 @@ namespace AdvanceUI.UI.Controllers
 
             var state = await _authService.Register(employeeRegisterDTO);
 
-			if(state)
-				return RedirectToAction("Login","Auth");
+            if (!state.Succeeded)
+            {
+                ViewData["RegisterError"] = state.Message;
+                await GetRegisterDatas();
 
-            await GetRegisterDatas();
-            return View();
-		}
+                return View();
+            }
+				         
+            return RedirectToAction("Login", "Auth");
+        }
 
 		private async Task GetRegisterDatas()
 		{

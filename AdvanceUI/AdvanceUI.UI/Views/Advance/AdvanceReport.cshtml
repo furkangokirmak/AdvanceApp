@@ -46,7 +46,7 @@
                                 <td>@item.RequestDate.Value.ToString("dd/MM/yyyy")</td>
                                 <td>@item.DesiredDate.Value.ToString("dd/MM/yyyy")</td>
                                 <td>@item.Project.ProjectName</td>
-                                <td>Onaylanmış</td>
+                                <td>@item.Status.StatusName</td>
                                 <td>@item.AdvanceHistories.LastOrDefault().Transactor.Name @item.AdvanceHistories.LastOrDefault().Transactor.Surname</td>
                                 <td>@item.AdvanceHistories.LastOrDefault().Transactor.Title.TitleName</td>
                                 <td>@item.AdvanceHistories.LastOrDefault().Date.Value.ToString("dd/MM/yyyy")</td>
@@ -66,7 +66,11 @@
                                     }
                                 </td>
 
-                                @if (item.Receipts != null && item.Receipts.Any(x => x.IsRefundReceipt == true))
+                                @if (!item.Payments.Any())
+                                {
+                                    <td></td>
+                                }
+                                else if (item.Receipts != null && item.Receipts.Any(x => x.IsRefundReceipt == true))
                                 {
                                     <td>Geri Ödeme Yapıldı</td>
                                 }
