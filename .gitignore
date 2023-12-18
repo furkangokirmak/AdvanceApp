@@ -398,3 +398,36 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/AdvanceAPI/AdvanceAPI.BLL/obj/Debug/net5.0/AdvanceAPI.BLL.AssemblyInfo.cs
+/AdvanceAPI/AdvanceAPI.BLL/obj/Debug/net5.0/AdvanceAPI.BLL.AssemblyInfoInputs.cache
+/AdvanceAPI/AdvanceAPI.DAL/obj/Debug/net5.0/AdvanceAPI.DAL.AssemblyInfo.cs
+/AdvanceAPI/AdvanceAPI.DAL/obj/Debug/net5.0/AdvanceAPI.DAL.AssemblyInfoInputs.cache
+/AdvanceAPI/AdvanceAPI.CORE/obj/Debug/net5.0/AdvanceAPI.CORE.AssemblyInfo.cs
+/AdvanceAPI/AdvanceAPI.CORE/obj/Debug/net5.0/AdvanceAPI.CORE.AssemblyInfoInputs.cache
+/AdvanceUI/AdvanceUI.ConnectApi/obj/Debug/net5.0/AdvanceUI.ConnectApi.AssemblyInfo.cs
+/AdvanceUI/AdvanceUI.ConnectApi/obj/Debug/net5.0/AdvanceUI.ConnectApi.AssemblyInfoInputs.cache
+/AdvanceUI/AdvanceUI.DTOs/obj/Debug/net5.0/AdvanceUI.DTOs.AssemblyInfo.cs
+/AdvanceUI/AdvanceUI.DTOs/obj/Debug/net5.0/AdvanceUI.DTOs.AssemblyInfoInputs.cache
+/AdvanceUI/AdvanceUI.UI/bin/Debug/net5.0/AdvanceUI.UI.dll
+/AdvanceUI/AdvanceUI.UI/bin/Debug/net5.0/AdvanceUI.UI.exe
+/AdvanceUI/AdvanceUI.UI/bin/Debug/net5.0/AdvanceUI.UI.pdb
+/AdvanceUI/AdvanceUI.UI/bin/Debug/net5.0/AdvanceUI.UI.Views.dll
+/AdvanceUI/AdvanceUI.UI/bin/Debug/net5.0/AdvanceUI.UI.Views.pdb
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/Razor/Views/Advance/AdvanceRequest.cshtml.g.cs
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/ref/AdvanceUI.UI.dll
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/refint/AdvanceUI.UI.dll
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/AdvanceUI.UI.AssemblyInfo.cs
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/AdvanceUI.UI.AssemblyInfoInputs.cache
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/AdvanceUI.UI.csproj.AssemblyReference.cache
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/AdvanceUI.UI.csproj.CoreCompileInputs.cache
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/AdvanceUI.UI.dll
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/AdvanceUI.UI.pdb
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/AdvanceUI.UI.RazorTargetAssemblyInfo.cache
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/AdvanceUI.UI.RazorTargetAssemblyInfo.cs
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/AdvanceUI.UI.sourcelink.json
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/AdvanceUI.UI.Views.dll
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/AdvanceUI.UI.Views.pdb
+/AdvanceUI/AdvanceUI.UI/obj/Debug/net5.0/apphost.exe
+/AdvanceUI/AdvanceUI.Validation/obj/Debug/net5.0/AdvanceUI.Validation.AssemblyInfo.cs
+/AdvanceUI/AdvanceUI.Validation/obj/Debug/net5.0/AdvanceUI.Validation.AssemblyInfoInputs.cache
+/AdvanceAPI/AdvanceAPI.API/obj/Debug/net5.0/AdvanceAPI.API.csproj.AssemblyReference.cache
