@@ -14,6 +14,8 @@ namespace AdvanceUI.Validation.FluentValidation.Advance
         {
             RuleFor(x => x.AdvanceAmount)
                 .NotNull().WithMessage("Avans miktarı boş bırakılamaz.")
+                .GreaterThan(0).WithMessage("Avans miktarı 0'dan büyük olmalıdır.")
+                .Must(x => x % 1 == 0).WithMessage("Avans miktarı tam sayı olmalıdır.")
                 .LessThanOrEqualTo(500000).WithMessage("Avans miktarı 500,000 TL'den fazla olamaz.");
 
             RuleFor(x => x.AdvanceDescription)

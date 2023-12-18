@@ -23,9 +23,10 @@ namespace AdvanceUI.UI.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
+            var myToken = HttpContext.Request.Cookies["token"];
             if (!_memoryCache.TryGetValue($"PageData_{id}", out List<PageSelectDTO> pages))
             {
-                pages = await _genericService.GetDatas<List<PageSelectDTO>>($"Page/GetPagesWithSelectAuthorization/{id}");
+                pages = await _genericService.GetDatas<List<PageSelectDTO>>($"Page/GetPagesWithSelectAuthorization/{id}", token: myToken);
 
                 var cacheEntryOptions = new MemoryCacheEntryOptions
                 {

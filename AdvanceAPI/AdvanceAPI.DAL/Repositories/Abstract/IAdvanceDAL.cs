@@ -9,7 +9,7 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
 {
 	public interface IAdvanceDAL
 	{
-        Task<Advance> AddAdvance(Advance advance);
+        Task<bool> AddAdvance(Advance advance);
         Task<IEnumerable<Advance>> GetEmployeeAdvances(int employeeId);
         Task<IEnumerable<AdvanceHistory>> GetAdvanceHistory(int advanceId);
         Task<Advance> GetAdvanceById(int advanceId);

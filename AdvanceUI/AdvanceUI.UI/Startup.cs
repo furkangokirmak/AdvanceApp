@@ -1,6 +1,7 @@
 using AdvanceUI.ConnectApi;
 using AdvanceUI.DTOs.Advance;
 using AdvanceUI.DTOs.Employee;
+using AdvanceUI.UI.Filters;
 using AdvanceUI.Validation.FluentValidation.Advance;
 using AdvanceUI.Validation.FluentValidation.Employee;
 using FluentValidation;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +35,7 @@ namespace AdvanceUI.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<TokenAuthorizationFilter>();
 
             services.AddFluentValidationAutoValidation();
             services.AddMemoryCache();
@@ -59,6 +62,7 @@ namespace AdvanceUI.UI
 			}).AddCookie(a =>
 			{
 				a.LoginPath = "/Auth/Login";
+                a.AccessDeniedPath = "/Home/Index";
 				a.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
 				a.Cookie.HttpOnly = true;
 			});

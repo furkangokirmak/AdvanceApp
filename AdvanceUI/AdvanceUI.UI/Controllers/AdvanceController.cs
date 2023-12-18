@@ -6,12 +6,14 @@ using AdvanceUI.DTOs.Employee;
 using AdvanceUI.DTOs.Payment;
 using AdvanceUI.DTOs.Project;
 using AdvanceUI.DTOs.Receipt;
+using AdvanceUI.UI.Filters;
 using AdvanceUI.UI.Models;
 using AdvanceUI.Validation.FluentValidation.Advance;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,7 @@ using System.Threading.Tasks;
 namespace AdvanceUI.UI.Controllers
 {
     [Authorize]
+    [TokenAuthorizationFilter]
     public class AdvanceController : Controller
     {
         private readonly GenericService _genericService;
@@ -40,7 +43,8 @@ namespace AdvanceUI.UI.Controllers
         [Authorize]
         public async Task<IActionResult> AdvanceRequest()
         {
-            var projects = await _genericService.GetDatas<List<ProjectSelectDTO>>("Project/GetAll");
+            var myToken = HttpContext.Request.Cookies["token"];
+            var projects = await _genericService.GetDatas<List<ProjectSelectDTO>>("Project/GetAll", token: myToken);
             ViewBag.Projects = projects;
 
             return View();
@@ -52,11 +56,14 @@ namespace AdvanceUI.UI.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdvanceRequest(AdvanceInsertDTO advanceInsertDTO)
         {
+            var myToken = HttpContext.Request.Cookies["token"];
+
             if (!ModelState.IsValid)
             {
-                var projects = await _genericService.GetDatas<List<ProjectSelectDTO>>("Project/GetAll");
+                var projects = await _genericService.GetDatas<List<ProjectSelectDTO>>("Project/GetAll", token: myToken);
                 ViewBag.Projects = projects;
                 return View(advanceInsertDTO);
             }
@@ -64,10 +71,7 @@ namespace AdvanceUI.UI.Controllers
                 int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
             advanceInsertDTO.EmployeeId = id;
 
-            //var validator = new AdvanceInsertDTOValidator();
-            //var validationResult = validator.Validate(advanceInsertDTO);
-
-            var addedAdvance = await _genericService.PostDatas<Result, AdvanceInsertDTO>("Advance/AddAdvance",advanceInsertDTO);
+            var addedAdvance = await _genericService.PostDatas<Result, AdvanceInsertDTO>("Advance/AddAdvance",advanceInsertDTO, token: myToken);
 
             if (addedAdvance.Succeeded)
                 return RedirectToAction("MyAdvanceRequests", "Advance");
@@ -83,21 +87,10 @@ namespace AdvanceUI.UI.Controllers
         [Authorize]
         public async Task<IActionResult> MyAdvanceRequests()
         {
+            var myToken = HttpContext.Request.Cookies["token"];
             int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
  
-            var advances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetEmployeeAdvances/{id}");
-
-            var Tasks = advances.Select(async x => 
-            {
-                var status = await _genericService.GetDatas<StatusSelectDTO>($"Status/Get/{x.StatusId}");
-                x.Status.StatusName = status.StatusName;
-
-                var project = await _genericService.GetDatas<ProjectSelectDTO>($"Project/Get/{x.ProjectId}");
-                x.Project.ProjectName = project.ProjectName;
-            });
-
-
-            await Task.WhenAll(Tasks);
+            var advances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetEmployeeAdvances/{id}", token: myToken);
 
             return View(advances);
         }
@@ -110,11 +103,12 @@ namespace AdvanceUI.UI.Controllers
         [Authorize]
         public async Task<IActionResult> MyAdvanceRequestDetails(int id)
         {
+            var myToken = HttpContext.Request.Cookies["token"];
             if (!_memoryCache.TryGetValue($"AdvanceData_{id}", out AdvanceSelectDTO advance))
             {
-                advance = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{id}");
+                advance = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{id}", token: myToken);
 
-                var project = await _genericService.GetDatas<ProjectSelectDTO>($"Project/Get/{advance.ProjectId}");
+                var project = await _genericService.GetDatas<ProjectSelectDTO>($"Project/Get/{advance.ProjectId}", token: myToken);
                 advance.Project = project;
 
                 var cacheEntryOptions = new MemoryCacheEntryOptions
@@ -127,7 +121,7 @@ namespace AdvanceUI.UI.Controllers
 
             ViewData["Advance"] = advance;
 
-            var advanceHistories = await _genericService.GetDatas<List<AdvanceHistorySelectDTO>>($"Advance/GetAdvanceHistories/{id}");
+            var advanceHistories = await _genericService.GetDatas<List<AdvanceHistorySelectDTO>>($"Advance/GetAdvanceHistories/{id}", token: myToken);
 
             return View(advanceHistories);
         }
@@ -140,6 +134,7 @@ namespace AdvanceUI.UI.Controllers
         [Authorize(Roles ="Birim Müdürü, Direktör, Genel Müdür Yardımcısı, Genel Müdür, Finans Müdürü")]
         public async Task<IActionResult> PendingAdvanceRequests()
         {
+            var myToken = HttpContext.Request.Cookies["token"];
             int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
             string role = User.Claims.Where(a => a.Type == ClaimTypes.Role).Select(a => a.Value).SingleOrDefault();
 
@@ -150,11 +145,11 @@ namespace AdvanceUI.UI.Controllers
 
             if (role == "Finans Müdürü")
             {
-                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingPaymentDateAdvance");
+                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingPaymentDateAdvance", token: myToken);
             }
             else
             {
-                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingAdvances/{id}");
+                pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingAdvances/{id}", token: myToken);
             }
 
             return View(pendingAdvances);
@@ -175,12 +170,13 @@ namespace AdvanceUI.UI.Controllers
 
         private async Task<List<AdvanceHistorySelectDTO>> GetAdvanceDatas(int id)
         {
-            var advance = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{id}");
-            var project = await _genericService.GetDatas<ProjectSelectDTO>($"Project/Get/{advance.ProjectId}");
+            var myToken = HttpContext.Request.Cookies["token"];
+            var advance = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{id}", token: myToken);
+            var project = await _genericService.GetDatas<ProjectSelectDTO>($"Project/Get/{advance.ProjectId}", token: myToken);
             advance.Project = project;
             ViewData["Advance"] = advance;
 
-            var advanceHistories = await _genericService.GetDatas<List<AdvanceHistorySelectDTO>>($"Advance/GetAdvanceHistories/{id}");
+            var advanceHistories = await _genericService.GetDatas<List<AdvanceHistorySelectDTO>>($"Advance/GetAdvanceHistories/{id}", token: myToken);
 
             return advanceHistories;
         }
@@ -189,6 +185,7 @@ namespace AdvanceUI.UI.Controllers
         [Authorize(Roles = "Birim Müdürü, Direktör, Genel Müdür Yardımcısı, Genel Müdür")]
         public async Task<IActionResult> PendingAdvanceRequest(int amount, string state, int advanceId, int statusId, decimal amounts)
         {
+            var myToken = HttpContext.Request.Cookies["token"];
             int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
 
             if(amount > amounts && amount > 0)
@@ -208,7 +205,7 @@ namespace AdvanceUI.UI.Controllers
                 Date = DateTime.Now,                          
             };
 
-            var advances = await _genericService.PostDatas<Result, AdvanceHistorySelectDTO>($"Advance/AdvanceRequest" + state, adHistory);
+            var advances = await _genericService.PostDatas<Result, AdvanceHistorySelectDTO>($"Advance/AdvanceRequest" + state, adHistory, token: myToken);
 
             return RedirectToAction("PendingAdvanceRequests","Advance");
         }
@@ -217,9 +214,10 @@ namespace AdvanceUI.UI.Controllers
         [Authorize(Roles = "Genel Müdür")]
         public async Task<IActionResult> AdvanceRequestSetDate(DateTime date, int advanceId, decimal amounts)
         {
-			int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
+            var myToken = HttpContext.Request.Cookies["token"];
+            int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
 
-            var advances = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{advanceId}");
+            var advances = await _genericService.GetDatas<AdvanceSelectDTO>($"Advance/GetAdvance/{advanceId}", token: myToken);
             if(date < advances.DesiredDate.Value)
             {
                 ViewData["AmountError"] = "İstenilen tarihten önce bir tarih seçemezsiniz.";
@@ -236,7 +234,7 @@ namespace AdvanceUI.UI.Controllers
 				Date = date, // belirlenen ödeme tarihi için
 			};
 
-			var advance = await _genericService.PostDatas<Result, AdvanceHistorySelectDTO>($"Advance/AdvanceRequestSetPaymentDate", adHistory);
+			var advance = await _genericService.PostDatas<Result, AdvanceHistorySelectDTO>($"Advance/AdvanceRequestSetPaymentDate", adHistory, token: myToken);
 
 			return RedirectToAction("PendingAdvanceRequests", "Advance");
 		}
@@ -249,7 +247,8 @@ namespace AdvanceUI.UI.Controllers
         [Authorize(Roles = "Muhasebeci")]
         public async Task<IActionResult> AdvanceList()
         {
-            var pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingReceipt");
+            var myToken = HttpContext.Request.Cookies["token"];
+            var pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingReceipt", token: myToken);
 
             return View(pendingAdvances);
         }
@@ -257,7 +256,8 @@ namespace AdvanceUI.UI.Controllers
         [HttpPost]
         [Authorize(Roles = "Muhasebeci")]
         public async Task<IActionResult> AdvanceRequestReceipt(string receiptNo, int advanceId, string accountantState, decimal amounts)
-        {          
+        {
+            var myToken = HttpContext.Request.Cookies["token"];
             int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
 
             bool state = false;
@@ -293,7 +293,7 @@ namespace AdvanceUI.UI.Controllers
                 
             };
 
-            var result = await _genericService.PostDatas<Result, AdvanceSelectDTO>($"Advance/AdvanceRequestReceipt", advance);
+            var result = await _genericService.PostDatas<Result, AdvanceSelectDTO>($"Advance/AdvanceRequestReceipt", advance, token: myToken);
 
             return RedirectToAction("AdvanceList", "Advance");
         }

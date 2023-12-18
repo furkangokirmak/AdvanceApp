@@ -40,7 +40,7 @@ namespace AdvanceAPI.BLL.Concrete
 
             _unitOfWork.Commit();
 
-            if (advance == null)
+            if (!advance)
                 return Result<string>.Fail("Avans talebi oluşturulamadı!");
 
             return Result<string>.Success("Avans talebi oluşturuldu.");
@@ -51,6 +51,15 @@ namespace AdvanceAPI.BLL.Concrete
             var advances = await _unitOfWork.AdvanceDAL.GetEmployeeAdvances(employeeId);
             if (advances == null)
                 throw new Exception("Geçmiş bulunamadı");
+
+            foreach (var advance in advances)
+            {
+                var statu = await _unitOfWork.StatusDAL.GetStatusById(advance.StatusId.Value);
+                advance.Status = statu;
+
+                var project = await _unitOfWork.ProjectDAL.GetProjectById(advance.ProjectId.Value);
+                advance.Project = project;
+            }            
 
             var mappedAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(advances);
 

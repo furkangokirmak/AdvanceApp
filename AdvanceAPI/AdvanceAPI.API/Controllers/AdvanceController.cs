@@ -1,6 +1,7 @@
 ﻿using AdvanceAPI.BLL.Abstract;
 using AdvanceAPI.DTOs.Advance;
 using AdvanceAPI.DTOs.AdvanceHistory;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace AdvanceAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AdvanceController : ControllerBase
     {
         private IAdvanceManager _advanceManager;

@@ -1,4 +1,5 @@
-﻿using AdvanceUI.UI.Models;
+﻿using AdvanceUI.UI.Filters;
+using AdvanceUI.UI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,7 +13,8 @@ using System.Threading.Tasks;
 namespace AdvanceUI.UI.Controllers
 {
 	[Authorize]
-	public class HomeController : Controller
+    [TokenAuthorizationFilter]
+    public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 

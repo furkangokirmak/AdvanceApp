@@ -16,7 +16,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
         {
         }
 
-        public async Task<Advance> AddAdvance(Advance advance)
+        public async Task<bool> AddAdvance(Advance advance)
         {
             string query = @"INSERT INTO Advance(AdvanceAmount, AdvanceDescription, ProjectID, DesiredDate, RequestDate, StatusID, EmployeeID) values (@AdvanceAmount, @AdvanceDescription, @ProjectID, @DesiredDate, @RequestDate, @StatusID, @EmployeeID);
               SELECT SCOPE_IDENTITY();";
@@ -47,7 +47,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             int rowsAffected = await Connection.ExecuteAsync(queryHistory, historyParameters, Transaction);
 
-            return advance;
+            return rowsAffected > 0;
         }
 
         public async Task<IEnumerable<Advance>> GetEmployeeAdvances(int employeeId)
