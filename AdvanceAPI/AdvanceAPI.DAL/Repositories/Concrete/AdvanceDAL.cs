@@ -104,7 +104,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                 }
 
                 return advanceEntry;
-            }, parameters);
+            }, parameters, Transaction);
 
 
 
@@ -153,7 +153,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                     advanceEntry.Receipts.Add(receipt);
 
                 return advanceEntry;
-            }, parameters);
+            }, parameters, Transaction);
 
 
 
@@ -186,7 +186,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                 advancehistory.Transactor = employee;
 
                 return advancehistory;
-            }, parameters);
+            }, parameters, Transaction);
 
             return result;
         }
@@ -241,7 +241,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                     advanceEntry.AdvanceHistories.Add(advancehistory);
                 }
                 return advance;
-            }, parameters);
+            }, parameters, Transaction);
 
             return advances.Values;
         }
@@ -303,7 +303,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                     }
                 }
                 return advance;
-            });
+            }, transaction: Transaction);
 
             return advances.Values;
         }
@@ -351,7 +351,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                     advanceEntry.AdvanceHistories.Add(advancehistory);
                 }
                 return advance;
-            });
+            }, transaction: Transaction);
 
             return advances.Values;
         }
@@ -398,7 +398,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                     advanceEntry.AdvanceHistories.Add(advancehistory);
                 }
                 return advance;
-            });
+            }, transaction: Transaction);
 
             return advances.Values;
         }

@@ -20,7 +20,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 		public async Task<IEnumerable<Employee>> GetAllEmployees()
 		{
 			var query = "SELECT * FROM Employee";
-			var result = await Connection.QueryAsync<Employee>(query);
+			var result = await Connection.QueryAsync<Employee>(query, transaction: Transaction);
 
 			return result;
 		}

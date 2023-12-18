@@ -19,7 +19,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
         public async Task<Status> GetStatusById(int Id)
         {
             var query = "SELECT * FROM Status WHERE Id = @Id";
-            var result = await Connection.QueryAsync<Status>(query, new { Id });
+            var result = await Connection.QueryAsync<Status>(query, new { Id }, Transaction);
 
             return result.FirstOrDefault();
         }
@@ -30,7 +30,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                         JOIN Advance a on a.StatusId = s.Id
                         WHERE a.Id = @Id";
 
-            var result = await Connection.QueryAsync<Status>(query, new { Id });
+            var result = await Connection.QueryAsync<Status>(query, new { Id }, Transaction);
 
             return result.FirstOrDefault();
         }

@@ -34,7 +34,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                 employee.Title = title;
                 employee.BusinessUnit = businessunit;
                 return employee;
-            }, parameters);
+            }, parameters, Transaction);
 
             return user.FirstOrDefault();
         }
@@ -54,7 +54,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
             parameters.Add("@TitleID", employee.TitleId, DbType.Int32);
             parameters.Add("@UpperEmployeeID", employee.UpperEmployeeId, DbType.Int32);
 
-            var rowsAffected = await Connection.ExecuteAsync(queryRegister, parameters);
+            var rowsAffected = await Connection.ExecuteAsync(queryRegister, parameters, Transaction);
 
             return rowsAffected > 0;
         }

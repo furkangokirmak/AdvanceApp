@@ -24,7 +24,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                              JOIN TitleAuthorization ta ON p.PageID = ta.PageID
                              WHERE ta.TitleID = @TitleId AND ta.AuthorizationID = 1";
 
-            var pages = await Connection.QueryAsync<Page>(query, new { TitleId = titleId });
+            var pages = await Connection.QueryAsync<Page>(query, new { TitleId = titleId }, Transaction);
 
             return pages;
         }

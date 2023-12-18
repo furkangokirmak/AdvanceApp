@@ -20,7 +20,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
         public async Task<Project> GetProjectById(int Id)
         {
             var query = "SELECT * FROM Project WHERE Id = @Id";
-            var result = await Connection.QueryAsync<Project>(query, new { Id });
+            var result = await Connection.QueryAsync<Project>(query, new { Id }, Transaction);
 
             return result.FirstOrDefault();
         }
@@ -31,7 +31,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                             INNER JOIN Project on EmployeeProject.ProjectID=Project.ID
                             WHERE EmployeeProject.EmployeeID=@EmployeeID";
 
-            var result = await Connection.QueryAsync<Project>(query, new { EmployeeID = id });
+            var result = await Connection.QueryAsync<Project>(query, new { EmployeeID = id }, Transaction);
 
             return result.ToList();
         }
@@ -39,7 +39,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
         public async Task<IEnumerable<Project>> GetAllProjects()
         {
             var query = "SELECT * FROM Project";
-            var result = await Connection.QueryAsync<Project>(query);
+            var result = await Connection.QueryAsync<Project>(query, transaction: Transaction);
 
             return result;
         }
