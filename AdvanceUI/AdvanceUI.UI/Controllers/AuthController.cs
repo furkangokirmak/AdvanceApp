@@ -4,17 +4,12 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using AdvanceUI.DTOs.Title;
 using AdvanceUI.DTOs.BusinessUnit;
 using System;
-using AdvanceUI.DTOs.Advance;
-using AdvanceUI.DTOs.Project;
 using AdvanceUI.DTOs;
 using AdvanceUI.UI.Extensions;
 

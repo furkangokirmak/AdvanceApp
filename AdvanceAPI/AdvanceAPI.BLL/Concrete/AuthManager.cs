@@ -3,18 +3,10 @@ using AdvanceAPI.BLL.MailService;
 using AdvanceAPI.BLL.Mapper;
 using AdvanceAPI.CORE.Helper;
 using AdvanceAPI.CORE.Utilities;
-using AdvanceAPI.DAL.Repositories.Abstract;
-using AdvanceAPI.DAL.Repositories.Concrete;
 using AdvanceAPI.DAL.UnitOfWork;
 using AdvanceAPI.DTOs.Employee;
 using AdvanceAPI.Entities.Entity;
-using AdvanceAPI.ExceptionHandling.Base;
-using AdvanceAPI.ExceptionHandling.Employee;
-using AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AdvanceAPI.BLL.Concrete

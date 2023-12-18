@@ -3,12 +3,8 @@ using AdvanceAPI.BLL.Mapper;
 using AdvanceAPI.CORE.Utilities;
 using AdvanceAPI.DAL.UnitOfWork;
 using AdvanceAPI.DTOs.Project;
-using AdvanceAPI.DTOs.Title;
 using AdvanceAPI.Entities.Entity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AdvanceAPI.BLL.Concrete

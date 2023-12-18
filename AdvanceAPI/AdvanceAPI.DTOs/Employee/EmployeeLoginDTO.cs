@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdvanceAPI.DTOs.Employee
+﻿namespace AdvanceAPI.DTOs.Employee
 {
     public record EmployeeLoginDTO
     {

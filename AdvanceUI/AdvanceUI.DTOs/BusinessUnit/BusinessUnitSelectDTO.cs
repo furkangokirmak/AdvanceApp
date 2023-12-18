@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdvanceUI.DTOs.BusinessUnit
+﻿namespace AdvanceUI.DTOs.BusinessUnit
 {
     public record BusinessUnitSelectDTO
     {

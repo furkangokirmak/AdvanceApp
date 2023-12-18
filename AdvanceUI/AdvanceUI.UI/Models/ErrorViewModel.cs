@@ -1,5 +1,3 @@
-using System;
-
 namespace AdvanceUI.UI.Models
 {
     public class ErrorViewModel

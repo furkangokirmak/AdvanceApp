@@ -1,6 +1,5 @@
 ﻿using AdvanceAPI.CORE.Utilities;
 using AdvanceAPI.ExceptionHandling.Base;
-using AdvanceAPI.ExceptionHandling.Employee;
 using AdvanceAPI.Logging.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;

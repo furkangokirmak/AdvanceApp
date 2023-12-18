@@ -1,7 +1,5 @@
 ﻿using AdvanceAPI.BLL.Abstract;
-using AdvanceAPI.CORE.Utilities;
 using AdvanceAPI.DTOs.Employee;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
