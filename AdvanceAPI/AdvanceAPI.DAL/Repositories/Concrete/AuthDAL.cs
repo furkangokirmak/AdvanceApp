@@ -1,6 +1,7 @@
 ﻿using AdvanceAPI.DAL.Repositories.Abstract;
 using AdvanceAPI.Entities.Entity;
 using Dapper;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -59,5 +60,28 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
             return rowsAffected > 0;
         }
 
+		public async Task<Employee> GetEmployeeByEmail(string email)
+		{
+			string query = @"SELECT * FROM Employee
+                            WHERE Email=@Email";
+
+			DynamicParameters parameters = new DynamicParameters();
+			parameters.Add("@Email", email, DbType.String);
+
+			var user = await Connection.QueryAsync<Employee>(query, parameters, Transaction);
+
+			return user.FirstOrDefault();
+		}
+
+        public async Task<bool> SetPassword(Employee employee)
+        {
+            string query = @"UPDATE Employee 
+                            SET PasswordHash=@PasswordHash, PasswordSalt=@PasswordSalt
+                            WHERE Email=@Email";
+
+            var rowsAffected = await Connection.ExecuteAsync(query, new {employee.PasswordHash, employee.PasswordSalt, employee.Email }, Transaction);
+
+            return rowsAffected > 0;
+        }
     }
 }

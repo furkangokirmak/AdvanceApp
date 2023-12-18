@@ -19,7 +19,10 @@ namespace AdvanceAPI.DTOs.Employee
         public int? TitleId { get; set; }
         public string Token { get; set; }
 
-        public virtual EmployeeSelectDTO UpperEmployee { get; set; }
+		public string ResetToken { get; set; }
+		public DateTime? ResetTokenExpiration { get; set; }
+
+		public virtual EmployeeSelectDTO UpperEmployee { get; set; }
         public virtual BusinessUnitSelectDTO BusinessUnit { get; set; }
         public virtual TitleSelectDTO Title { get; set; }
     }

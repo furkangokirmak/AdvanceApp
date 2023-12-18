@@ -1,4 +1,4 @@
-﻿namespace AdvanceUI.UI.Models
+﻿namespace AdvanceUI.DTOs
 {
     public class Result
     {

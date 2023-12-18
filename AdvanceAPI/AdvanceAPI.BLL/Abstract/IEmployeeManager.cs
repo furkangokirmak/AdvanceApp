@@ -12,5 +12,6 @@ namespace AdvanceAPI.BLL.Abstract
 	public interface IEmployeeManager
 	{
 		Task<Result<IEnumerable<EmployeeSelectDTO>>> GetAllEmployees();
+		Task<Result<EmployeeSelectDTO>> GetEmployeeByEmail(string email);
 	}
 }

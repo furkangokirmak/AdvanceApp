@@ -1,4 +1,5 @@
 ﻿using AdvanceAPI.BLL.Abstract;
+using AdvanceAPI.BLL.MailService;
 using AdvanceAPI.BLL.Mapper;
 using AdvanceAPI.CORE.Helper;
 using AdvanceAPI.CORE.Utilities;
@@ -23,14 +24,56 @@ namespace AdvanceAPI.BLL.Concrete
         private readonly IUnitOfWork _unitOfWork;
         private readonly MyMapper _mapper;
         private readonly TokenHelper _tokenHelper;
-        public AuthManager(IUnitOfWork unitOfWork, TokenHelper tokenHelper, MyMapper mapper)
+        private readonly MailSender _mailSender;
+        public AuthManager(IUnitOfWork unitOfWork, TokenHelper tokenHelper, MyMapper mapper, MailSender mailSender)
         {
             _unitOfWork = unitOfWork;
             _tokenHelper = tokenHelper;
             _mapper = mapper;
+			_mailSender = mailSender;
         }
 
-        public async Task<Result<EmployeeSelectDTO>> Login(EmployeeLoginDTO employeeLoginDTO)
+		public async Task<Result<string>> ForgotPassword(EmployeeSelectDTO dto)
+		{
+			var token = Guid.NewGuid().ToString();
+			dto.ResetToken = token;
+			dto.ResetTokenExpiration = DateTime.Now.AddHours(1);
+
+			var employee = _mapper.Map<EmployeeSelectDTO, Employee>(dto);
+
+            _unitOfWork.BeginTransaction();
+
+			var result = await _unitOfWork.EmployeeDAL.SetEmployeeResetToken(employee);
+
+            if (result)
+            {
+				string resetLink = $"https://localhost:44333/Auth/ResetPassword?token={token}";
+				string emailBody = $"Sayın {employee.Name},\n\n" +
+					$"Şifrenizi sıfırlamak için talepte bulundunuz. Lütfen aşağıdaki bağlantıya tıklayarak şifrenizi sıfırlayın:\n" +
+					$"<a href=\"{resetLink}\">Şifre Sıfırla</a>\n\n" +
+					$"Eğer şifre sıfırlama talebinde bulunmadıysanız, lütfen bu e-postayı görmezden gelin.\n\n";
+
+				_mailSender.SendEmail(employee.Email, "Şifre Sıfırlama", emailBody);
+            }
+
+            _unitOfWork.Commit();
+
+			return Result<string>.Success("Mail gönderildi.");
+		}
+
+		public async Task<Result<EmployeeSelectDTO>> GetEmployeeByResetToken(string resetToken)
+		{
+			var user = await _unitOfWork.EmployeeDAL.GetEmployeeByResetToken(resetToken);
+
+			if (user == null)
+				throw new Exception("Geçersiz token!");
+
+			var userDTO = _mapper.Map<Employee, EmployeeSelectDTO>(user);
+
+			return Result<EmployeeSelectDTO>.Success(userDTO);
+		}
+
+		public async Task<Result<EmployeeSelectDTO>> Login(EmployeeLoginDTO employeeLoginDTO)
         {
             var employee = await _unitOfWork.AuthDAL.Login(employeeLoginDTO.Email);
 
@@ -66,6 +109,18 @@ namespace AdvanceAPI.BLL.Concrete
             var state = await _unitOfWork.AuthDAL.Register(employee);
 
             return Result<bool>.Success(state);
+        }
+
+        public async Task<Result<EmployeeLoginDTO>> SetPassword(EmployeeLoginDTO employeeLoginDTO)
+        {         
+            byte[] passHash, passSalt;
+            HashingHelper.CreatePassword(employeeLoginDTO.Password, out passHash, out passSalt);
+            
+            var employeeCheck = await _unitOfWork.AuthDAL.SetPassword(new Employee { Email = employeeLoginDTO.Email, PasswordHash = passHash, PasswordSalt = passSalt });
+            if (!employeeCheck)
+                throw new Exception("Bir sorun oluştu!");
+
+            return Result<EmployeeLoginDTO>.Success(employeeLoginDTO);
         }
     }
 }

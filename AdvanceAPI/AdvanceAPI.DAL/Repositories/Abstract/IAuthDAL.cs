@@ -11,5 +11,7 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
     {
         Task<Employee> Login(string email);
         Task<bool> Register(Employee employee);
+        Task<Employee> GetEmployeeByEmail(string email);
+        Task<bool> SetPassword(Employee employee);
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using AdvanceUI.DTOs.Employee;
-using AdvanceUI.UI.Models;
+using AdvanceUI.DTOs;
 
 namespace AdvanceUI.ConnectApi
 {

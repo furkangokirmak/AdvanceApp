@@ -1,5 +1,6 @@
 ﻿using AdvanceAPI.BLL.Abstract;
 using AdvanceAPI.BLL.Concrete;
+using AdvanceAPI.BLL.MailService;
 using AdvanceAPI.BLL.Mapper;
 using AdvanceAPI.CORE.Helper;
 using AdvanceAPI.DAL.UnitOfWork;
@@ -30,6 +31,7 @@ namespace AdvanceAPI.API.Extensions
 
 			services.AddScoped<MyMapper>();
 			services.AddScoped<TokenHelper>();
+			services.AddScoped<MailSender>();
 
 			return services;
 		}

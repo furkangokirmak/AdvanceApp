@@ -46,6 +46,8 @@ namespace AdvanceUI.UI
             services.AddScoped<AuthService>();
             services.AddScoped<GenericService>();
 
+            services.AddSession();
+
             services.AddHttpClient<AuthService>(conf =>
             {
                 conf.BaseAddress = new Uri(Configuration["myBaseUri"]);
@@ -84,6 +86,8 @@ namespace AdvanceUI.UI
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 

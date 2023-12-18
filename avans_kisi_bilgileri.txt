@@ -1,0 +1,22 @@
+Genel Müdür
+emirhan@mail.com
+
+Genel Müdür Yardımcısı
+zeynep@mail.com
+
+Direktör
+baran@mail.com
+
+Birim Müdürü
+caner@mail.com
+
+Çalışan
+kaan@mail.com
+
+Finans Müdürü
+melis@mail.com
+
+Muhasebeci
+berkay@mail.com
+
+Şifreleri: 123456

@@ -77,12 +77,12 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather="lock"></i></span>
-                                    <input asp-for="Password" class="form-control" placeholder="Şifre" required>
+                                    <input type="password" asp-for="Password" class="form-control" placeholder="Şifre" required>
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                                 <div class="input-group mb-4">
                                     <span class="input-group-text"><i data-feather="lock"></i></span>
-                                    <input asp-for="PasswordConfirm" class="form-control" placeholder="Şifre Tekrar" required>
+                                    <input type="password" asp-for="PasswordConfirm" class="form-control" placeholder="Şifre Tekrar" required>
                                     <span asp-validation-for="PasswordConfirm" class="text-danger error-message"></span>
                                 </div>
 

@@ -33,5 +33,18 @@ namespace AdvanceAPI.BLL.Concrete
 
 			return Result<IEnumerable<EmployeeSelectDTO>>.Success(employeesMapped);
 		}
+
+		public async Task<Result<EmployeeSelectDTO>> GetEmployeeByEmail(string email)
+		{
+			var employee = await _unitOfWork.AuthDAL.GetEmployeeByEmail(email);
+			if (employee == null)
+			{
+				throw new Exception("Böyle bir kullanıcı yok!");
+			}
+
+			var employeesMapped = _mapper.Map<Employee, EmployeeSelectDTO>(employee);
+
+			return Result<EmployeeSelectDTO>.Success(employeesMapped);
+		}
 	}
 }

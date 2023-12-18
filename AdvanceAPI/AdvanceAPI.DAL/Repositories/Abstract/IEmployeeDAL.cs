@@ -11,6 +11,7 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
     {
 		Task<IEnumerable<Employee>> GetAllEmployees();
         Task<IEnumerable<Employee>> GetEmployeeById(int id);
-
-    }
+		Task<bool> SetEmployeeResetToken(Employee emp);
+		Task<Employee> GetEmployeeByResetToken(string resetToken);
+	}
 }

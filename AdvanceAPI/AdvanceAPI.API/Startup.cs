@@ -1,6 +1,7 @@
 using AdvanceAPI.API.Extensions;
 using AdvanceAPI.BLL.Abstract;
 using AdvanceAPI.BLL.Concrete;
+using AdvanceAPI.BLL.MailService;
 using AdvanceAPI.BLL.Mapper;
 using AdvanceAPI.CORE.Helper;
 using AdvanceAPI.DAL.Repositories.Abstract;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
@@ -40,6 +42,8 @@ namespace AdvanceAPI.API
         {
             ConnectionHelper.SetConfiguration(Configuration);
             services.AddCustomServices();
+
+            services.Configure<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -32,5 +32,32 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             return result;
         }
-    }
+
+		public async Task<bool> SetEmployeeResetToken(Employee emp)
+		{
+			try
+			{
+                var query = @"UPDATE Employee SET ResetToken=@ResetToken, ResetTokenExpiration=@ResetTokenExpiration
+						WHERE Email=@Email";
+
+                var rowsAffected = await Connection.ExecuteAsync(query, new { emp.ResetToken, emp.ResetTokenExpiration, emp.Email }, transaction: Transaction);
+
+                return rowsAffected > 0;
+            }
+			catch (Exception ex)
+			{
+
+				throw;
+			}
+
+		}
+
+		public async Task<Employee> GetEmployeeByResetToken(string resetToken)
+		{
+			var query = "SELECT * FROM Employee WHERE ResetToken=@resetToken";
+			var result = await Connection.QuerySingleOrDefaultAsync<Employee>(query, new { resetToken }, transaction: Transaction);
+
+			return result;
+		}
+	}
 }
