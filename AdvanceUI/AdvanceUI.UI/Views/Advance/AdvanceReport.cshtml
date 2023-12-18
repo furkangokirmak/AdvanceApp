@@ -59,3 +59,73 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+<script>
+    // Tabloyu veri olarak almak için bir fonksiyon
+    function getTableData(table) {
+        var data = [];
+        // Tablonun başlıklarını almak
+        var headers = [];
+        table.querySelectorAll("th").forEach(function (header) {
+            headers.push(header.innerText);
+        });
+        data.push(headers);
+        // Tablonun satırlarını almak
+        table.querySelectorAll("tbody tr").forEach(function (row) {
+            var rowData = [];
+            row.querySelectorAll("td").forEach(function (cell) {
+                rowData.push(cell.innerText);
+            });
+            data.push(rowData);
+        });
+        return data;
+    }
+
+    // Tabloyu PDF dosyasına dönüştürmek için bir fonksiyon
+    function exportTableToPDF(table) {
+        // jsPDF nesnesi oluşturmak
+        var doc = new jsPDF();
+        // Tablo verisini almak
+        var data = getTableData(table);
+        // Tabloyu PDF dosyasına yazdırmak
+        doc.autoTable({
+            head: data.slice(0, 1),
+            body: data.slice(1),
+        });
+        // PDF dosyasını indirmek
+        doc.save("Avans_Talep_Raporu.pdf");
+    }
+
+    // Tabloyu Excel dosyasına dönüştürmek için bir fonksiyon
+    function exportTableToExcel(table) {
+        // SheetJS nesnesi oluşturmak
+        var wb = XLSX.utils.book_new();
+        // Tablo verisini almak
+        var data = getTableData(table);
+        // Tabloyu bir çalışma sayfasına dönüştürmek
+        var ws = XLSX.utils.aoa_to_sheet(data);
+        // Çalışma sayfasını çalışma kitabına eklemek
+        XLSX.utils.book_append_sheet(wb, ws, "Avans Talep Raporu");
+        // Excel dosyasını indirmek
+        XLSX.writeFile(wb, "Avans_Talep_Raporu.xlsx");
+    }
+
+    // Butonlara tıklama olaylarını tanımlamak
+    var table = document.querySelector("table"); // Tabloyu seçmek
+    var pdfButton = document.querySelector(".btn-group button:first-child"); // PDF butonunu seçmek
+    var excelButton = document.querySelector(".btn-group button:last-child"); // Excel butonunu seçmek
+
+    // PDF butonuna tıklandığında, tabloyu PDF dosyasına dönüştürmek
+    pdfButton.addEventListener("click", function () {
+        exportTableToPDF(table);
+    });
+
+    // Excel butonuna tıklandığında, tabloyu Excel dosyasına dönüştürmek
+    excelButton.addEventListener("click", function () {
+        exportTableToExcel(table);
+    });
+
+</script>

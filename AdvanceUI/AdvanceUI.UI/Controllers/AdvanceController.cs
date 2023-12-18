@@ -37,6 +37,7 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> AdvanceRequest()
         {
             var projects = await _genericService.GetDatas<List<ProjectSelectDTO>>("Project/GetAll");
@@ -50,6 +51,7 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AdvanceRequest(AdvanceInsertDTO advanceInsertDTO)
         {
             if (!ModelState.IsValid)
@@ -78,6 +80,7 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> MyAdvanceRequests()
         {
             int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
@@ -104,6 +107,7 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> MyAdvanceRequestDetails(int id)
         {
             if (!_memoryCache.TryGetValue($"AdvanceData_{id}", out AdvanceSelectDTO advance))
@@ -133,6 +137,7 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles ="Birim Müdürü, Direktör, Genel Müdür Yardımcısı, Genel Müdür, Finans Müdürü")]
         public async Task<IActionResult> PendingAdvanceRequests()
         {
             int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
@@ -160,6 +165,7 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles = "Birim Müdürü, Direktör, Genel Müdür Yardımcısı, Genel Müdür, Finans Müdürü")]
         public async Task<IActionResult> PendingAdvanceRequestDetails(int id)
         {
             var advanceHistories = await GetAdvanceDatas(id);
@@ -180,6 +186,7 @@ namespace AdvanceUI.UI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Birim Müdürü, Direktör, Genel Müdür Yardımcısı, Genel Müdür")]
         public async Task<IActionResult> PendingAdvanceRequest(int amount, string state, int advanceId, int statusId, decimal amounts)
         {
             int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
@@ -207,6 +214,7 @@ namespace AdvanceUI.UI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Genel Müdür")]
         public async Task<IActionResult> AdvanceRequestSetDate(DateTime date, int advanceId, decimal amounts)
         {
 			int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
@@ -238,6 +246,7 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles = "Muhasebeci")]
         public async Task<IActionResult> AdvanceList()
         {
             var pendingAdvances = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetPendingReceipt");
@@ -246,6 +255,7 @@ namespace AdvanceUI.UI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Muhasebeci")]
         public async Task<IActionResult> AdvanceRequestReceipt(string receiptNo, int advanceId, string accountantState, decimal amounts)
         {          
             int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
@@ -293,6 +303,7 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles = "Birim Müdürü, Direktör, Genel Müdür Yardımcısı, Genel Müdür, Finans Müdürü, Muhasebeci")]
         public IActionResult AdvanceReport()
         {
             return View();
