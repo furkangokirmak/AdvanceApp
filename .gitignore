@@ -431,3 +431,5 @@ FodyWeavers.xsd
 /AdvanceUI/AdvanceUI.Validation/obj/Debug/net5.0/AdvanceUI.Validation.AssemblyInfo.cs
 /AdvanceUI/AdvanceUI.Validation/obj/Debug/net5.0/AdvanceUI.Validation.AssemblyInfoInputs.cache
 /AdvanceAPI/AdvanceAPI.API/obj/Debug/net5.0/AdvanceAPI.API.csproj.AssemblyReference.cache
+/AdvanceAPI/AdvanceAPI.API/obj/Debug/net5.0/AdvanceAPI.API.AssemblyInfo.cs
+/AdvanceAPI/AdvanceAPI.API/obj/Debug/net5.0/AdvanceAPI.API.AssemblyInfoInputs.cache
