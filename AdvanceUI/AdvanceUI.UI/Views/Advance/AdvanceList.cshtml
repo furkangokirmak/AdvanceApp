@@ -13,7 +13,7 @@
                             <th>Çalışanın Adı</th>
                             <th>Ünvanı</th>
                             <th>Birimi</th>
-                            <th>Talep Tutarı</th>
+                            <th>Talep<br />Tutarı</th>
                             <th>Talep<br />Oluşturma<br />Tarihi</th>
                             <th>İstenilen Tarih</th>
                             <th>Proje</th>
@@ -21,7 +21,7 @@
                             <th>Onaylayan<br/>Reddeden</th>
                             <th>Onay/Red<br/>Ünvan</th>
                             <th>Onay/Red<br />Tarihi</th>
-                            <th>Onaylanan Tutar</th>
+                            <th>Onaylanan<br />Tutar</th>
                             <th>Belirlenen<br />Ödeme<br />Tarihi</th>
                             <th>Ödeme<br />Yapılan<br />Tarih</th>
                             <th>Geri Ödeme Durumu</th>
@@ -33,15 +33,15 @@
                         {
                             <tr>
                                 <td>@item.Employee.Name @item.Employee.Surname</td>
-                                <td>@item.Employee.TitleId</td>
-                                <td>@item.Employee.BusinessUnitId</td>
+                                <td>@item.Employee.Title.TitleName</td>
+                                <td>@item.Employee.BusinessUnit.BusinessUnitName</td>
                                 <td>@Math.Round(item.AdvanceAmount.Value, 0) TL</td>
                                 <td>@item.RequestDate.Value.ToString("dd/MM/yyyy")</td>
                                 <td>@item.DesiredDate.Value.ToString("dd/MM/yyyy")</td>
-                                <td>@item.ProjectId</td>
+                                <td>@item.Project.ProjectName</td>
                                 <td>Onaylanmış</td>                                                               
                                 <td>@item.AdvanceHistories.LastOrDefault().Transactor.Name @item.AdvanceHistories.LastOrDefault().Transactor.Surname</td>
-                                <td>@item.AdvanceHistories.LastOrDefault().Transactor.TitleId</td>
+                                <td>@item.AdvanceHistories.LastOrDefault().Transactor.Title.TitleName</td>
                                 <td>@item.AdvanceHistories.LastOrDefault().Date.Value.ToString("dd/MM/yyyy")</td>
                                 <td>@Math.Round(@item.AdvanceHistories.LastOrDefault().ApprovedAmount.Value,0) TL</td>
 

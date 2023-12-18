@@ -210,7 +210,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             var advances = new Dictionary<int, Advance>();
 
-            var result = await Connection.QueryAsync<Advance, AdvanceHistory, Employee, Employee,Employee, Payment, Receipt, Advance>(query, (advance, advancehistory, emp, temp, uppertemp, payment, receipt) =>
+            var result = await Connection.QueryAsync<Advance, AdvanceHistory, Employee, Employee, Employee, Payment, Receipt, Advance>(query, (advance, advancehistory, emp, temp, uppertemp, payment, receipt) =>
             {
                 if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
                 {
@@ -250,7 +250,7 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
         {
             string query = @"UPDATE Advance SET StatusID=@StatusID WHERE Id = @AdvanceId";
 
-            var rowsAffected = await Connection.ExecuteAsync(query, new { AdvanceId=advanceId, StatusID = statusId }, Transaction);
+            var rowsAffected = await Connection.ExecuteAsync(query, new { AdvanceId = advanceId, StatusID = statusId }, Transaction);
 
             return rowsAffected > 0;
         }
@@ -271,33 +271,36 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             var result = await Connection.QueryAsync<Advance, AdvanceHistory, Employee, Employee, Employee, Payment, Receipt, Advance>(query, (advance, advancehistory, emp, temp, uppertemp, payment, receipt) =>
             {
-                if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
+                if (payment == null)
                 {
-                    advance.Employee = emp;
+                    if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
+                    {
+                        advance.Employee = emp;
 
-                    advanceEntry = advance;
-                    advanceEntry.Project = new Project();
-                    advanceEntry.Status = new Status();
-                    advanceEntry.Payments = new List<Payment>();
-                    advanceEntry.Receipts = new List<Receipt>();
-                    advanceEntry.AdvanceHistories = new List<AdvanceHistory>();
-                    advances.Add(advance.Id, advanceEntry);
-                }
+                        advanceEntry = advance;
+                        advanceEntry.Project = new Project();
+                        advanceEntry.Status = new Status();
+                        advanceEntry.Payments = new List<Payment>();
+                        advanceEntry.Receipts = new List<Receipt>();
+                        advanceEntry.AdvanceHistories = new List<AdvanceHistory>();
+                        advances.Add(advance.Id, advanceEntry);
+                    }
 
-                if (payment != null && !advanceEntry.Payments.Any(x => x.Id == payment.Id))
-                    advanceEntry.Payments.Add(payment);
+                    if (payment != null && !advanceEntry.Payments.Any(x => x.Id == payment.Id))
+                        advanceEntry.Payments.Add(payment);
 
-                if (receipt != null && !advanceEntry.Receipts.Any(x => x.Id == receipt.Id))
-                    advanceEntry.Receipts.Add(receipt);
+                    if (receipt != null && !advanceEntry.Receipts.Any(x => x.Id == receipt.Id))
+                        advanceEntry.Receipts.Add(receipt);
 
-                if (advancehistory != null
-                && !advanceEntry.AdvanceHistories.Any(x => x.Id == advancehistory.Id)
-                && ((payment == null) || (advancehistory.TransactorId != payment.FinanceManagerId))
-                && ((receipt == null) || (advancehistory.TransactorId != receipt.AccountantId)))
-                {
-                    temp.UpperEmployee = uppertemp;
-                    advancehistory.Transactor = temp;
-                    advanceEntry.AdvanceHistories.Add(advancehistory);
+                    if (advancehistory != null
+                    && !advanceEntry.AdvanceHistories.Any(x => x.Id == advancehistory.Id)
+                    && ((payment == null) || (advancehistory.TransactorId != payment.FinanceManagerId))
+                    && ((receipt == null) || (advancehistory.TransactorId != receipt.AccountantId)))
+                    {
+                        temp.UpperEmployee = uppertemp;
+                        advancehistory.Transactor = temp;
+                        advanceEntry.AdvanceHistories.Add(advancehistory);
+                    }
                 }
                 return advance;
             });
@@ -339,8 +342,8 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
                 if (receipt != null && !advanceEntry.Receipts.Any(x => x.Id == receipt.Id))
                     advanceEntry.Receipts.Add(receipt);
 
-                if (advancehistory != null 
-                &&  !advanceEntry.AdvanceHistories.Any(x => x.Id == advancehistory.Id)
+                if (advancehistory != null
+                && !advanceEntry.AdvanceHistories.Any(x => x.Id == advancehistory.Id)
                 && ((payment == null) || (advancehistory.TransactorId != payment.FinanceManagerId))
                 && ((receipt == null) || (advancehistory.TransactorId != receipt.AccountantId)))
                 {

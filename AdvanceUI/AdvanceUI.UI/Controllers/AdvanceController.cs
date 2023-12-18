@@ -160,7 +160,7 @@ namespace AdvanceUI.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "Birim Müdürü, Direktör, Genel Müdür Yardımcısı, Genel Müdür, Finans Müdürü")]
+        [Authorize(Roles = "Birim Müdürü, Direktör, Genel Müdür Yardımcısı, Genel Müdür, Finans Müdürü, Muhasebeci")]
         public async Task<IActionResult> PendingAdvanceRequestDetails(int id)
         {
             var advanceHistories = await GetAdvanceDatas(id);
@@ -211,7 +211,7 @@ namespace AdvanceUI.UI.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Genel Müdür")]
+        [Authorize(Roles = "Finans Müdürü")]
         public async Task<IActionResult> AdvanceRequestSetDate(DateTime date, int advanceId, decimal amounts)
         {
             var myToken = HttpContext.Request.Cookies["token"];
@@ -255,8 +255,17 @@ namespace AdvanceUI.UI.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Muhasebeci")]
-        public async Task<IActionResult> AdvanceRequestReceipt(string receiptNo, int advanceId, string accountantState, decimal amounts)
+        public async Task<IActionResult> AdvanceRequestReceipt(string receiptNo, int advanceId, string accountantState, decimal amounts, DateTime paymentDate)
         {
+            if (DateTime.Now < paymentDate)
+            {
+                ViewData["PaymentError"] = "Ödeme yapılacak tarihten önce bir işlem gerçekleştiremezsiniz.";
+                var advanceHistories = await GetAdvanceDatas(advanceId);
+
+                return View("PendingAdvanceRequestDetails", advanceHistories);
+            }
+
+
             var myToken = HttpContext.Request.Cookies["token"];
             int userId = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
 

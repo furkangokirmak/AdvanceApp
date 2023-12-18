@@ -125,20 +125,7 @@ namespace AdvanceAPI.BLL.Concrete
         {
             var pendingAdvances = await _unitOfWork.AdvanceDAL.GetPendingAdvance(employeeId);
 
-            foreach (var item in pendingAdvances)
-            {
-                var titleEmp = await _unitOfWork.TitleDAL.GetTitleById(item.Employee.TitleId.Value);
-                item.Employee.Title = titleEmp;
-
-                var titleTransactor = await _unitOfWork.TitleDAL.GetTitleById(item.AdvanceHistories.LastOrDefault().Transactor.TitleId.Value);
-                item.AdvanceHistories.LastOrDefault().Transactor.Title = titleTransactor;
-
-                var project = await _unitOfWork.ProjectDAL.GetProjectById(item.ProjectId.Value);
-                item.Project = project;
-
-                var businessUnitEmp = await _unitOfWork.BusinessUnitDAL.GetBusinessUnitById(item.Employee.BusinessUnitId.Value);
-                item.Employee.BusinessUnit = businessUnitEmp;
-            }
+            await ProcessPendingAdvances(pendingAdvances);
 
             var mappedPendingAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(pendingAdvances);
 
@@ -149,6 +136,26 @@ namespace AdvanceAPI.BLL.Concrete
         {
             var pendingAdvances = await _unitOfWork.AdvanceDAL.GetPendingPaymentDateAdvance();
 
+            await ProcessPendingAdvances(pendingAdvances);
+
+            var mappedPendingAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(pendingAdvances);
+
+            return Result<IEnumerable<AdvanceSelectDTO>>.Success(mappedPendingAdvances);
+        }
+
+        public async Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingReceipt()
+        {
+            var pendingAdvances = await _unitOfWork.AdvanceDAL.GetPendingReceipt();
+
+            await ProcessPendingAdvances(pendingAdvances);
+
+            var mappedPendingAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(pendingAdvances);
+
+            return Result<IEnumerable<AdvanceSelectDTO>>.Success(mappedPendingAdvances);
+        }
+
+        private async Task ProcessPendingAdvances(IEnumerable<Advance> pendingAdvances)
+        {
             foreach (var item in pendingAdvances)
             {
                 var titleEmp = await _unitOfWork.TitleDAL.GetTitleById(item.Employee.TitleId.Value);
@@ -163,19 +170,6 @@ namespace AdvanceAPI.BLL.Concrete
                 var businessUnitEmp = await _unitOfWork.BusinessUnitDAL.GetBusinessUnitById(item.Employee.BusinessUnitId.Value);
                 item.Employee.BusinessUnit = businessUnitEmp;
             }
-
-            var mappedPendingAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(pendingAdvances);
-
-            return Result<IEnumerable<AdvanceSelectDTO>>.Success(mappedPendingAdvances);
-        }
-
-        public async Task<Result<IEnumerable<AdvanceSelectDTO>>> GetPendingReceipt()
-        {
-            var pendingAdvances = await _unitOfWork.AdvanceDAL.GetPendingReceipt();
-
-            var mappedPendingAdvances = _mapper.Map<IEnumerable<Advance>, IEnumerable<AdvanceSelectDTO>>(pendingAdvances);
-
-            return Result<IEnumerable<AdvanceSelectDTO>>.Success(mappedPendingAdvances);
         }
 
         public async Task<Result<string>> AdvanceRequestAccept(AdvanceHistorySelectDTO adHistory)
@@ -195,7 +189,7 @@ namespace AdvanceAPI.BLL.Concrete
             if (!history)
                 return Result<string>.Fail("Avans onaylanırken bir sorun oluştu!");
 
-            if (adHistory.ApprovedAmount <= rule.MaxAmount)
+            if (rule.MaxAmount==null || (adHistory.ApprovedAmount <= rule.MaxAmount))
             {
                 // yeterli ise direk advanceyi onayla statüsüne getir
                 var state = await _unitOfWork.AdvanceDAL.UpdateAdvanceStatus(adHistory.AdvanceId.Value, 102);

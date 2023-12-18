@@ -118,7 +118,7 @@
                                 <input type="hidden" id="amounts" name="amounts" value="@Model.LastOrDefault().ApprovedAmount.Value" required>
 
                                 <div class="d-flex justify-content-between">
-                                    <button type="submit" class="btn btn-secondary">Formu Temizle</button>
+                                    <button type="button" class="btn btn-secondary" onclick="clearDateInput()">Formu Temizle</button>
                                     <button type="submit" class="btn btn-primary">Kaydet</button>
                                 </div>
                             </form>
@@ -143,7 +143,17 @@
                         
                     }
 
+
+
                     <div class="card custom-card">
+
+                        @if (ViewData["PaymentError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["PaymentError"]
+                            </div>
+                        }
+
                         <div class="card-body">
                             <form method="post"  action="/Advance/AdvanceRequestReceipt">
                                 <h5 class="card-title">@accountantState Makbuz No:</h5>
@@ -154,6 +164,7 @@
                             <input type="hidden" id="advanceId" name="advanceId" value="@advance.Id" required>
                             <input type="hidden" id="accountantState" name="accountantState" value="@accountantState" required>
                                 <input type="hidden" id="amounts" name="amounts" value="@Model.LastOrDefault().ApprovedAmount.Value" required>
+                                <input type="hidden" id="paymentDate" name="paymentDate" value="@advance.Payments.FirstOrDefault().DeterminedPaymentDate.Value" required>
 
                             <div class="d-flex justify-content-between">
                                 <button type="submit" class="btn btn-primary">Kaydet</button>
@@ -203,3 +214,8 @@
     </div>
 </div>
 
+<script>
+    function clearDateInput() {
+        document.getElementsByName("date")[0].value = "";
+    }
+</script>

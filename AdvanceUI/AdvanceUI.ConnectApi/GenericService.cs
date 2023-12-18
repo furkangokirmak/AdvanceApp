@@ -46,12 +46,12 @@ namespace AdvanceUI.ConnectApi
 
         public async Task<TResult> GetDatas<TResult>(string url, string token="") where TResult : class, new()
         {
-            return await SendRequest<TResult, object>(url, null, HttpMethod.Get, token);
+            return await SendRequest<TResult, object>(url, null, HttpMethod.Get, token: token);
         }
 
-        public async Task<TResult> PostDatas<TResult, TObject>(string url, TObject data, string mediaType = null, string token = "") where TResult : class, new()
+        public async Task<TResult> PostDatas<TResult, TObject>(string url, TObject data, string token = "") where TResult : class, new()
         {
-            return await SendRequest<TResult, TObject>(url, data, HttpMethod.Post, mediaType, token);
+            return await SendRequest<TResult, TObject>(url, data, HttpMethod.Post, token: token);
         }
     }
 }
