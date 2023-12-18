@@ -24,5 +24,13 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
 			return result;
 		}
-	}
+
+        public async Task<IEnumerable<Employee>> GetEmployeeById(int id)
+        {
+            var query = "SELECT * FROM Employee WHERE ID=@id";
+            var result = await Connection.QueryAsync<Employee>(query, new {id}, Transaction);
+
+            return result;
+        }
+    }
 }

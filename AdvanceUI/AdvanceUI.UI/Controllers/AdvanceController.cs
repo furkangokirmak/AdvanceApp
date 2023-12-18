@@ -313,9 +313,13 @@ namespace AdvanceUI.UI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Birim Müdürü, Direktör, Genel Müdür Yardımcısı, Genel Müdür, Finans Müdürü, Muhasebeci")]
-        public IActionResult AdvanceReport()
+        public async Task<IActionResult> AdvanceReport()
         {
-            return View();
+            int id = Convert.ToInt32(User.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault());
+            var myToken = HttpContext.Request.Cookies["token"];
+            var advanceList = await _genericService.GetDatas<List<AdvanceSelectDTO>>($"Advance/GetAdvanceList/{id}", token: myToken);
+
+            return View(advanceList);
         }
 
     }

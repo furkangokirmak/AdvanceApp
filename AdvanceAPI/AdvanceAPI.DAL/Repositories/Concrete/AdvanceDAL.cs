@@ -355,5 +355,51 @@ namespace AdvanceAPI.DAL.Repositories.Concrete
 
             return advances.Values;
         }
+
+        public async Task<IEnumerable<Advance>> GetAdvanceList(int employeeId)
+        {
+            string query = @"SELECT *
+                            from Advance a
+                            join AdvanceHistory ah on ah.AdvanceID = a.ID 
+                            join Employee emp on emp.ID = a.EmployeeID
+                            join Employee temp on temp.ID = ah.TransactorID
+                            left join Payment p on p.AdvanceID = a.ID
+                            left join Receipt r on r.AdvanceID = a.ID";
+
+            var advances = new Dictionary<int, Advance>();
+
+            var result = await Connection.QueryAsync<Advance, AdvanceHistory, Employee, Employee, Payment, Receipt, Advance>(query, (advance, advancehistory, emp, temp, payment, receipt) =>
+            {
+                if (!advances.TryGetValue(advance.Id, out Advance advanceEntry))
+                {
+                    advance.Employee = emp;
+                    advanceEntry = advance;
+                    advanceEntry.Project = new Project();
+                    advanceEntry.Status = new Status();
+                    advanceEntry.Payments = new List<Payment>();
+                    advanceEntry.Receipts = new List<Receipt>();
+                    advanceEntry.AdvanceHistories = new List<AdvanceHistory>();
+                    advances.Add(advance.Id, advanceEntry);
+                }
+
+                if (payment != null && !advanceEntry.Payments.Any(x => x.Id == payment.Id))
+                    advanceEntry.Payments.Add(payment);
+
+                if (receipt != null && !advanceEntry.Receipts.Any(x => x.Id == receipt.Id))
+                    advanceEntry.Receipts.Add(receipt);
+
+                if (advancehistory != null
+                && !advanceEntry.AdvanceHistories.Any(x => x.Id == advancehistory.Id)
+                && ((payment == null) || (advancehistory.TransactorId != payment.FinanceManagerId))
+                && ((receipt == null) || (advancehistory.TransactorId != receipt.AccountantId)))
+                {
+                    advancehistory.Transactor = temp;
+                    advanceEntry.AdvanceHistories.Add(advancehistory);
+                }
+                return advance;
+            });
+
+            return advances.Values;
+        }
     }
 }

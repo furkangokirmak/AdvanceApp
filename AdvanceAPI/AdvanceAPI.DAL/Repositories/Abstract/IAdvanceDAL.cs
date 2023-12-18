@@ -17,5 +17,6 @@ namespace AdvanceAPI.DAL.Repositories.Abstract
         Task<bool> UpdateAdvanceStatus(int advanceId, int statusId);
         Task<IEnumerable<Advance>> GetPendingPaymentDateAdvance();
         Task<IEnumerable<Advance>> GetPendingReceipt();
+        Task<IEnumerable<Advance>> GetAdvanceList(int employeeId);
     }
 }

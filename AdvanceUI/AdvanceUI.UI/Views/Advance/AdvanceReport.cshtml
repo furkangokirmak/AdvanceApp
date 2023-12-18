@@ -1,11 +1,11 @@
-﻿@{
+﻿@model List<AdvanceSelectDTO>
+@{
     ViewData["Title"] = "Avans Talep Rapor Alma";
 }
 
 <div class="container col-md-12">
     <div class="card">
         <div class="card-body table-border-style">
-            <p>Buraya Filtreleme Eklenmeli (Miktara göre, tarihe göre, talep durumuna göre vs)</p>
             <div class="btn-group" role="group" aria-label="Dosya İşlemleri">
                 <button type="button" class="btn btn-secondary">
                     <i class="fas fa-file-pdf"></i> PDF Rapor
@@ -18,41 +18,66 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Çalışanın<br />Adı</th>
+                            <th>Çalışanın Adı</th>
                             <th>Ünvanı</th>
                             <th>Birimi</th>
                             <th>Talep<br />Tutarı</th>
                             <th>Talep<br />Oluşturma<br />Tarihi</th>
-                            <th>İstenilen<br />Tarih</th>
+                            <th>İstenilen Tarih</th>
                             <th>Proje</th>
-                            <th>Talep<br />Durumu</th>
+                            <th>Talep Durumu</th>
                             <th>Onaylayan<br />Reddeden</th>
-                            <th>Ünvan</th>
-                            <th>Tarih</th>
+                            <th>Onay/Red<br />Ünvan</th>
+                            <th>Onay/Red<br />Tarihi</th>
                             <th>Onaylanan<br />Tutar</th>
                             <th>Belirlenen<br />Ödeme<br />Tarihi</th>
                             <th>Ödeme<br />Yapılan<br />Tarih</th>
-                            <th>Geri<br />Ödeme<br />Durumu</th>
+                            <th>Geri Ödeme Durumu</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>100</td>
-                            <td>1.1.2022</td>
-                            <td>15.1.2022</td>
-                            <td>1000 TL</td>
-                            <td>Onaylanmış</td>
-                            <td>Özcan Deniz</td>
-                            <td>Satıcı</td>
-                            <td>14.1.2022</td>
-                            <td>Son</td>
-                            <td>Son</td>
-                            <td>Son</td>
-                            <td>Son</td>
-                            <td>Son</td>
-                            <td>Son</td>
-                            <td>Son</td>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Employee.Name @item.Employee.Surname</td>
+                                <td>@item.Employee.Title.TitleName</td>
+                                <td>@item.Employee.BusinessUnit.BusinessUnitName</td>
+                                <td>@Math.Round(item.AdvanceAmount.Value, 0) TL</td>
+                                <td>@item.RequestDate.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@item.DesiredDate.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@item.Project.ProjectName</td>
+                                <td>Onaylanmış</td>
+                                <td>@item.AdvanceHistories.LastOrDefault().Transactor.Name @item.AdvanceHistories.LastOrDefault().Transactor.Surname</td>
+                                <td>@item.AdvanceHistories.LastOrDefault().Transactor.Title.TitleName</td>
+                                <td>@item.AdvanceHistories.LastOrDefault().Date.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@Math.Round(@item.AdvanceHistories.LastOrDefault().ApprovedAmount.Value, 0) TL</td>
+
+                                <td>
+                                    @if (item.Payments != null && item.Payments.Any())
+                                    {
+                                        @item.Payments.FirstOrDefault().DeterminedPaymentDate.Value.ToString("dd/MM/yyyy")
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (item.Receipts != null && item.Receipts.Any(x => x.IsRefundReceipt == false))
+                                    {
+                                        @item.Receipts.FirstOrDefault(x => x.IsRefundReceipt == false).Date.Value.ToString("dd/MM/yyyy")
+                                    }
+                                </td>
+
+                                @if (item.Receipts != null && item.Receipts.Any(x => x.IsRefundReceipt == true))
+                                {
+                                    <td>Geri Ödeme Yapıldı</td>
+                                }
+                                else
+                                {
+                                    <td>Geri Ödeme Yapılmadı</td>
+                                }
+
+                            </tr>
+                        }
+
                     </tbody>
                 </table>
             </div>

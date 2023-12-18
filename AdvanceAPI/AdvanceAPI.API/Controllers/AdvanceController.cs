@@ -10,7 +10,6 @@ namespace AdvanceAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class AdvanceController : ControllerBase
     {
         private IAdvanceManager _advanceManager;
@@ -103,6 +102,14 @@ namespace AdvanceAPI.API.Controllers
         public async Task<IActionResult> GetPendingReceipt()
         {
             var result = await _advanceManager.GetPendingReceipt();
+
+            return Ok(result.Data);
+        }
+
+        [HttpGet("GetAdvanceList/{id:int}")]
+        public async Task<IActionResult> GetAdvanceList(int id)
+        {
+            var result = await _advanceManager.GetAdvanceList(id);
 
             return Ok(result.Data);
         }
