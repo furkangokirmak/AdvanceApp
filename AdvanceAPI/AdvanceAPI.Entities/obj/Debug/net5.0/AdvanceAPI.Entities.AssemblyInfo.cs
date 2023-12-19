@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdvanceAPI.Entities")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+223065d72c4946501414e3a2f7f83937bb33f17b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdvanceAPI.Entities")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdvanceAPI.Entities")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
