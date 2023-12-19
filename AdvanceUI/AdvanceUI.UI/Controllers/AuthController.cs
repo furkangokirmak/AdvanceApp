@@ -57,6 +57,7 @@ namespace AdvanceUI.UI.Controllers
 				new Claim(ClaimTypes.Anonymous,dto.BusinessUnit.BusinessUnitName),
 				new Claim(ClaimTypes.Role, dto.Title.TitleName),
 				new Claim(ClaimTypes.UserData, dto.Title.Id.ToString()),
+				new Claim(ClaimTypes.MobilePhone, dto.PhoneNumber)
 			};
 
 			var userIdentity = new ClaimsIdentity(claims, "login");
