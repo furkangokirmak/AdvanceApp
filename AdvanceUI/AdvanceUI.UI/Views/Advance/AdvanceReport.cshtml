@@ -89,7 +89,9 @@
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
 <script>
@@ -115,8 +117,18 @@
 
     // Tabloyu PDF dosyasına dönüştürmek için bir fonksiyon
     function exportTableToPDF(table) {
+        var customFont = {
+            Arial: {
+                normal: 'https://cdnjs.cloudflare.com/ajax/libs/jsPDF/2.4.0/fonts/arial.ttf'
+            }
+        };
         // jsPDF nesnesi oluşturmak
-        var doc = new jsPDF();
+        var doc = new jsPDF({
+            orientation: 'landscape' // Bu satırı ekleyerek sayfanın yatay olmasını sağlar
+        });
+        doc.addFont(customFont.Arial.normal, 'Arial', 'normal');
+        doc.setFont('Arial');
+
         // Tablo verisini almak
         var data = getTableData(table);
         // Tabloyu PDF dosyasına yazdırmak

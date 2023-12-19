@@ -31,13 +31,16 @@ namespace AdvanceUI.Validation.FluentValidation.Employee
                 .Equal(x => x.Password).WithMessage("Şifreler uyuşmuyor.");
 
             RuleFor(x => x.BusinessUnitId)
-                .NotEmpty().GreaterThan(0).WithMessage("Geçerli bir iş birimi seçiniz.");
+                .NotEmpty().WithMessage("Bir birim seçiniz.")
+                .GreaterThan(0).WithMessage("Geçerli bir birim seçiniz.");
 
             RuleFor(x => x.UpperEmployeeId)
-                .NotEmpty().GreaterThan(0).WithMessage("Geçerli bir üst çalışan seçiniz.");
+                .NotEmpty().WithMessage("Bir üst çalışan seçiniz.")
+                .GreaterThan(0).WithMessage("Geçerli bir üst çalışan seçiniz.");
 
             RuleFor(x => x.TitleId)
-                .NotEmpty().GreaterThan(0).WithMessage("Geçerli bir ünvan seçiniz.");
+                .NotEmpty().WithMessage("Bir ünvan seçiniz.")
+                .GreaterThan(0).WithMessage("Geçerli bir ünvan seçiniz.");
         }
     }
 }

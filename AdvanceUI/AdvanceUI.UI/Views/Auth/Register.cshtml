@@ -12,28 +12,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="DashboardKit is made using Bootstrap 5 design framework. Download the free admin template & use it for your project.">
-    <meta name="keywords" content="DashboardKit, Dashboard Kit, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Free Bootstrap Admin Template">
-    <meta name="author" content="DashboardKit ">
+    <meta name="description" content="Avans Yönetim Projesi - Kullanıcılar avans talebinde bulunabilir.">
+    <meta name="keywords" content="Avans, İstek, Onay, Kullanıcı, Proje">
+    <meta name="author" content="BilgeAdam">
 
     <link rel="icon" href="~/dashboardkit/dist/assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="~/dashboardkit/dist/assets/fonts/feather.css">
     <link rel="stylesheet" href="~/dashboardkit/dist/assets/fonts/fontawesome.css">
     <link rel="stylesheet" href="~/dashboardkit/dist/assets/fonts/material.css">
     <link rel="stylesheet" href="~/dashboardkit/dist/assets/css/style.css" id="main-style-link">
-
-    <style>
-        .input-group {
-            position: relative;
-        }
-
-        .error-message {
-            position: absolute;
-            bottom: -1.5rem;
-            left: 0;
-            font-size: 0.875rem; 
-        }
-    </style>
 </head>
 
 <body>
@@ -55,68 +42,72 @@
                             }
 
                             <form method="post">
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 col-md-12">
                                     <span class="input-group-text"><i data-feather="user"></i></span>
                                     <input asp-for="Name" class="form-control" placeholder="Ad" required>
-                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                    <span asp-validation-for="Name" class="text-danger error-message"></span>
                                 </div>
-                                <div class="input-group mb-3">
+                                
+                                <div class="input-group mb-3 col-md-12">
                                     <span class="input-group-text"><i data-feather="user"></i></span>
                                     <input asp-for="Surname" class="form-control" placeholder="Soyad" required>
-                                    <span asp-validation-for="Surname" class="text-danger"></span>
+                                    <span asp-validation-for="Surname" class="text-danger error-message col-md-12"></span>
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 col-md-12">
                                     <span class="input-group-text"><i data-feather="phone"></i></span>
                                     <input asp-for="PhoneNumber" class="form-control" placeholder="Telefon Numarası" required>
-                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger error-message col-md-12"></span>
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 col-md-12">
                                     <span class="input-group-text"><i data-feather="mail"></i></span>
                                     <input asp-for="Email" class="form-control" placeholder="Eposta Adresi" required>
-                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                    <span asp-validation-for="Email" class="text-danger error-message col-md-12"></span>
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 col-md-12">
                                     <span class="input-group-text"><i data-feather="lock"></i></span>
                                     <input type="password" asp-for="Password" class="form-control" placeholder="Şifre" required>
-                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                    <span asp-validation-for="Password" class="text-danger error-message col-md-12"></span>
                                 </div>
-                                <div class="input-group mb-4">
+                                <div class="input-group mb-3 col-md-12">
                                     <span class="input-group-text"><i data-feather="lock"></i></span>
                                     <input type="password" asp-for="PasswordConfirm" class="form-control" placeholder="Şifre Tekrar" required>
-                                    <span asp-validation-for="PasswordConfirm" class="text-danger error-message"></span>
+                                    <span asp-validation-for="PasswordConfirm" class="text-danger error-message col-md-12"></span>
                                 </div>
 
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 col-md-12">
                                     <label class="input-group-text" for="employeeSelect"><i data-feather="user"></i></label>
                                     <select asp-for="UpperEmployeeId" class="form-select" >
+                                        <option value="0">Üstünüzü Seçiniz</option>
                                         @foreach (var employee in (List<EmployeeSelectDTO>)ViewBag.Employees)
                                         {
                                             <option value="@employee.Id">@employee.Name @employee.Surname</option>
                                         }
                                     </select>
-                                    <span asp-validation-for="UpperEmployeeId" class="text-danger"></span>
+                                    <span asp-validation-for="UpperEmployeeId" class="text-danger error-message col-md-12"></span>
                                 </div>
-
-                                <div class="input-group mb-3">
+                                
+                                <div class="input-group mb-3 col-md-12">
                                     <label class="input-group-text" for="titleSelect"><i data-feather="user"></i></label>
                                     <select asp-for="TitleId" class="form-select" >
+                                        <option value="0">Ünvan Seçiniz</option>
                                         @foreach (var title in (List<TitleSelectDTO>)ViewBag.Titles)
                                         {
                                             <option value="@title.Id">@title.TitleName</option>
                                         }
                                     </select>
-                                    <span asp-validation-for="TitleId" class="text-danger"></span>
+                                    <span asp-validation-for="TitleId" class="text-danger error-message col-md-12"></span>
                                 </div>
 
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 col-md-12">
                                     <label class="input-group-text" for="businessUnitSelect"><i data-feather="user"></i></label>
                                     <select asp-for="BusinessUnitId" class="form-select" >
+                                        <option value="0">Birim Seçiniz</option>
                                         @foreach (var businessUnit in (List<BusinessUnitSelectDTO>)ViewBag.BusinessUnits)
                                         {
                                             <option value="@businessUnit.Id">@businessUnit.BusinessUnitName</option>
                                         }
                                     </select>
-                                    <span asp-validation-for="BusinessUnitId" class="text-danger"></span>
+                                    <span asp-validation-for="BusinessUnitId" class="text-danger error-message col-md-12"></span>
                                 </div>
 
                                 <div class="form-group text-left mt-2">
